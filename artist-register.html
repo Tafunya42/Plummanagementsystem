@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artist Registration — Plum Artist Booking Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f8f6ff;
+      color: #1e1b2b;
+      line-height: 1.5;
+    }
+
+    :root {
+      --plum-500: #7f5fd6;
+      --plum-600: #6848c2;
+      --plum-700: #5336a3;
+      --plum-800: #3f2980;
+      --gray-50: #f9fafc;
+      --gray-100: #f2f4f8;
+      --gray-200: #e6e9f0;
+      --gray-300: #d0d6e0;
+      --gray-400: #a8b1c2;
+      --gray-500: #7f8a9e;
+      --gray-600: #5e677b;
+      --gray-700: #3d4457;
+      --white: #ffffff;
+      --shadow-sm: 0 8px 20px -6px rgba(60, 30, 100, 0.08);
+      --border-radius: 12px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(190, 170, 230, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      text-decoration: none;
+    }
+
+    .navbar-actions a {
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .navbar-actions a:hover {
+      background: var(--gray-100);
+      color: var(--plum-700);
+    }
+
+    /* REGISTRATION CONTAINER */
+    .registration-wrapper {
+      padding: 60px 0;
+    }
+
+    .registration-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .registration-header h1 {
+      font-size: 2.5rem;
+      color: var(--plum-800);
+      margin-bottom: 12px;
+    }
+
+    .registration-header p {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+    }
+
+    .form-container {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .form-section {
+      padding: 40px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .form-section:last-child {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--plum-700);
+    }
+
+    .section-header i {
+      color: var(--plum-500);
+      font-size: 1.8rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .form-grid.full {
+      grid-template-columns: 1fr;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .form-label.required::after {
+      content: " *";
+      color: #ef4444;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      padding: 12px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--border-radius);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--plum-500);
+      box-shadow: 0 0 0 3px rgba(127, 95, 214, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .file-upload {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-upload input[type="file"] {
+      display: none;
+    }
+
+    .file-upload-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+      border: 2px dashed var(--gray-300);
+      border-radius: var(--border-radius);
+      background: var(--gray-50);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+
+    .file-upload-label:hover {
+      border-color: var(--plum-500);
+      background: rgba(127, 95, 214, 0.05);
+      color: var(--plum-700);
+    }
+
+    .file-upload input[type="file"]:focus + label {
+      border-color: var(--plum-500);
+      box-shadow: 0 0 0 3px rgba(127, 95, 214, 0.1);
+    }
+
+    .file-preview {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+
+    .info-box {
+      background: #f0f9ff;
+      border-left: 4px solid #3b82f6;
+      padding: 16px;
+      border-radius: var(--border-radius);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      color: var(--gray-700);
+    }
+
+    .info-box i {
+      color: #3b82f6;
+      margin-right: 12px;
+    }
+
+    .policy-section {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-bottom: 24px;
+    }
+
+    .policy-section h4 {
+      color: #92400e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .policy-section p {
+      color: #78350f;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      cursor: pointer;
+      accent-color: var(--plum-600);
+    }
+
+    .checkbox-group label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .checkbox-group a {
+      color: var(--plum-600);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .checkbox-group a:hover {
+      text-decoration: underline;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .btn {
+      padding: 12px 32px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--plum-600);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--plum-700);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary {
+      background: var(--gray-200);
+      color: var(--gray-700);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-300);
+    }
+
+    .progress-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 16px;
+    }
+
+    .progress-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-step.active .step-circle {
+      background: var(--plum-600);
+      color: var(--white);
+    }
+
+    .progress-step.completed .step-circle {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      color: var(--gray-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .step-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      text-align: center;
+    }
+
+    .step-line {
+      position: absolute;
+      height: 2px;
+      background: var(--gray-300);
+      top: 20px;
+      left: calc(50% + 20px);
+      right: calc(-50% + 20px);
+      z-index: -1;
+    }
+
+    .warning-text {
+      color: #ef4444;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    footer {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      padding: 40px 0;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    .footer-content a {
+      color: var(--plum-600);
+      text-decoration: none;
+    }
+
+    .footer-content a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .registration-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .form-section {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">Plum</a>
+  <div class="navbar-actions">
+    <a href="login.html">Log In</a>
+    <a href="register.html" style="background: var(--plum-100); color: var(--plum-700);">Join as Client</a>
+  </div>
+</nav>
+
+<div class="registration-wrapper">
+  <div class="container">
+    <!-- HEADER -->
+    <div class="registration-header">
+      <h1>Join Plum as a Professional Artist</h1>
+      <p>Complete your profile with all required legal and professional information</p>
+    </div>
+
+    <!-- REGISTRATION FORM -->
+    <form class="form-container" id="artistRegistrationForm" action="api/artist-register.php" method="POST" enctype="multipart/form-data">
+
+      <!-- SECTION 1: PERSONAL INFORMATION -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-user"></i>
+          Personal Information
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-info-circle"></i>
+          <strong>All information must match your official identification documents.</strong> This is required for verification and payment purposes.
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">Full Legal Name</label>
+            <input type="text" class="form-input" name="full_legal_name" placeholder="As shown on your ID" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">Stage Name / Professional Name</label>
+            <input type="text" class="form-input" name="stage_name" placeholder="What you perform as" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">Date of Birth</label>
+            <input type="date" class="form-input" name="date_of_birth" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">Nationality</label>
+            <input type="text" class="form-input" name="country" placeholder="e.g., Zambia" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">Primary Phone Number</label>
+            <input type="tel" class="form-input" name="primary_phone" placeholder="+260..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Alternative Phone Number</label>
+            <input type="tel" class="form-input" name="alternative_phone" placeholder="Optional">
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: IDENTIFICATION DOCUMENTS -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-id-card"></i>
+          Identification Documents
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-shield-alt"></i>
+          <strong>Valid identification is mandatory.</strong> We verify all documents to ensure platform security and compliance.
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">ID Type</label>
+            <select class="form-select" name="id_type" required>
+              <option value="">-- Select ID Type --</option>
+              <option value="national_id">National ID</option>
+              <option value="passport">Passport</option>
+              <option value="drivers_license">Driver's License</option>
+              <option value="temporary_id">Temporary ID</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">ID Number</label>
+            <input type="text" class="form-input" name="id_number" placeholder="Your ID number" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">ID Expiry Date</label>
+            <input type="date" class="form-input" name="id_expiry_date" required>
+          </div>
+        </div>
+
+        <!-- ID Document Front -->
+        <div class="form-group">
+          <label class="form-label required">ID Document - Front Side</label>
+          <div class="file-upload">
+            <input type="file" id="id_front" name="id_document_front" accept="image/*" required>
+            <label for="id_front" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span>Upload front of ID (JPG, PNG, max 5MB)</span>
+            </label>
+            <div class="file-preview" id="id_front_preview"></div>
+          </div>
+        </div>
+
+        <!-- ID Document Back -->
+        <div class="form-group">
+          <label class="form-label required">ID Document - Back Side</label>
+          <div class="file-upload">
+            <input type="file" id="id_back" name="id_document_back" accept="image/*" required>
+            <label for="id_back" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span>Upload back of ID (JPG, PNG, max 5MB)</span>
+            </label>
+            <div class="file-preview" id="id_back_preview"></div>
+          </div>
+        </div>
+
+        <!-- Profile Photo -->
+        <div class="form-group">
+          <label class="form-label required">Professional Profile Photo</label>
+          <div class="file-upload">
+            <input type="file" id="profile_photo" name="profile_photo" accept="image/*" required>
+            <label for="profile_photo" class="file-upload-label">
+              <i class="fas fa-camera"></i>
+              <span>Upload a clear, professional portrait (JPG, PNG, max 5MB)</span>
+            </label>
+            <div class="file-preview" id="profile_photo_preview"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: ADDRESS INFORMATION -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-map-marker-alt"></i>
+          Address Information
+        </div>
+
+        <div class="form-grid form-grid.full">
+          <div class="form-group">
+            <label class="form-label required">Residential Address</label>
+            <input type="text" class="form-input" name="residential_address" placeholder="Street address" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">City / Town</label>
+            <input type="text" class="form-input" name="city" placeholder="e.g., Lusaka" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">Province / Region</label>
+            <input type="text" class="form-input" name="province" placeholder="Province" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Postal Code</label>
+            <input type="text" class="form-input" name="postal_code" placeholder="Optional">
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: BANKING & PAYMENT INFORMATION -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-university"></i>
+          Banking & Payment Information
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-lock"></i>
+          <strong>Your banking information is encrypted and secure.</strong> We only use this for payment processing.
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">Bank Name</label>
+            <input type="text" class="form-input" name="bank_name" placeholder="e.g., Zanaco, Stanbic Bank" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">Account Type</label>
+            <select class="form-select" name="account_type" required>
+              <option value="savings">Savings Account</option>
+              <option value="checking">Checking Account</option>
+              <option value="mobile_money">Mobile Money Account</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">Account Holder Name</label>
+            <input type="text" class="form-input" name="account_holder_name" placeholder="Name on account" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">Account Number</label>
+            <input type="text" class="form-input" name="account_number" placeholder="Your account number" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Branch Name</label>
+            <input type="text" class="form-input" name="branch_name" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label class="form-label">SWIFT Code</label>
+            <input type="text" class="form-input" name="swift_code" placeholder="If applicable">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mobile Money Provider (if applicable)</label>
+          <input type="text" class="form-input" name="mobile_money_provider" placeholder="e.g., MTN Mobile Money, Airtel Money">
+        </div>
+      </div>
+
+      <!-- SECTION 5: PROFESSIONAL INFORMATION -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-briefcase"></i>
+          Professional Information
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label required">Years of Experience</label>
+            <input type="number" class="form-input" name="years_of_experience" min="0" placeholder="e.g., 5" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">Base Hourly Rate (K)</label>
+            <input type="number" class="form-input" name="base_hourly_rate" step="10" min="0" placeholder="e.g., 350" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Minimum Booking Hours</label>
+            <input type="number" class="form-input" name="minimum_booking_hours" min="1" value="1" placeholder="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Travel Fee (K)</label>
+            <input type="number" class="form-input" name="travel_fee" step="10" min="0" placeholder="Optional, e.g., 100">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Travel Radius (km)</label>
+            <input type="number" class="form-input" name="travel_radius_km" min="10" value="50" placeholder="How far from home?">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label required">Professional Bio / Description</label>
+          <textarea class="form-textarea" name="professional_bio" placeholder="Tell clients about your experience, specialties, and what makes you unique..." required></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Business Registration Number (Optional)</label>
+            <input type="text" class="form-input" name="business_registration_number" placeholder="If registered as a business">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tax ID Number (Optional)</label>
+            <input type="text" class="form-input" name="tax_identification_number" placeholder="TIN if applicable">
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: POLICIES & AGREEMENTS -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-file-contract"></i>
+          Policies & Legal Agreements
+        </div>
+
+        <div class="policy-section">
+          <h4>
+            <i class="fas fa-clipboard-list"></i>
+            Platform Policies Summary
+          </h4>
+          <p><strong>1. Payment Terms:</strong> Plum charges 15% platform fee on all bookings. Payments are processed 48 hours after event completion. Cancellations within 48 hours are non-refundable.</p>
+          <p><strong>2. Code of Conduct:</strong> All artists must maintain professional behavior, arrive on time, and honor confirmed bookings. Violations may result in account suspension.</p>
+          <p><strong>3. Cancellation Policy:</strong> You can cancel up to 7 days before an event. Cancellations within 48 hours will result in 50% penalty. Last-minute cancellations (within 24 hours) incur 100% penalty.</p>
+          <p><strong>4. Booking Requirements:</strong> All services must be delivered as agreed. Clients can request refunds for unmet expectations.</p>
+          <p><strong>5. Data Privacy:</strong> Your personal and financial information is encrypted and never shared with third parties.</p>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="agree_terms" name="agreed_to_terms" required>
+          <label for="agree_terms">I agree to Plum's <a href="terms.html" target="_blank">Terms of Service</a> and understand the platform policies</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="agree_privacy" name="agreed_to_privacy_policy" required>
+          <label for="agree_privacy">I agree to Plum's <a href="privacy.html" target="_blank">Privacy Policy</a> and consent to data processing</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="agree_code" name="agreed_to_code_of_conduct" required>
+          <label for="agree_code">I agree to the <a href="code-of-conduct.html" target="_blank">Code of Conduct</a> and will maintain professional standards</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="accuracy_confirmation" name="accuracy_confirmation" required>
+          <label for="accuracy_confirmation">I confirm that all information provided is accurate and I have read the policy summary above</label>
+        </div>
+
+        <div class="warning-text">
+          <i class="fas fa-exclamation-triangle"></i>
+          Providing false information may result in account suspension or legal action.
+        </div>
+      </div>
+
+      <!-- FORM ACTIONS -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button type="reset" class="btn btn-secondary">
+          <i class="fas fa-redo"></i> Clear Form
+        </button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-check-circle"></i> Complete Registration
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <p>© 2026 Plum Entertainment. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="code-of-conduct.html">Code of Conduct</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // File upload preview handlers
+  ['id_front', 'id_back', 'profile_photo'].forEach(id => {
+    document.getElementById(id).addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const previewId = id + '_preview';
+        const preview = document.getElementById(previewId);
+        preview.textContent = `✓ ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+        
+        // Validate file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+          preview.textContent = '✗ File too large (max 5MB)';
+          preview.style.color = '#ef4444';
+          e.target.value = '';
+        } else {
+          preview.style.color = '#10b981';
+        }
+      }
+    });
+  });
+
+  // Form submission
+  document.getElementById('artistRegistrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validate required checkboxes
+    const termsChecked = document.getElementById('agree_terms').checked;
+    const privacyChecked = document.getElementById('agree_privacy').checked;
+    const codeChecked = document.getElementById('agree_code').checked;
+    const accuracyChecked = document.getElementById('accuracy_confirmation').checked;
+    
+    if (!termsChecked || !privacyChecked || !codeChecked || !accuracyChecked) {
+      alert('Please read and agree to all policies before registering.');
+      return;
+    }
+    
+    // Validate ID expiry is in future
+    const expiryDate = new Date(document.querySelector('input[name="id_expiry_date"]').value);
+    if (expiryDate < new Date()) {
+      alert('Your ID must not be expired.');
+      return;
+    }
+    
+    alert('Registration submitted successfully! Our team will verify your documents within 48 hours.');
+    // In production, this would submit to the backend API
+    this.submit();
+  });
+</script>
+
+</body>
+</html>

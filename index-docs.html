@@ -1,0 +1,453 @@
+<!-- Plum Documentation Index -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plum Platform - Documentation Index</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9f8fc 0%, #f3f0ff 100%);
+            color: #3d4457;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #6848c2, #7d5ba6);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(104, 72, 194, 0.2);
+        }
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid #6848c2;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(104, 72, 194, 0.15);
+        }
+        .card h3 {
+            color: #6848c2;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        .card p {
+            color: #6b7280;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+        .card a {
+            display: inline-block;
+            color: white;
+            background: #6848c2;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .card a:hover {
+            background: #5a3a9a;
+    transform: translateX(2px);
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        .section-title {
+            font-size: 2rem;
+            color: #6848c2;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #dacfff;
+        }
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .status-complete {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-todo {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .checklist {
+            background: #f9f8fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .checklist li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #6848c2, #7d5ba6);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(104, 72, 194, 0.3);
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+        .stat {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #dacfff;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #6848c2;
+        }
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎵 Plum Documentation</h1>
+        <p>Artist Booking Platform - Complete Development Resource</p>
+    </div>
+
+    <div class="container">
+        <!-- QUICK STATS -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Files Created</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Database Tables</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">18</div>
+                <div class="stat-label">API Endpoints</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Ready to Use</div>
+            </div>
+        </div>
+
+        <!-- GETTING STARTED -->
+        <div class="section">
+            <h2 class="section-title">🚀 Getting Started</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">📖</div>
+                    <h3>Setup Guide</h3>
+                    <p>Complete step-by-step installation and setup instructions for XAMPP environment.</p>
+                    <span class="status-badge status-complete">Ready</span>
+                    <a href="SETUP.md" target="_blank">Read Guide →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">⚡</div>
+                    <h3>Quick Reference</h3>
+                    <p>Fast lookup guide with common tasks, URLs, credentials, and debugging tips.</p>
+                    <span class="status-badge status-complete">Ready</span>
+                    <a href="QUICK_REFERENCE.md" target="_blank">Quick Tips →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">📋</div>
+                    <h3>Project Inventory</h3>
+                    <p>Complete file listing, project structure, and component overview.</p>
+                    <span class="status-badge status-complete">Ready</span>
+                    <a href="PROJECT_INVENTORY.md" target="_blank">View Inventory →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOCUMENTATION -->
+        <div class="section">
+            <h2 class="section-title">📚 Documentation</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">🔌</div>
+                    <h3>API Documentation</h3>
+                    <p>Complete interactive API reference with all endpoints, parameters, and examples.</p>
+                    <span class="status-badge status-complete">Ready</span>
+                    <a href="api-docs.html" target="_blank">View API Docs →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">💾</div>
+                    <h3>Database Schema</h3>
+                    <p>SQL schema with 9 core tables, relationships, and sample data.</p>
+                    <span class="status-badge status-complete">Ready</span>
+                    <a href="database/schema.sql" target="_blank">View Schema →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">🛠️</div>
+                    <h3>Configuration</h3>
+                    <p>Environment setup and configuration files (.env, .htaccess).</p>
+                    <span class="status-badge status-complete">Ready</span>
+                    <a href=".env.example" target="_blank">View Config →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FRONTEND PAGES -->
+        <div class="section">
+            <h2 class="section-title">🎨 Frontend Pages</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">🏠</div>
+                    <h3>Homepage</h3>
+                    <p>Main landing page with featured artists and service overview.</p>
+                    <a href="index.html" target="_blank">View Page →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">🔐</div>
+                    <h3>Authentication</h3>
+                    <p>Login and registration pages for users.</p>
+                    <a href="login.html" target="_blank">Login</a>
+                    <a href="register.html" target="_blank">Register →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">🎤</div>
+                    <h3>Artist Browsing</h3>
+                    <p>Browse and search artists directory with filters.</p>
+                    <a href="Browse.html" target="_blank">Browse Artists →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">👤</div>
+                    <h3>Artist Profile</h3>
+                    <p>Individual artist profile with services and reviews.</p>
+                    <a href="artistprofile.html" target="_blank">View Profile →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">📅</div>
+                    <h3>Booking Form</h3>
+                    <p>Multi-step booking form for event booking.</p>
+                    <a href="booking.html" target="_blank">Book Event →</a>
+                </div>
+                <div class="card">
+                    <div class="icon">❌</div>
+                    <h3>Error Pages</h3>
+                    <p>404 and 500 error pages.</p>
+                    <a href="errors/404.html" target="_blank">View Errors →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BACKEND API -->
+        <div class="section">
+            <h2 class="section-title">🔧 Backend API</h2>
+            <div class="checklist">
+                <ul>
+                    <li><strong>Authentication</strong> - Register, login, logout, session management</li>
+                    <li><strong>Artists</strong> - List, get profiles, search, update profiles</li>
+                    <li><strong>Bookings</strong> - Create, read, update booking status</li>
+                    <li><strong>Reviews</strong> - Create reviews, read artist reviews, ratings</li>
+                    <li><strong>Favorites</strong> - Add/remove favorites, wishlist</li>
+                    <li><strong>User Profile</strong> - Get/update profile, dashboard data</li>
+                </ul>
+            </div>
+            <p style="margin-top: 20px;">All endpoints documented in <a href="api-docs.html" target="_blank" style="color: #6848c2; font-weight: 600;">API Documentation →</a></p>
+        </div>
+
+        <!-- FEATURES CHECKLIST -->
+        <div class="section">
+            <h2 class="section-title">✨ Features Status</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div>
+                    <h4 style="color: #6848c2; margin-bottom: 12px;">✅ Completed</h4>
+                    <div class="checklist">
+                        <ul>
+                            <li>Complete frontend UI design</li>
+                            <li>Responsive layout (mobile/tablet/desktop)</li>
+                            <li>Database schema with 9 tables</li>
+                            <li>Authentication system</li>
+                            <li>Artist management API</li>
+                            <li>Booking system</li>
+                            <li>Reviews & ratings</li>
+                            <li>Favorites/wishlist</li>
+                            <li>User dashboard structure</li>
+                            <li>SQL injection prevention</li>
+                            <li>Password hashing (bcrypt)</li>
+                            <li>Comprehensive documentation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: #f59e0b; margin-bottom: 12px;">⏳ Next Steps</h4>
+                    <div class="checklist">
+                        <ul>
+                            <li>Frontend-backend integration</li>
+                            <li>Payment processing (Stripe/PayPal)</li>
+                            <li>Email notifications</li>
+                            <li>Image upload functionality</li>
+                            <li>Real-time messaging</li>
+                            <li>Advanced search filters</li>
+                            <li>Admin dashboard</li>
+                            <li>HTTPS/SSL setup</li>
+                            <li>Rate limiting</li>
+                            <li>CSRF protection</li>
+                            <li>Caching layer</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK START -->
+        <div class="section">
+            <h2 class="section-title">⚡ Quick Start (5 Minutes)</h2>
+            <div style="background: white; padding: 24px; border-radius: 12px; border-left: 4px solid #10b981;">
+                <ol style="line-height: 2.5;">
+                    <li><strong>Open phpMyAdmin:</strong> <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">http://localhost/phpmyadmin</code></li>
+                    <li><strong>Create Database:</strong> Create new database named <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">plum_db</code></li>
+                    <li><strong>Import Schema:</strong> Go to Import tab, select <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">database/schema.sql</code></li>
+                    <li><strong>Visit Homepage:</strong> <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">http://localhost/plumart/index.html</code></li>
+                    <li><strong>Test API:</strong> <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">http://localhost/plumart/api/artists</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- TEST CREDENTIALS -->
+        <div class="section">
+            <h2 class="section-title">🔐 Test Credentials</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div style="background: white; padding: 16px; border-radius: 8px; border: 2px solid #dacfff;">
+                    <strong style="color: #6848c2;">👤 Client Account</strong>
+                    <div style="margin-top: 12px; font-size: 0.9rem;">
+                        Email: <code>client@example.com</code><br>
+                        Password: <code>password123</code>
+                    </div>
+                </div>
+                <div style="background: white; padding: 16px; border-radius: 8px; border: 2px solid #dacfff;">
+                    <strong style="color: #6848c2;">🎤 Artist Account 1</strong>
+                    <div style="margin-top: 12px; font-size: 0.9rem;">
+                        Email: <code>artist1@example.com</code><br>
+                        Password: <code>password123</code>
+                    </div>
+                </div>
+                <div style="background: white; padding: 16px; border-radius: 8px; border: 2px solid #dacfff;">
+                    <strong style="color: #6848c2;">🎤 Artist Account 2</strong>
+                    <div style="margin-top: 12px; font-size: 0.9rem;">
+                        Email: <code>artist2@example.com</code><br>
+                        Password: <code>password123</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMPORTANT URLS -->
+        <div class="section">
+            <h2 class="section-title">🔗 Important URLs</h2>
+            <div style="background: white; padding: 24px; border-radius: 12px; border-left: 4px solid: #7d5ba6;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                    <div>
+                        <strong>🌐 Main Pages</strong>
+                        <ul style="list-style: none; margin-top: 12px; font-size: 0.9rem;">
+                            <li><a href="http://localhost/plumart/index.html">Homepage</a></li>
+                            <li><a href="http://localhost/plumart/Browse.html">Artist Directory</a></li>
+                            <li><a href="http://localhost/plumart/login.html">Login</a></li>
+                            <li><a href="http://localhost/plumart/register.html">Register</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>📡 API & Docs</strong>
+                        <ul style="list-style: none; margin-top: 12px; font-size: 0.9rem;">
+                            <li><a href="http://localhost/plumart/api-docs.html">API Documentation</a></li>
+                            <li><a href="http://localhost/plumart/api/artists">API Endpoint (test)</a></li>
+                            <li><a href="http://localhost/phpmyadmin">phpMyAdmin</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>📚 Documentation</strong>
+                        <ul style="list-style: none; margin-top: 12px; font-size: 0.9rem;">
+                            <li><a href="SETUP.md">Setup Guide</a></li>
+                            <li><a href="QUICK_REFERENCE.md">Quick Reference</a></li>
+                            <li><a href="PROJECT_INVENTORY.md">Project Inventory</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUPPORT -->
+        <div class="section" style="text-align: center; padding: 40px; background: linear-gradient(135deg, #f9f8fc 0%, #dacfff 100%); border-radius: 12px;">
+            <h2 style="color: #6848c2; margin-bottom: 20px;">Need Help?</h2>
+            <p style="margin-bottom: 24px; color: #6b7280;">Check out the documentation files or review the source code with inline comments.</p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <a href="SETUP.md" class="cta-button">📖 Setup Guide</a>
+                <a href="api-docs.html" class="cta-button">🔌 API Docs</a>
+                <a href="QUICK_REFERENCE.md" class="cta-button">⚡ Quick Ref</a>
+                <a href="PROJECT_INVENTORY.md" class="cta-button">📋 Inventory</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

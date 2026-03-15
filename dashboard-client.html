@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Dashboard — Plum</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f8f6ff;
+      color: #1e1b2b;
+      min-height: 100vh;
+    }
+
+    :root {
+      --plum-50: #f7f2ff;
+      --plum-100: #ede4ff;
+      --plum-200: #dacfff;
+      --plum-300: #c2b0f5;
+      --plum-400: #9f85e5;
+      --plum-500: #7f5fd6;
+      --plum-600: #6848c2;
+      --plum-700: #5336a3;
+      --plum-800: #3f2980;
+      --plum-900: #2d1c5c;
+      --gray-50: #f9fafc;
+      --gray-100: #f2f4f8;
+      --gray-200: #e6e9f0;
+      --gray-300: #d0d6e0;
+      --gray-400: #a8b1c2;
+      --gray-500: #7f8a9e;
+      --gray-600: #5e677b;
+      --gray-700: #3d4457;
+      --white: #ffffff;
+      --shadow-sm: 0 8px 20px -6px rgba(60, 30, 100, 0.08);
+      --shadow-md: 0 16px 30px -10px rgba(80, 40, 140, 0.15);
+      --shadow-lg: 0 25px 40px -12px rgba(70, 30, 130, 0.25);
+      --border-radius-card: 28px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(190, 170, 230, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .navbar-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--plum-500);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); background: #a07cff; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--plum-700);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--plum-400), var(--plum-600));
+      transition: width 0.2s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 14px -6px rgba(239, 68, 68, 0.3);
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px -8px #b91c1c;
+    }
+
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 30px;
+    }
+
+    .dashboard-header {
+      margin-bottom: 40px;
+      animation: fadeUp 0.5s ease;
+    }
+
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-header h1 span {
+      color: var(--plum-600);
+      background: linear-gradient(135deg, var(--plum-400), var(--plum-600));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .dashboard-header p {
+      color: var(--gray-500);
+      font-size: 1rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--border-radius-card);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--plum-200);
+    }
+
+    .stat-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: var(--plum-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--plum-600);
+      font-size: 1.8rem;
+    }
+
+    .stat-content h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      line-height: 1.2;
+    }
+
+    .stat-content p {
+      color: var(--gray-500);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .section {
+      background: white;
+      border-radius: var(--border-radius-card);
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      transition: box-shadow 0.2s;
+    }
+
+    .section:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--plum-100);
+    }
+
+    .section-title i {
+      color: var(--plum-500);
+      font-size: 1.6rem;
+    }
+
+    .booking-item, .favorite-item {
+      background: var(--gray-50);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s;
+    }
+
+    .booking-item:hover, .favorite-item:hover {
+      transform: translateX(4px);
+      border-color: var(--plum-300);
+      background: white;
+    }
+
+    .booking-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .booking-header h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--plum-700);
+    }
+
+    .booking-date {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .booking-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    .detail-item i {
+      color: var(--plum-500);
+      width: 18px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 60px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .status-pending { background: #fff3cd; color: #856404; }
+    .status-confirmed { background: #d4edda; color: #155724; }
+    .status-completed { background: #cce5ff; color: #004085; }
+    .status-cancelled { background: #f8d7da; color: #721c24; }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-400);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--plum-600);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 8px 18px -6px rgba(104, 72, 194, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--plum-700);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(83, 54, 163, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid var(--plum-300);
+      color: var(--plum-700);
+      padding: 10px 22px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--plum-50);
+      border-color: var(--plum-500);
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .favorite-artist {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .favorite-artist .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 18px;
+      background: var(--plum-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--plum-600);
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .navbar { padding: 1rem 1.5rem; }
+      .dashboard-container { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">Plum <span class="logo-dot"></span></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="Browse.html" class="nav-link">Browse Artists</a>
+    <a href="#" class="nav-link">Dashboard</a>
+  </div>
+  <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+</nav>
+
+<main class="dashboard-container">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1>Welcome back, <span id="client-name">Sarah & James</span>!</h1>
+    <p>Manage your bookings, favorites, and plan your next event.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+      <div class="stat-content">
+        <h3 id="total-bookings">8</h3>
+        <p>Total bookings</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+      <div class="stat-content">
+        <h3 id="completed-bookings">5</h3>
+        <p>Completed</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-wallet"></i></div>
+      <div class="stat-content">
+        <h3 id="total-spent">K18,200</h3>
+        <p>Total spent</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-heart"></i></div>
+      <div class="stat-content">
+        <h3 id="favorites">12</h3>
+        <p>Favorite artists</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two column: Upcoming Bookings & Favorite Artists -->
+  <div class="grid-2">
+    <!-- Upcoming Bookings -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-calendar-check"></i>
+        <span>Upcoming Bookings</span>
+      </div>
+      <div id="upcoming-container">
+        <div class="booking-item">
+          <div class="booking-header">
+            <h4>Kachilonda</h4>
+            <span class="status-badge status-confirmed">confirmed</span>
+          </div>
+          <div class="booking-details">
+            <div class="detail-item"><i class="fas fa-tag"></i> Hip-Hop Performance</div>
+            <div class="detail-item"><i class="fas fa-map-pin"></i> Lusaka</div>
+            <div class="detail-item"><i class="fas fa-clock"></i> 4 hours</div>
+            <div class="detail-item"><i class="fas fa-tag"></i> K2,800</div>
+          </div>
+          <div class="booking-date"><i class="far fa-calendar-alt"></i> Sat, 12 Apr 2025 · 4:00 PM</div>
+        </div>
+        <div class="booking-item">
+          <div class="booking-header">
+            <h4>DJ Esthero</h4>
+            <span class="status-badge status-pending">pending</span>
+          </div>
+          <div class="booking-details">
+            <div class="detail-item"><i class="fas fa-tag"></i> Club Night</div>
+            <div class="detail-item"><i class="fas fa-map-pin"></i> Livingstone</div>
+            <div class="detail-item"><i class="fas fa-clock"></i> 3 hours</div>
+            <div class="detail-item"><i class="fas fa-tag"></i> K1,800</div>
+          </div>
+          <div class="booking-date"><i class="far fa-calendar-alt"></i> Fri, 25 Apr 2025 · 8:00 PM</div>
+        </div>
+      </div>
+      <div style="margin-top: 20px;">
+        <a href="#" class="btn-secondary"><i class="fas fa-eye"></i> View all bookings</a>
+      </div>
+    </div>
+
+    <!-- Favorite Artists -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-heart"></i>
+        <span>Favorite Artists</span>
+      </div>
+      <div class="favorite-item">
+        <div class="favorite-artist">
+          <div class="avatar"><i class="fas fa-microphone-alt"></i></div>
+          <div style="flex:1">
+            <h4 style="color: var(--plum-700);">Kachilonda</h4>
+            <div style="display: flex; gap: 12px; font-size:0.8rem; color: var(--gray-500);">
+              <span><i class="fas fa-star" style="color:#fbbf24;"></i> 4.9</span>
+              <span><i class="fas fa-map-pin"></i> Lusaka</span>
+            </div>
+          </div>
+          <a href="#" class="btn-secondary" style="padding:8px 14px;"><i class="fas fa-calendar-plus"></i> Book</a>
+        </div>
+      </div>
+      <div class="favorite-item">
+        <div class="favorite-artist">
+          <div class="avatar"><i class="fas fa-microphone-alt"></i></div>
+          <div style="flex:1">
+            <h4 style="color: var(--plum-700);">Sophia Mwale</h4>
+            <div style="display: flex; gap: 12px; font-size:0.8rem; color: var(--gray-500);">
+              <span><i class="fas fa-star" style="color:#fbbf24;"></i> 5.0</span>
+              <span><i class="fas fa-map-pin"></i> Ndola</span>
+            </div>
+          </div>
+          <a href="#" class="btn-secondary" style="padding:8px 14px;"><i class="fas fa-calendar-plus"></i> Book</a>
+        </div>
+      </div>
+      <div class="favorite-item">
+        <div class="favorite-artist">
+          <div class="avatar"><i class="fas fa-headphones"></i></div>
+          <div style="flex:1">
+            <h4 style="color: var(--plum-700);">DJ Esthero</h4>
+            <div style="display: flex; gap: 12px; font-size:0.8rem; color: var(--gray-500);">
+              <span><i class="fas fa-star" style="color:#fbbf24;"></i> 4.8</span>
+              <span><i class="fas fa-map-pin"></i> Livingstone</span>
+            </div>
+          </div>
+          <a href="#" class="btn-secondary" style="padding:8px 14px;"><i class="fas fa-calendar-plus"></i> Book</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="section">
+    <div class="section-title">
+      <i class="fas fa-history"></i>
+      <span>Recent Activity</span>
+    </div>
+    <div id="activity-container">
+      <div class="booking-item" style="border-left-color: var(--plum-500);">
+        <div class="flex-between">
+          <span><i class="fas fa-check-circle" style="color: #10b981;"></i> Booking confirmed with Kachilonda</span>
+          <span class="booking-date">2 days ago</span>
+        </div>
+      </div>
+      <div class="booking-item" style="border-left-color: var(--plum-500);">
+        <div class="flex-between">
+          <span><i class="fas fa-star" style="color: #fbbf24;"></i> You left a review for Sophia Mwale</span>
+          <span class="booking-date">1 week ago</span>
+        </div>
+      </div>
+      <div class="booking-item" style="border-left-color: var(--plum-500);">
+        <div class="flex-between">
+          <span><i class="fas fa-heart" style="color: #ef4444;"></i> You added DJ Esthero to favorites</span>
+          <span class="booking-date">2 weeks ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="section" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+    <div>
+      <h3 style="color: var(--plum-800); margin-bottom: 4px;">Find more amazing talent</h3>
+      <p style="color: var(--gray-500);">Explore new artists and save them to your favorites.</p>
+    </div>
+    <a href="Browse.html" class="btn-primary"><i class="fas fa-search"></i> Browse artists</a>
+  </div>
+</main>
+
+<script>
+  // Check authentication on page load
+  function checkAuth() {
+    fetch('api/auth.php?check=true')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.authenticated) {
+          window.location.href = 'login.html';
+        } else {
+          loadDashboard();
+        }
+      })
+      .catch(err => {
+        console.error('Auth check failed:', err);
+        window.location.href = 'login.html';
+      });
+  }
+
+  // Load dashboard data from API
+  function loadDashboard() {
+    Promise.all([
+      fetch('api/user/profile').then(r => r.json()),
+      fetch('api/user/dashboard').then(r => r.json())
+    ])
+    .then(([profileRes, dashboardRes]) => {
+      if (profileRes.success) {
+        document.getElementById('client-name').textContent = profileRes.data.full_name || 'User';
+      }
+
+      if (dashboardRes.success) {
+        const data = dashboardRes.data;
+        
+        // Update stats
+        document.getElementById('total-bookings').textContent = data.total_bookings || 0;
+        document.getElementById('completed-bookings').textContent = data.completed_bookings || 0;
+        document.getElementById('total-spent').textContent = 'K' + (parseFloat(data.total_spent || 0)).toLocaleString();
+        document.getElementById('favorites').textContent = data.favorites_count || 0;
+
+        // Update upcoming bookings
+        const bookingsContainer = document.getElementById('upcoming-container');
+        if (data.upcoming_bookings && data.upcoming_bookings.length > 0) {
+          bookingsContainer.innerHTML = data.upcoming_bookings.map(booking => `
+            <div class="booking-item">
+              <div class="booking-header">
+                <h4>${booking.artist_name || 'Artist'}</h4>
+                <span class="status-badge status-${booking.booking_status}">${booking.booking_status.toUpperCase()}</span>
+              </div>
+              <div class="booking-details">
+                <div class="detail-item"><i class="fas fa-tag"></i> ${booking.event_type || 'Service'}</div>
+                <div class="detail-item"><i class="fas fa-map-pin"></i> ${booking.event_location || 'Location TBD'}</div>
+                <div class="detail-item"><i class="fas fa-clock"></i> ${booking.duration_hours || 0} hours</div>
+                <div class="detail-item"><i class="fas fa-tag"></i> K${parseFloat(booking.total_amount || 0).toLocaleString()}</div>
+              </div>
+              <div class="booking-date">
+                <i class="far fa-calendar-alt"></i> ${new Date(booking.event_date).toLocaleDateString('en-US', { 
+                  weekday: 'short', 
+                  year: 'numeric', 
+                  month: 'short', 
+                  day: 'numeric'
+                })}
+              </div>
+            </div>
+          `).join('');
+        } else {
+          bookingsContainer.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">No upcoming bookings yet</p>';
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Dashboard load error:', error);
+      alert('Error loading dashboard data. Please refresh the page.');
+    });
+  }
+
+  function logout() {
+    if (confirm('Are you sure you want to logout?')) {
+      fetch('api/auth.php?action=logout', { method: 'POST' })
+        .then(() => {
+          window.location.href = 'login.html';
+        })
+        .catch(() => {
+          window.location.href = 'login.html';
+        });
+    }
+  }
+
+  // Check auth when page loads
+  document.addEventListener('DOMContentLoaded', checkAuth);
+</script>
+
+</body>
+</html>

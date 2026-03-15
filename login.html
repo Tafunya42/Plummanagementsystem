@@ -1,0 +1,1077 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plum — Sign In</title>
+  <!-- Google Fonts & Font Awesome (for clean icons) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f8f6ff;
+      color: #1e1b2b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    :root {
+      --plum-50: #f7f2ff;
+      --plum-100: #ede4ff;
+      --plum-200: #dacfff;
+      --plum-300: #c2b0f5;
+      --plum-400: #9f85e5;
+      --plum-500: #7f5fd6;
+      --plum-600: #6848c2;
+      --plum-700: #5336a3;
+      --plum-800: #3f2980;
+      --plum-900: #2d1c5c;
+      --gray-50: #f9fafc;
+      --gray-100: #f2f4f8;
+      --gray-200: #e6e9f0;
+      --gray-300: #d0d6e0;
+      --gray-400: #a8b1c2;
+      --gray-500: #7f8a9e;
+      --gray-600: #5e677b;
+      --gray-700: #3d4457;
+      --white: #ffffff;
+      --shadow-sm: 0 8px 20px -6px rgba(60, 30, 100, 0.08);
+      --shadow-md: 0 16px 30px -10px rgba(80, 40, 140, 0.15);
+      --shadow-lg: 0 25px 40px -12px rgba(70, 30, 130, 0.25);
+      --border-radius-card: 32px;
+      --border-radius-element: 60px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ===== NAVBAR (same as other pages) ===== */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(190, 170, 230, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .navbar-logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--plum-500);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); background: #a07cff; }
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .navbar-link {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .navbar-link:hover {
+      color: var(--plum-700);
+    }
+
+    .navbar-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--plum-400), var(--plum-600));
+      transition: width 0.2s ease;
+      border-radius: 4px;
+    }
+
+    .navbar-link:hover::after {
+      width: 100%;
+    }
+
+    .navbar-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      gap: 8px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+    }
+
+    .btn-sm { padding: 8px 18px; font-size: 0.9rem; }
+    .btn-primary {
+      background: var(--plum-600);
+      color: white;
+      box-shadow: 0 8px 18px -6px rgba(104, 72, 194, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--plum-700);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -8px rgba(83, 54, 163, 0.4);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--plum-700);
+      border: 1px solid var(--plum-200);
+    }
+    .btn-ghost:hover {
+      background: var(--plum-50);
+      border-color: var(--plum-300);
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .auth-layout {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 80px);
+    }
+
+    /* ===== LEFT PANEL (Artists on Plum) ===== */
+    .auth-panel {
+      flex: 1.1;
+      background: linear-gradient(145deg, #ffffff 0%, #faf3ff 100%);
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 3rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0 3rem 3rem 0;
+      box-shadow: inset -2px 0 10px rgba(0,0,0,0.02);
+    }
+
+    .auth-panel::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(214, 176, 255, 0.25) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      animation: floatBlob 16s infinite alternate ease-in-out;
+    }
+
+    .auth-panel::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -5%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(185, 128, 255, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      animation: floatBlob2 20s infinite alternate;
+    }
+
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-30px, 30px) scale(1.1); }
+    }
+    @keyframes floatBlob2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, -20px) scale(1.2); }
+    }
+
+    .panel-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .panel-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.5s 0.1s forwards;
+    }
+
+    .panel-quote {
+      font-size: 2.3rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--plum-900);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.5s 0.2s forwards;
+    }
+
+    .panel-quote em {
+      background: linear-gradient(120deg, #d6b0ff 0%, #b980ff 80%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .panel-sub {
+      font-size: 1.1rem;
+      color: var(--gray-500);
+      max-width: 380px;
+      opacity: 0;
+      animation: fadeUp 0.5s 0.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+      opacity: 0;
+      animation: fadeUp 0.5s 0.4s forwards;
+    }
+
+    .mini-artist-card {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+      padding: 12px 18px;
+      border-radius: 40px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255,255,255,0.7);
+      transition: all 0.2s ease;
+    }
+
+    .mini-artist-card:hover {
+      transform: translateX(6px) scale(1.01);
+      background: white;
+      box-shadow: var(--shadow-md);
+    }
+
+    .mini-artist-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--plum-600);
+      margin-right: 14px;
+    }
+
+    .mini-artist-name { font-weight: 600; color: var(--plum-800); }
+    .mini-artist-cat { font-size: 0.8rem; color: var(--gray-500); }
+    .mini-artist-stars { margin-left: auto; color: #fbbf24; letter-spacing: 1px; }
+
+    /* ===== RIGHT FORM PANEL ===== */
+    .auth-form-panel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 3rem 0 0 3rem;
+      box-shadow: var(--shadow-lg);
+      animation: slideRight 0.5s 0.2s both;
+    }
+
+    @keyframes slideRight {
+      0% { opacity: 0; transform: translateX(20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .auth-form-box {
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .auth-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      font-size: 0.95rem;
+      color: var(--gray-500);
+      margin-bottom: 28px;
+    }
+
+    /* Role tabs (client / artist / admin hidden) */
+    .role-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      background: var(--gray-50);
+      padding: 6px;
+      border-radius: 60px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .role-tab {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 40px;
+      border: none;
+      background: transparent;
+      color: var(--gray-500);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .role-tab i { font-size: 1rem; color: var(--gray-400); }
+    .role-tab.active {
+      background: white;
+      color: var(--plum-700);
+      box-shadow: var(--shadow-sm);
+    }
+    .role-tab.active i { color: var(--plum-600); }
+
+    /* Role info box (replaces the right panel info) */
+    .role-info-box {
+      background: var(--plum-50);
+      border: 1px solid var(--plum-200);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-title {
+      font-weight: 600;
+      color: var(--plum-800);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-title i { color: var(--plum-500); }
+    .info-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .info-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+    .info-feature i { color: var(--plum-500); width: 18px; font-size: 0.9rem; }
+
+    /* Admin warning box */
+    .admin-warn {
+      background: #ffefef;
+      border: 1px solid #fbcaca;
+      border-radius: 24px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      color: #b91c1c;
+    }
+    .admin-warn i { font-size: 1.2rem; }
+    .admin-warn-text { font-size: 0.85rem; line-height: 1.5; }
+
+    /* Form panels */
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+
+    /* Form fields */
+    .field-group { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--plum-700);
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 16px;
+      color: var(--gray-400);
+      font-size: 1rem;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 40px;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--plum-400);
+      box-shadow: 0 0 0 4px rgba(185, 128, 255, 0.15);
+    }
+
+    .input-field.error {
+      border-color: #f87171;
+    }
+
+    .pw-toggle {
+      position: absolute;
+      right: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gray-400);
+      font-size: 1rem;
+    }
+
+    .field-hint {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      margin-top: 5px;
+      margin-left: 16px;
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: #b91c1c;
+      margin-top: 5px;
+      margin-left: 16px;
+      display: none;
+    }
+    .field-error.show { display: block; }
+
+    /* Forgot row */
+    .forgot-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .forgot-link {
+      font-size: 0.75rem;
+      color: var(--plum-500);
+      text-decoration: none;
+    }
+    .forgot-link:hover { color: var(--plum-700); }
+
+    /* Remember me */
+    .remember-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--plum-600);
+    }
+    .remember-label {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      margin: 0;
+    }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      border-radius: 40px;
+      border: none;
+      background: var(--plum-600);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 8px 18px -6px rgba(104, 72, 194, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .btn-submit:hover {
+      background: var(--plum-700);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -8px rgba(83, 54, 163, 0.4);
+    }
+    .btn-submit i { font-size: 1rem; }
+    .btn-submit.loading { opacity: 0.7; pointer-events: none; }
+
+    /* Social */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gray-400);
+      font-size: 0.8rem;
+      margin: 20px 0;
+    }
+    .or-line { flex: 1; height: 1px; background: var(--gray-200); }
+
+    .social-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .social-btn {
+      padding: 12px;
+      border-radius: 40px;
+      border: 1px solid var(--gray-200);
+      background: white;
+      color: var(--gray-600);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .social-btn:hover {
+      background: var(--gray-50);
+      border-color: var(--plum-300);
+    }
+    .social-btn i { font-size: 1.1rem; }
+
+    .signup-row {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--gray-500);
+    }
+    .signup-link {
+      color: var(--plum-600);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .signup-link:hover { color: var(--plum-700); }
+
+    /* Admin access hint (barely visible) */
+    .admin-hint {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      font-size: 0.65rem;
+      color: rgba(0,0,0,0.1);
+      cursor: default;
+      user-select: none;
+      z-index: 100;
+    }
+    .admin-hint:hover { color: rgba(0,0,0,0.3); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 999;
+      opacity: 0;
+      transition: all 0.4s ease;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast.success {
+      background: #dff0d8;
+      color: #2e7d32;
+      border: 1px solid #a5d6a7;
+    }
+    .toast.error {
+      background: #ffebee;
+      color: #b71c1c;
+      border: 1px solid #ef9a9a;
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .auth-layout { flex-direction: column; }
+      .auth-panel { border-radius: 0; padding: 2rem; }
+      .auth-form-panel { border-radius: 3rem 3rem 0 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Admin hint (barely visible) -->
+<div class="admin-hint" id="adminHint" title="Admin access (triple‑click logo)">⬡</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo" id="logoReveal">Plum <span class="logo-dot"></span></a>
+  <div class="navbar-links">
+    <a href="Browse.html" class="navbar-link">Find Artists</a>
+    <a href="#" class="navbar-link">How It Works</a>
+    <a href="#" class="navbar-link">For Artists</a>
+  </div>
+  <div class="navbar-actions">
+    <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+    <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+  </div>
+</nav>
+
+<!-- MAIN LAYOUT -->
+<div class="auth-layout">
+
+  <!-- LEFT PANEL (Artists on Plum) -->
+  <div class="auth-panel">
+    <div class="panel-content">
+      <a href="index.html" class="panel-logo">Plum <span class="logo-dot"></span></a>
+    </div>
+    <div class="panel-content" style="margin: auto 0;">
+      <p class="panel-quote">Welcome back to <em>extraordinary</em> talent.</p>
+      <p class="panel-sub">Connect with the best performers and make every event truly unforgettable.</p>
+    </div>
+    <div class="panel-content">
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--plum-300);margin-bottom:14px;">Artists on Plum</div>
+      <div class="panel-cards">
+        <div class="mini-artist-card">
+          <div class="mini-artist-icon"><i class="fas fa-microphone"></i></div>
+          <div><div class="mini-artist-name">Kachilonda</div><div class="mini-artist-cat">Hip-Hop Artist · Lusaka</div></div>
+          <div class="mini-artist-stars">★★★★★</div>
+        </div>
+        <div class="mini-artist-card">
+          <div class="mini-artist-icon"><i class="fas fa-headphones"></i></div>
+          <div><div class="mini-artist-name">DJ Esthero</div><div class="mini-artist-cat">DJ/Producer · Livingstone</div></div>
+          <div class="mini-artist-stars">★★★★★</div>
+        </div>
+        <div class="mini-artist-card">
+          <div class="mini-artist-icon"><i class="fas fa-star"></i></div>
+          <div><div class="mini-artist-name">Sophia Mwale</div><div class="mini-artist-cat">Celebrity · Ndola</div></div>
+          <div class="mini-artist-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="auth-form-panel">
+    <div class="auth-form-box">
+
+      <h1 class="auth-title">Sign in to Plum</h1>
+      <p class="auth-subtitle">Select your account type and sign in to continue.</p>
+
+      <!-- Role Tabs (client / artist) – admin hidden -->
+      <div class="role-tabs" id="roleTabs">
+        <button class="role-tab active" id="tab-client" onclick="switchRole('client')"><i class="fas fa-user"></i> Client</button>
+        <button class="role-tab" id="tab-artist" onclick="switchRole('artist')"><i class="fas fa-microphone-alt"></i> Artist</button>
+        <button class="role-tab" id="tab-admin" onclick="switchRole('admin')" style="display: none;"><i class="fas fa-shield-alt"></i> Admin</button>
+      </div>
+
+      <!-- Role-specific info boxes (dynamic) -->
+      <div id="info-client" class="role-info-box">
+        <div class="info-title"><i class="fas fa-user"></i> Client Dashboard</div>
+        <div class="info-features">
+          <div class="info-feature"><i class="fas fa-calendar-check"></i> Manage bookings</div>
+          <div class="info-feature"><i class="fas fa-comment-dots"></i> Message artists</div>
+          <div class="info-feature"><i class="fas fa-credit-card"></i> Secure payments</div>
+          <div class="info-feature"><i class="fas fa-star"></i> Leave reviews</div>
+        </div>
+      </div>
+      <div id="info-artist" class="role-info-box" style="display: none;">
+        <div class="info-title"><i class="fas fa-microphone-alt"></i> Artist Dashboard</div>
+        <div class="info-features">
+          <div class="info-feature"><i class="fas fa-chart-line"></i> Track earnings</div>
+          <div class="info-feature"><i class="fas fa-calendar-alt"></i> Manage availability</div>
+          <div class="info-feature"><i class="fas fa-envelope"></i> Client enquiries</div>
+          <div class="info-feature"><i class="fas fa-edit"></i> Edit profile</div>
+        </div>
+      </div>
+      <div id="info-admin" class="role-info-box" style="display: none; background: #ffefef; border-color: #fbcaca;">
+        <div class="info-title" style="color:#b91c1c;"><i class="fas fa-shield-alt"></i> Admin Control</div>
+        <div class="info-features">
+          <div class="info-feature"><i class="fas fa-users-cog"></i> User management</div>
+          <div class="info-feature"><i class="fas fa-coins"></i> Financial overview</div>
+          <div class="info-feature"><i class="fas fa-chart-pie"></i> Platform analytics</div>
+          <div class="info-feature"><i class="fas fa-cogs"></i> System settings</div>
+        </div>
+      </div>
+
+      <!-- CLIENT FORM -->
+      <div class="form-panel active" id="panel-client">
+        <div class="field-group">
+          <label>Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input class="input-field" type="email" id="c-email" placeholder="you@example.com">
+          </div>
+          <div class="field-error" id="c-email-err">Please enter a valid email.</div>
+        </div>
+        <div class="field-group">
+          <div class="forgot-row">
+            <label>Password</label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input class="input-field" type="password" id="c-password" placeholder="Enter your password">
+            <button class="pw-toggle" onclick="togglePassword('c-password', this)" type="button"><i class="far fa-eye"></i></button>
+          </div>
+          <div class="field-error" id="c-pw-err">Please enter your password.</div>
+        </div>
+        <div class="remember-row">
+          <input class="checkbox" type="checkbox" id="c-remember">
+          <label for="c-remember" class="remember-label">Keep me signed in for 30 days</label>
+        </div>
+        <button class="btn-submit" onclick="handleLogin('client')"><i class="fas fa-sign-in-alt"></i> Sign In as Client</button>
+      </div>
+
+      <!-- ARTIST FORM -->
+      <div class="form-panel" id="panel-artist">
+        <div class="field-group">
+          <label>Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input class="input-field" type="email" id="a-email" placeholder="artist@example.com">
+          </div>
+          <div class="field-error" id="a-email-err">Please enter a valid email.</div>
+        </div>
+        <div class="field-group">
+          <div class="forgot-row">
+            <label>Password</label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input class="input-field" type="password" id="a-password" placeholder="Enter your password">
+            <button class="pw-toggle" onclick="togglePassword('a-password', this)" type="button"><i class="far fa-eye"></i></button>
+          </div>
+          <div class="field-error" id="a-pw-err">Please enter your password.</div>
+        </div>
+        <div class="field-group">
+          <label>Stage Name (optional)</label>
+          <div class="input-wrapper">
+            <i class="fas fa-microphone-alt"></i>
+            <input class="input-field" type="text" id="a-stagename" placeholder="Your stage name">
+          </div>
+          <div class="field-hint">Helps verify your artist profile.</div>
+        </div>
+        <div class="remember-row">
+          <input class="checkbox" type="checkbox" id="a-remember">
+          <label for="a-remember" class="remember-label">Keep me signed in for 30 days</label>
+        </div>
+        <button class="btn-submit" onclick="handleLogin('artist')"><i class="fas fa-sign-in-alt"></i> Sign In as Artist</button>
+      </div>
+
+      <!-- ADMIN FORM (hidden initially) -->
+      <div class="form-panel" id="panel-admin">
+        <div class="admin-warn">
+          <i class="fas fa-exclamation-triangle"></i>
+          <div class="admin-warn-text"><strong>Restricted access.</strong> This portal is for authorised Plum administrators only. All attempts are logged.</div>
+        </div>
+        <div class="field-group">
+          <label>Admin Username</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user-shield"></i>
+            <input class="input-field" type="text" id="ad-user" placeholder="admin.username">
+          </div>
+          <div class="field-error" id="ad-user-err">Username required.</div>
+        </div>
+        <div class="field-group">
+          <label>Admin Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input class="input-field" type="password" id="ad-password" placeholder="••••••••">
+            <button class="pw-toggle" onclick="togglePassword('ad-password', this)" type="button"><i class="far fa-eye"></i></button>
+          </div>
+          <div class="field-error" id="ad-pw-err">Password required.</div>
+        </div>
+        <div class="field-group">
+          <label>2FA Code</label>
+          <div class="input-wrapper">
+            <i class="fas fa-mobile-alt"></i>
+            <input class="input-field" type="text" id="ad-2fa" placeholder="6-digit code" maxlength="6">
+          </div>
+          <div class="field-error" id="ad-2fa-err">2FA code required.</div>
+          <div class="field-hint">Use your authenticator app.</div>
+        </div>
+        <button class="btn-submit" onclick="handleLogin('admin')" style="background: #b91c1c; box-shadow: none;"><i class="fas fa-shield-alt"></i> Secure Admin Sign In</button>
+      </div>
+
+      <div class="or-divider"><div class="or-line"></div><span>or continue with</span><div class="or-line"></div></div>
+
+      <div class="social-btns">
+        <button class="social-btn" onclick="showToast('Google sign‑in coming soon', 'error')"><i class="fab fa-google"></i> Google</button>
+        <button class="social-btn" onclick="showToast('Facebook sign‑in coming soon', 'error')"><i class="fab fa-facebook-f"></i> Facebook</button>
+      </div>
+
+      <div class="signup-row">No account yet? <a href="register.html" class="signup-link">Create an account</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Role switching
+  let currentRole = 'client';
+
+  function switchRole(role) {
+    currentRole = role;
+    // Update tabs
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + role).classList.add('active');
+    // Update info boxes
+    document.querySelectorAll('.role-info-box').forEach(b => b.style.display = 'none');
+    document.getElementById('info-' + role).style.display = 'block';
+    // Update forms
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + role).classList.add('active');
+  }
+
+  // Admin reveal (triple-click logo or typing 'admin')
+  let logoClickCount = 0, logoClickTimer;
+  document.getElementById('logoReveal').addEventListener('click', function() {
+    logoClickCount++;
+    clearTimeout(logoClickTimer);
+    if (logoClickCount >= 3) {
+      revealAdmin();
+      logoClickCount = 0;
+    } else {
+      logoClickTimer = setTimeout(() => logoClickCount = 0, 700);
+    }
+  });
+
+  let keyBuffer = '';
+  document.addEventListener('keydown', function(e) {
+    if (document.activeElement.tagName === 'INPUT') return;
+    keyBuffer += e.key.toLowerCase();
+    if (keyBuffer.length > 5) keyBuffer = keyBuffer.slice(-5);
+    if (keyBuffer === 'admin') revealAdmin();
+  });
+
+  document.getElementById('adminHint').addEventListener('click', revealAdmin);
+
+  function revealAdmin() {
+    const adminTab = document.getElementById('tab-admin');
+    if (adminTab.style.display !== 'none') {
+      // already visible, just switch
+      switchRole('admin');
+      return;
+    }
+    adminTab.style.display = 'flex';
+    adminTab.style.opacity = '0';
+    adminTab.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      adminTab.style.transition = 'all 0.3s ease';
+      adminTab.style.opacity = '1';
+      adminTab.style.transform = 'scale(1)';
+    }, 10);
+    showToast('Admin portal accessed. All activity is monitored.', 'error');
+    setTimeout(() => switchRole('admin'), 600);
+  }
+
+  // Password toggle
+  function togglePassword(inputId, btn) {
+    const inp = document.getElementById(inputId);
+    const type = inp.type === 'password' ? 'text' : 'password';
+    inp.type = type;
+    btn.innerHTML = type === 'password' ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+  }
+
+  // Field validation helpers
+  function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+
+  function setError(id, show, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (msg) el.textContent = msg;
+    el.classList.toggle('show', show);
+  }
+
+  // Login handler
+  function handleLogin(role) {
+    let valid = true;
+    let email = '';
+    let password = '';
+
+    if (role === 'client') {
+      email = document.getElementById('c-email').value.trim();
+      password = document.getElementById('c-password').value;
+      if (!validateEmail(email)) { setError('c-email-err', true); valid = false; document.getElementById('c-email').classList.add('error'); } else { setError('c-email-err', false); document.getElementById('c-email').classList.remove('error'); }
+      if (!password) { setError('c-pw-err', true); valid = false; document.getElementById('c-password').classList.add('error'); } else { setError('c-pw-err', false); document.getElementById('c-password').classList.remove('error'); }
+    }
+    else if (role === 'artist') {
+      email = document.getElementById('a-email').value.trim();
+      password = document.getElementById('a-password').value;
+      if (!validateEmail(email)) { setError('a-email-err', true); valid = false; document.getElementById('a-email').classList.add('error'); } else { setError('a-email-err', false); document.getElementById('a-email').classList.remove('error'); }
+      if (!password) { setError('a-pw-err', true); valid = false; document.getElementById('a-password').classList.add('error'); } else { setError('a-pw-err', false); document.getElementById('a-password').classList.remove('error'); }
+    }
+    else if (role === 'admin') {
+      const user = document.getElementById('ad-user').value.trim();
+      const pw = document.getElementById('ad-password').value;
+      const tfa = document.getElementById('ad-2fa').value.trim();
+      if (!user) { setError('ad-user-err', true); valid = false; document.getElementById('ad-user').classList.add('error'); } else { setError('ad-user-err', false); document.getElementById('ad-user').classList.remove('error'); }
+      if (!pw) { setError('ad-pw-err', true); valid = false; document.getElementById('ad-password').classList.add('error'); } else { setError('ad-pw-err', false); document.getElementById('ad-password').classList.remove('error'); }
+      if (!tfa || tfa.length < 6) { setError('ad-2fa-err', true, '6‑digit code required'); valid = false; document.getElementById('ad-2fa').classList.add('error'); } else { setError('ad-2fa-err', false); document.getElementById('ad-2fa').classList.remove('error'); }
+      if (!valid) return;
+      simulateLogin('admin', 'dashboard-admin.html');
+      return;
+    }
+
+    if (!valid) return;
+
+    // Call API to login
+    performLogin(role, email, password);
+  }
+
+  function performLogin(role, email, password) {
+    const btn = document.querySelector(`#panel-${role} .btn-submit`);
+    btn.classList.add('loading');
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Signing in…`;
+
+    fetch('api/auth.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'login', email: email, password: password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        showToast(`✓ Welcome back! Redirecting to your ${role} dashboard.`, 'success');
+        const redirect = role === 'artist' ? 'dashboard-artist.html' : 'dashboard-client.html';
+        setTimeout(() => { window.location.href = redirect; }, 1200);
+      } else {
+        setError(`${role}-email-err`, true, data.message || 'Invalid credentials');
+        btn.classList.remove('loading');
+        btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> Sign In as ${role.charAt(0).toUpperCase() + role.slice(1)}`;
+        showToast('✗ Login failed: ' + (data.message || 'Invalid email or password'), 'error');
+      }
+    })
+    .catch(error => {
+      console.error('Login error:', error);
+      showToast('✗ Connection error. Please try again.', 'error');
+      btn.classList.remove('loading');
+      btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> Sign In as ${role.charAt(0).toUpperCase() + role.slice(1)}`;
+    });
+  }
+
+  function simulateLogin(role, redirect) {
+    const btn = document.querySelector(`#panel-${role} .btn-submit`);
+    const originalHTML = btn.innerHTML;
+    btn.classList.add('loading');
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Signing in…`;
+
+    setTimeout(() => {
+      showToast(`✓ Welcome back! Redirecting to your ${role} dashboard.`, 'success');
+      setTimeout(() => { window.location.href = redirect; }, 1200);
+    }, 1500);
+  }
+
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type}`;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3800);
+  }
+
+  // Clear errors on input
+  document.querySelectorAll('.input-field').forEach(inp => {
+    inp.addEventListener('input', function() {
+      this.classList.remove('error');
+      const errorId = this.closest('.field-group')?.querySelector('.field-error')?.id;
+      if (errorId) setError(errorId, false);
+    });
+  });
+
+  // 2FA numeric only
+  const tfaInput = document.getElementById('ad-2fa');
+  if (tfaInput) {
+    tfaInput.addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '').slice(0, 6);
+    });
+  }
+</script>
+</body>
+</html>
+

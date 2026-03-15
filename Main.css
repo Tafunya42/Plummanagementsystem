@@ -1,0 +1,178 @@
+
+/* ============================================
+   PLUM — Main CSS (legacy alias file)
+   All core styles now live in global.css.
+   This file patches syntax errors from the
+   original and re-exports for any pages that
+   still reference Main.css directly.
+   ============================================ */
+
+/* Ensure fonts load */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+/* ---- Extra button variant that was broken in original ---- */
+.btn-outline {
+  background: var(--white);
+  color: var(--primary);
+  border: 1.5px solid var(--plum-200);
+}
+.btn-outline:hover {
+  background: var(--plum-50);
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(107,45,139,0.1);
+}
+
+/* ---- Patched card rule (was broken mid-block) ---- */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 0.5px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+/* ---- Placeholder color (was broken selector) ---- */
+.form-input::placeholder,
+.form-textarea::placeholder { color: var(--gray-400); }
+
+/* ---- Stars ---- */
+.stars { display: flex; gap: 2px; color: var(--gold-400); font-size: 0.875rem; }
+
+/* ---- Scrollbar (was broken mid-rule) ---- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--plum-50); }
+::-webkit-scrollbar-thumb {
+  background: var(--plum-300);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--plum-400); }
+
+/* ---- Divider ---- */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--plum-200), transparent);
+  margin: 24px 0;
+}
+
+/* ---- Animations (ensure available) ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+@keyframes floatBubble {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes riseUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up { animation: fadeUp 0.6s ease forwards; }
+.animate-fade-in { animation: fadeIn 0.4s ease forwards; }
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
+.delay-5 { animation-delay: 0.5s; opacity: 0; }
+
+/* ---- Toast / Alerts ---- */
+.alert {
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-left: 4px solid;
+}
+.alert-success { background: #E8F5E9; border-color: var(--success); color: #1B5E20; }
+.alert-error   { background: #FFEBEE; border-color: var(--error);   color: #B71C1C; }
+.alert-info    { background: var(--plum-100); border-color: var(--primary); color: var(--plum-800); }
+
+/* ---- Tag ---- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  background: var(--plum-50);
+  color: var(--plum-700);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: 1px solid var(--plum-200);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.tag:hover, .tag.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+/* ---- Avatar ---- */
+.avatar {
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--plum-300), var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--white);
+}
+.avatar-sm  { width: 36px;  height: 36px;  font-size: 0.875rem; }
+.avatar-md  { width: 48px;  height: 48px;  font-size: 1rem; }
+.avatar-lg  { width: 72px;  height: 72px;  font-size: 1.4rem; }
+.avatar-xl  { width: 100px; height: 100px; font-size: 2rem; }
+
+/* ---- Utilities ---- */
+.text-plum   { color: var(--primary) !important; }
+.text-gold   { color: var(--gold-400); }
+.text-muted  { color: var(--gray-500); }
+.text-white  { color: var(--white); }
+.text-center { text-align: center; }
+.font-bold   { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-4 { margin-top: 16px; }
+.mt-6 { margin-top: 24px; }
+.mt-8 { margin-top: 32px; }
+.mb-4 { margin-bottom: 16px; }
+.mb-6 { margin-bottom: 24px; }
+.mb-8 { margin-bottom: 32px; }
+.p-6  { padding: 24px; }
+.p-8  { padding: 32px; }
+.w-full { width: 100%; }
+.relative        { position: relative; }
+.overflow-hidden { overflow: hidden; }
+.hidden          { display: none; }
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .section   { padding: 56px 0; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .hide-mobile { display: none !important; }
+}

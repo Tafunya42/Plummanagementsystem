@@ -1,0 +1,440 @@
+<!-- API Documentation & Testing -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plum API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9f8fc;
+            color: #3d4457;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #6848c2, #7d5ba6);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+        .endpoint {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 4px solid #6848c2;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .endpoint-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: white;
+        }
+        .method.get { background: #3b82f6; }
+        .method.post { background: #10b981; }
+        .method.put { background: #f59e0b; }
+        .method.delete { background: #ef4444; }
+        
+        .endpoint-path {
+            font-family: 'Monaco', 'Courier', monospace;
+            background: #f3f4f6;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .endpoint-desc {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin: 12px 0;
+        }
+        .example {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-family: 'Monaco', monospace;
+            font-size: 0.85rem;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            color: #6848c2;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #dacfff;
+        }
+        .notes {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .required {
+            color: #ef4444;
+            font-weight: 600;
+        }
+        a {
+            color: #6848c2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎵 Plum API Documentation</h1>
+        <p>Artist Booking Platform - Complete API Reference</p>
+    </div>
+
+    <div class="container">
+        <!-- AUTHENTICATION SECTION -->
+        <div class="section">
+            <h2 class="section-title">Authentication</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/auth/register</span>
+                </div>
+                <p class="endpoint-desc">Register a new user account</p>
+                <div class="example">
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "full_name": "John Doe",
+  "user_type": "client"  // or "artist"
+}
+                </div>
+                <div class="notes">
+                    <strong>Required Fields:</strong> email, password, full_name, user_type<br>
+                    <strong>Response:</strong> 201 Created with user_id
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/auth/login</span>
+                </div>
+                <p class="endpoint-desc">Login user and create session</p>
+                <div class="example">
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+                </div>
+                <div class="notes">
+                    <strong>Response:</strong> User object with authentication info
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/auth/logout</span>
+                </div>
+                <p class="endpoint-desc">Logout current user and destroy session</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ARTISTS SECTION -->
+        <div class="section">
+            <h2 class="section-title">Artists</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/artists</span>
+                </div>
+                <p class="endpoint-desc">List all verified artists with pagination</p>
+                <div class="example">
+// Query Parameters:
+?page=1&limit=12
+
+// Response includes pagination info and artist cards
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/artists/{id}</span>
+                </div>
+                <p class="endpoint-desc">Get complete artist profile with services and reviews</p>
+                <div class="notes">
+                    <strong>Response includes:</strong> Profile details, services, recent reviews
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/artists/search</span>
+                </div>
+                <p class="endpoint-desc">Search and filter artists</p>
+                <div class="example">
+// Query Parameters:
+?q=jazz&category=musician&location=new%20york&min_rating=4&sort=rating
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/artists/profile</span>
+                </div>
+                <p class="endpoint-desc">Update artist profile (artists only)</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES (Artist account)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOOKINGS SECTION -->
+        <div class="section">
+            <h2 class="section-title">Bookings</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/bookings</span>
+                </div>
+                <p class="endpoint-desc">List user's bookings (client or artist view)</p>
+                <div class="example">
+// Query Parameters:
+?status=confirmed  // Filter by status
+
+// Returns different data based on user_type
+                </div>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/bookings/{id}</span>
+                </div>
+                <p class="endpoint-desc">Get booking details</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span><br>
+                    Only client or artist in booking can access
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/bookings</span>
+                </div>
+                <p class="endpoint-desc">Create new booking</p>
+                <div class="example">
+{
+  "artist_id": 123,
+  "event_date": "2026-04-15",
+  "event_type": "Wedding",
+  "event_location": "Manhattan",
+  "total_amount": 3800,
+  "deposit_amount": 950,
+  "notes": "Please arrange outdoor setup"
+}
+                </div>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES (Client account)</span>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method put">PUT</span>
+                    <span class="endpoint-path">/api/bookings/{id}</span>
+                </div>
+                <p class="endpoint-desc">Update booking status or payment status</p>
+                <div class="example">
+{
+  "booking_status": "confirmed",  // or "completed", "cancelled"
+  "payment_status": "paid"  // or "pending", "refunded"
+}
+                </div>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- REVIEWS SECTION -->
+        <div class="section">
+            <h2 class="section-title">Reviews</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/reviews/artist/{id}</span>
+                </div>
+                <p class="endpoint-desc">Get reviews for an artist with stats</p>
+                <div class="example">
+// Query Parameters:
+?page=1&limit=10&sort=recent  // or helpful, rating
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/reviews</span>
+                </div>
+                <p class="endpoint-desc">Create review for completed booking</p>
+                <div class="example">
+{
+  "booking_id": 456,
+  "artist_id": 123,
+  "rating": 5,
+  "comment": "Absolutely amazing performance! Would book again."
+}
+                </div>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES (Client account)</span><br>
+                    Booking must be marked as "completed"
+                </div>
+            </div>
+        </div>
+
+        <!-- USER PROFILE SECTION -->
+        <div class="section">
+            <h2 class="section-title">User Profile</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/user/profile</span>
+                </div>
+                <p class="endpoint-desc">Get current user's profile</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method put">PUT</span>
+                    <span class="endpoint-path">/api/user/profile</span>
+                </div>
+                <p class="endpoint-desc">Update user profile</p>
+                <div class="example">
+{
+  "full_name": "Jane Doe",
+  "phone": "+1234567890",
+  "location": "Brooklyn, NY",
+  "bio": "Professional event organizer"
+}
+                </div>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/user/dashboard</span>
+                </div>
+                <p class="endpoint-desc">Get user dashboard data (stats, bookings, reviews)</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span><br>
+                    Returns different data based on user_type (artist/client)
+                </div>
+            </div>
+        </div>
+
+        <!-- FAVORITES SECTION -->
+        <div class="section">
+            <h2 class="section-title">Favorites</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/favorites</span>
+                </div>
+                <p class="endpoint-desc">Get user's favorite artists</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/favorites/{artist_id}</span>
+                </div>
+                <p class="endpoint-desc">Add artist to favorites</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-title">
+                    <span class="method delete">DELETE</span>
+                    <span class="endpoint-path">/api/favorites/{artist_id}</span>
+                </div>
+                <p class="endpoint-desc">Remove artist from favorites</p>
+                <div class="notes">
+                    <strong>Auth Required:</strong> <span class="required">YES</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESPONSE CODES -->
+        <div class="section">
+            <h2 class="section-title">HTTP Response Codes</h2>
+            <div class="endpoint">
+                <ul style="list-style-position: inside; line-height: 2;">
+                    <li><strong>200</strong> - OK: Request successful</li>
+                    <li><strong>201</strong> - Created: Resource created successfully</li>
+                    <li><strong>400</strong> - Bad Request: Invalid parameters or missing fields</li>
+                    <li><strong>401</strong> - Unauthorized: Authentication required</li>
+                    <li><strong>403</strong> - Forbidden: Access denied (wrong role)</li>
+                    <li><strong>404</strong> - Not Found: Resource doesn't exist</li>
+                    <li><strong>405</strong> - Method Not Allowed: Wrong HTTP method</li>
+                    <li><strong>500</strong> - Server Error: Internal error</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

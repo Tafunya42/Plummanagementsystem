@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Plum — Client Onboarding</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #f7f2ff 0%, #ede4ff 100%);
+      color: #1e1b2b;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    :root {
+      --plum-50: #f7f2ff;
+      --plum-100: #ede4ff;
+      --plum-200: #dacfff;
+      --plum-300: #c2b0f5;
+      --plum-400: #9f85e5;
+      --plum-500: #7f5fd6;
+      --plum-600: #6848c2;
+      --plum-700: #5336a3;
+      --plum-800: #3f2980;
+      --plum-900: #2d1c5c;
+      --gray-50: #f9fafc;
+      --gray-100: #f2f4f8;
+      --gray-200: #e6e9f0;
+      --gray-300: #d0d6e0;
+      --gray-400: #a8b1c2;
+      --gray-500: #7f8a9e;
+      --gray-600: #5e677b;
+      --gray-700: #3d4457;
+      --white: #ffffff;
+      --shadow-sm: 0 8px 20px -6px rgba(60, 30, 100, 0.08);
+      --shadow-md: 0 16px 30px -10px rgba(80, 40, 140, 0.15);
+      --shadow-lg: 0 25px 40px -12px rgba(70, 30, 130, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(190, 170, 230, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      text-decoration: none;
+    }
+
+    .navbar-actions a {
+      padding: 8px 16px;
+      margin-left: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .navbar-actions a:hover {
+      background: var(--plum-100);
+      color: var(--plum-700);
+    }
+
+    /* MAIN CONTENT */
+    .onboarding-wrapper {
+      padding: 60px 0;
+    }
+
+    .onboarding-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .onboarding-header h1 {
+      font-size: 2.5rem;
+      color: var(--plum-800);
+      margin-bottom: 16px;
+    }
+
+    .onboarding-header p {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* PROGRESS STEPS */
+    .progress-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .step-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--plum-500), var(--plum-700));
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      margin-bottom: 12px;
+    }
+
+    .step-description {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* QUICK ACTIONS */
+    .quick-actions {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
+    }
+
+    .quick-actions h2 {
+      font-size: 1.8rem;
+      color: var(--plum-800);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: var(--plum-50);
+      border: 2px solid var(--plum-200);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: var(--plum-700);
+      font-weight: 600;
+    }
+
+    .action-btn:hover {
+      background: var(--plum-100);
+      border-color: var(--plum-400);
+      transform: scale(1.02);
+    }
+
+    .action-btn i {
+      font-size: 1.3rem;
+    }
+
+    /* FEATURES GRID */
+    .features-section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
+    }
+
+    .features-section h2 {
+      font-size: 1.8rem;
+      color: var(--plum-800);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .feature-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--plum-100);
+      border-radius: 12px;
+      color: var(--plum-600);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .feature-content h3 {
+      font-weight: 700;
+      color: var(--plum-700);
+      margin-bottom: 6px;
+    }
+
+    .feature-content p {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, var(--plum-600), var(--plum-800));
+      color: var(--white);
+      border-radius: 16px;
+      padding: 50px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 40px;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      border: none;
+      color: var(--white);
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 40px;
+      background: var(--white);
+      color: var(--plum-700);
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* FAQ SECTION */
+    .faq-section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-section h2 {
+      font-size: 1.8rem;
+      color: var(--plum-800);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .faq-item {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--plum-700);
+      font-size: 1.05rem;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover {
+      color: var(--plum-600);
+    }
+
+    .faq-answer {
+      margin-top: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--plum-600);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .onboarding-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .cta-section {
+        padding: 32px 24px;
+      }
+
+      .cta-section h2 {
+        font-size: 1.5rem;
+      }
+
+      .progress-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">Plum</a>
+  <div class="navbar-actions">
+    <a href="Browse.html">Browse Artists</a>
+    <a href="dashboard-client.html">Dashboard</a>
+    <a href="login.html">Log Out</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="onboarding-wrapper">
+  <div class="container">
+    <!-- HEADER -->
+    <div class="onboarding-header">
+      <h1>Welcome to Plum! <i class="fas fa-party-popper"></i></h1>
+      <p>You're all set! Here's how to get started booking amazing artists for your events.</p>
+    </div>
+
+    <!-- QUICK START STEPS -->
+    <div class="progress-container">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Browse Artists</div>
+        <div class="step-description">Explore thousands of talented performers across all categories.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Check Details</div>
+        <div class="step-description">Review artist profiles, rates, availability, and client reviews.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Make a Booking</div>
+        <div class="step-description">Select your date, send a message, and confirm the booking.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Enjoy the Event</div>
+        <div class="step-description">Attend your event and leave a review for the artist.</div>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="quick-actions">
+      <h2>Get Started Now</h2>
+      <div class="actions-grid">
+        <a href="Browse.html" class="action-btn">
+          <i class="fas fa-search"></i> Browse Artists
+        </a>
+        <a href="Browse.html?filter=popular" class="action-btn">
+          <i class="fas fa-star"></i> Top Rated
+        </a>
+        <a href="dashboard-client.html" class="action-btn">
+          <i class="fas fa-user"></i> My Profile
+        </a>
+        <a href="dashboard-client.html#bookings" class="action-btn">
+          <i class="fas fa-calendar"></i> My Bookings
+        </a>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features-section">
+      <h2>Why Book with Plum?</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="feature-content">
+            <h3>Verified Artists</h3>
+            <p>All performers are verified with background checks and valid credentials.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-lock"></i></div>
+          <div class="feature-content">
+            <h3>Secure Payments</h3>
+            <p>Your payment information is encrypted and secure. 100% protected.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-headset"></i></div>
+          <div class="feature-content">
+            <h3>24/7 Support</h3>
+            <p>Need help? Our support team is available around the clock.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-star"></i></div>
+          <div class="feature-content">
+            <h3>Real Reviews</h3>
+            <p>Verified reviews from real clients help you make the best choice.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-globe"></i></div>
+          <div class="feature-content">
+            <h3>Wide Selection</h3>
+            <p>Browse artists from 8+ categories with thousands of options.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+          <div class="feature-content">
+            <h3>Flexible Booking</h3>
+            <p>Message artists directly, negotiate, and book with custom terms.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA SECTION -->
+    <div class="cta-section">
+      <h2>Ready to Find Your Perfect Artist?</h2>
+      <p>Start browsing thousands of talented performers today. Whether you need a musician, comedian, dancer, or any other type of performer, Plum has you covered.</p>
+      <a href="Browse.html" class="btn-cta">
+        <i class="fas fa-arrow-right"></i> Start Browsing Artists
+      </a>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <i class="fas fa-chevron-right"></i>
+          How do I book an artist?
+        </div>
+        <div class="faq-answer">
+          Browse our artist directory, click on the artist you're interested in, review their profile and rates, then click "Check Availability" or "Book Now" to proceed with your booking.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <i class="fas fa-chevron-right"></i>
+          Can I cancel my booking?
+        </div>
+        <div class="faq-answer">
+          Yes, you can cancel with decreased penalty depending on when you cancel. Cancellations 7+ days before the event receive a full refund. Cancellations within 24 hours may have a penalty.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <i class="fas fa-chevron-right"></i>
+          What payment methods do you accept?
+        </div>
+        <div class="faq-answer">
+          We accept all major payment methods including mobile money (MTN, Airtel), bank transfers, and online payments. All transactions are secure and encrypted.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <i class="fas fa-chevron-right"></i>
+          Are the prices in Zambian Kwacha?
+        </div>
+        <div class="faq-answer">
+          Artist rates are displayed in Zambian Kwacha (K). Plum charges no hidden fees - what you see is what you pay (plus the 15% platform fee which is shown before booking).
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <i class="fas fa-chevron-right"></i>
+          What if an artist cancels?
+        </div>
+        <div class="faq-answer">
+          If an artist cancels, you'll receive a full refund immediately. We can also help you find an alternative artist for your event.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <i class="fas fa-chevron-right"></i>
+          How do I contact support?
+        </div>
+        <div class="faq-answer">
+          You can reach our support team via email at support@plum.com, through the contact form in your dashboard, or by calling our support line. We're available 24/7 for urgent issues.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Plum Entertainment. All rights reserved. | <a href="terms.html">Terms</a> | <a href="privacy.html">Privacy</a> | <a href="code-of-conduct.html">Code of Conduct</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

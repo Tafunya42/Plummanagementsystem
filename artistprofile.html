@@ -1,0 +1,1228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kachilonda — Artist Profile | Plum</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f8f6ff;
+      color: #1e1b2b;
+      line-height: 1.5;
+    }
+
+    :root {
+      --plum-50: #f7f2ff;
+      --plum-100: #ede4ff;
+      --plum-200: #dacfff;
+      --plum-300: #c2b0f5;
+      --plum-400: #9f85e5;
+      --plum-500: #7f5fd6;
+      --plum-600: #6848c2;
+      --plum-700: #5336a3;
+      --plum-800: #3f2980;
+      --plum-900: #2d1c5c;
+      --gray-50: #f9fafc;
+      --gray-100: #f2f4f8;
+      --gray-200: #e6e9f0;
+      --gray-300: #d0d6e0;
+      --gray-400: #a8b1c2;
+      --gray-500: #7f8a9e;
+      --gray-600: #5e677b;
+      --gray-700: #3d4457;
+      --white: #ffffff;
+      --shadow-sm: 0 8px 20px -6px rgba(60, 30, 100, 0.08);
+      --shadow-md: 0 16px 30px -10px rgba(80, 40, 140, 0.15);
+      --shadow-lg: 0 25px 40px -12px rgba(70, 30, 130, 0.25);
+      --border-radius-card: 32px;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ===== NAVBAR (same as other pages) ===== */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(190, 170, 230, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .navbar-logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--plum-500);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); background: #a07cff; }
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .navbar-link {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .navbar-link:hover {
+      color: var(--plum-700);
+    }
+
+    .navbar-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--plum-400), var(--plum-600));
+      transition: width 0.2s ease;
+      border-radius: 4px;
+    }
+
+    .navbar-link:hover::after {
+      width: 100%;
+    }
+
+    .navbar-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      gap: 8px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+    }
+
+    .btn-sm { padding: 8px 18px; font-size: 0.9rem; }
+    .btn-primary {
+      background: var(--plum-600);
+      color: white;
+      box-shadow: 0 8px 18px -6px rgba(104, 72, 194, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--plum-700);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -8px rgba(83, 54, 163, 0.4);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--plum-700);
+      border: 1px solid var(--plum-200);
+    }
+    .btn-ghost:hover {
+      background: var(--plum-50);
+      border-color: var(--plum-300);
+    }
+    .btn-outline {
+      background: white;
+      border: 1.5px solid var(--plum-300);
+      color: var(--plum-700);
+    }
+    .btn-outline:hover {
+      background: var(--plum-50);
+      border-color: var(--plum-500);
+    }
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 1rem;
+    }
+    .w-full { width: 100%; }
+
+    /* ===== HERO SECTION (with editable profile picture) ===== */
+    .profile-hero {
+      background: linear-gradient(115deg, #2b1b4b 0%, #452e78 50%, #5d43a6 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 40px 0 0;
+    }
+
+    .profile-hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(214, 176, 255, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: floatBlob 20s infinite alternate;
+    }
+    .profile-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -5%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(185, 128, 255, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: floatBlob2 18s infinite alternate;
+    }
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-30px, 30px) scale(1.1); }
+    }
+    @keyframes floatBlob2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, -20px) scale(1.2); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      padding: 20px 0 20px;
+    }
+
+    .profile-header-row {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* Avatar with upload overlay */
+    .avatar-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 30px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      box-shadow: var(--shadow-lg);
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 27px;
+    }
+
+    .avatar-upload-overlay {
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      background: var(--plum-600);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid white;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: var(--shadow-md);
+    }
+
+    .avatar-upload-overlay:hover {
+      background: var(--plum-700);
+      transform: scale(1.1);
+    }
+
+    .avatar-upload-overlay i {
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    /* hide actual file input */
+    #profile-upload {
+      display: none;
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-category {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+    }
+
+    .profile-name {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .meta-item i { color: var(--plum-300); }
+
+    .badge-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      padding: 5px 15px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Tabs */
+    .profile-tabs {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .profile-tab {
+      color: rgba(255,255,255,0.7);
+      font-weight: 600;
+      padding-bottom: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .profile-tab:hover {
+      color: white;
+    }
+
+    .profile-tab.active {
+      color: white;
+    }
+
+    .profile-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
+      padding: 48px 0;
+    }
+
+    .profile-main {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: var(--border-radius-card);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255,255,255,0.5);
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title i { color: var(--plum-500); }
+
+    /* Highlights grid (photos/videos) */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .highlight-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .highlight-item:hover {
+      transform: scale(1.03);
+    }
+
+    .highlight-item img, .highlight-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .highlight-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      border: 2px solid white;
+    }
+
+    .upload-placeholder {
+      border: 2px dashed var(--plum-300);
+      background: var(--plum-50);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--plum-600);
+      aspect-ratio: 1;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .upload-placeholder:hover {
+      background: var(--plum-100);
+      border-color: var(--plum-600);
+    }
+    .upload-placeholder i { font-size: 2rem; margin-bottom: 8px; }
+    .upload-placeholder span { font-size: 0.8rem; font-weight: 600; }
+
+    /* hidden upload inputs */
+    .hidden-upload { display: none; }
+
+    /* Packages */
+    .package-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .package-card:hover {
+      border-color: var(--plum-400);
+      background: white;
+    }
+    .package-card.selected {
+      border: 2px solid var(--plum-600);
+      background: var(--plum-50);
+    }
+
+    /* Reviews */
+    .review-item {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .review-item:last-child { border-bottom: none; }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .review-author {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .avatar-sm {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--plum-400), var(--plum-600));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+    .stars {
+      color: #fbbf24;
+      letter-spacing: 2px;
+    }
+
+    /* Sidebar booking card */
+    .booking-card {
+      background: white;
+      border-radius: var(--border-radius-card);
+      padding: 30px;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 100px;
+    }
+
+    .price-pill {
+      background: linear-gradient(115deg, var(--plum-600), var(--plum-800));
+      color: white;
+      padding: 16px 20px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .price-amount {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-right: 5px;
+    }
+    .price-per { font-size: 0.9rem; opacity: 0.8; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--plum-700);
+      margin-bottom: 5px;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 40px;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--plum-400);
+      box-shadow: 0 0 0 3px rgba(185,128,255,0.2);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 20px 0;
+    }
+
+    /* Similar artists */
+    .similar-section {
+      background: white;
+      padding: 60px 0;
+      border-top: 1px solid var(--gray-200);
+    }
+    .similar-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      margin-bottom: 30px;
+    }
+    .artists-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .artist-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: 0.2s;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--gray-200);
+    }
+    .artist-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--plum-300);
+    }
+    .artist-card-img {
+      height: 160px;
+      background: linear-gradient(135deg, var(--plum-300), var(--plum-500));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .artist-card-body {
+      padding: 20px;
+    }
+    .artist-card-category {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--plum-500);
+      font-weight: 600;
+    }
+    .artist-card-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      margin: 4px 0;
+    }
+    .artist-card-rating {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--gray-500);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .profile-layout { grid-template-columns: 1fr; }
+      .booking-card { position: static; }
+      .profile-header-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">Plum <span class="logo-dot"></span></a>
+  <div class="navbar-links">
+    <a href="Browse.html" class="navbar-link">Find Artists</a>
+    <a href="#" class="navbar-link">How It Works</a>
+    <a href="#" class="navbar-link">For Artists</a>
+  </div>
+  <div class="navbar-actions">
+    <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+    <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+  </div>
+</nav>
+
+<!-- PROFILE HERO (with editable profile picture) -->
+<div class="profile-hero">
+  <div class="container hero-content">
+    <div class="profile-header-row">
+      <!-- Avatar with upload overlay (only visible to artist, but we show as demo) -->
+      <div class="avatar-wrap">
+        <!-- Profile image (simulated) -->
+        <img src="https://via.placeholder.com/140/6848c2/ffffff?text=Kachilonda" alt="Artist" style="background: var(--plum-300);">
+        <label for="profile-upload" class="avatar-upload-overlay" title="Upload new profile picture">
+          <i class="fas fa-camera"></i>
+        </label>
+        <input type="file" id="profile-upload" class="hidden-upload" accept="image/*" onchange="previewProfileImage(event)">
+      </div>
+
+      <div class="profile-info">
+        <div class="profile-category">Hip-Hop/Rap Artist · Lusaka</div>
+        <h1 class="profile-name">Kachilonda</h1>
+        <div class="profile-meta">
+          <div class="meta-item"><i class="fas fa-star"></i> 5.0 (148 reviews)</div>
+          <div class="meta-item"><i class="fas fa-calendar-check"></i> 210 events</div>
+          <div class="meta-item"><i class="fas fa-clock"></i> Responds in 2 hrs</div>
+          <div class="meta-item"><i class="fas fa-calendar-alt"></i> Member 2021</div>
+        </div>
+        <div class="badge-group">
+          <span class="badge"><i class="fas fa-crown" style="color: #fbbf24;"></i> Top Rated</span>
+          <span class="badge"><i class="fas fa-check-circle" style="color: #10b981;"></i> Verified Pro</span>
+          <span class="badge"><i class="fas fa-bolt"></i> Quick Responder</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="profile-tabs">
+      <span class="profile-tab active" onclick="switchTab(this, 'overview')">Overview</span>
+      <span class="profile-tab" onclick="switchTab(this, 'highlights')">Highlights</span>
+      <span class="profile-tab" onclick="switchTab(this, 'media')">Media</span>
+      <span class="profile-tab" onclick="switchTab(this, 'packages')">Packages</span>
+      <span class="profile-tab" onclick="switchTab(this, 'reviews')">Reviews</span>
+      <span class="profile-tab" onclick="switchTab(this, 'pro-details')">Professional Details</span>
+      <span class="profile-tab" onclick="switchTab(this, 'legal-info')">Verified Info</span>
+      <span class="profile-tab" onclick="switchTab(this, 'availability')">Availability</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="profile-layout">
+    <!-- LEFT MAIN COLUMN (tabs content) -->
+    <div class="profile-main">
+
+      <!-- TAB: OVERVIEW -->
+      <div id="tab-overview" class="tab-content" style="display: block;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-info-circle"></i> About</div>
+          <p style="color: var(--gray-600); line-height: 1.8;">Kachilonda is a Lusaka-based hip-hop artist bringing energy and authentic vibes to any event. Specializing in original compositions, freestyle performances, and crowd engagement. I tailor my sets to match your event's atmosphere perfectly.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fas fa-check-circle"></i> What's Included</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #10b981;"></i> Professional audio equipment</div>
+            <div style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #10b981;"></i> Custom hip-hop setlist</div>
+            <div style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #10b981;"></i> Freestyle sessions</div>
+            <div style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #10b981;"></i> Up to 4 hours performance</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fas fa-info-circle"></i> Performance Details</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div><span style="color: var(--gray-500); font-weight: 600;">Solo performer:</span> 1 artist</div>
+            <div><span style="color: var(--gray-500); font-weight: 600;">Duration:</span> 1–4 hours</div>
+            <div><span style="color: var(--gray-500); font-weight: 600;">Travel range:</span> Throughout Lusaka and surrounding areas</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: HIGHLIGHTS (recent photos & videos) -->
+      <div id="tab-highlights" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-film"></i> Recent Highlights</div>
+          <p style="color: var(--gray-500); margin-bottom: 20px;">Your recent moments – add new photos or videos by clicking the upload area.</p>
+          <div class="highlights-grid" id="highlightsGrid">
+            <!-- Static sample items + upload placeholders -->
+            <div class="highlight-item">
+              <img src="https://via.placeholder.com/200/9f85e5/ffffff?text=Live" alt="live">
+            </div>
+            <div class="highlight-item">
+              <img src="https://via.placeholder.com/200/7f5fd6/ffffff?text=Concert" alt="concert">
+            </div>
+            <div class="highlight-item">
+              <div style="background: #dacfff; width:100%; height:100%; display: flex; align-items: center; justify-content: center; color: #6848c2; font-size: 2rem;">
+                <i class="fas fa-play-circle"></i>
+              </div>
+              <div class="highlight-play"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="highlight-item">
+              <img src="https://via.placeholder.com/200/c2b0f5/ffffff?text=Wedding" alt="wedding">
+            </div>
+            <!-- Upload placeholder (artist only) -->
+            <label for="highlight-upload" class="upload-placeholder">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span>Upload photo</span>
+            </label>
+            <label for="video-upload" class="upload-placeholder">
+              <i class="fas fa-video"></i>
+              <span>Upload video</span>
+            </label>
+          </div>
+          <!-- Hidden file inputs -->
+          <input type="file" id="highlight-upload" class="hidden-upload" accept="image/*" multiple onchange="handleHighlightUpload(event)">
+          <input type="file" id="video-upload" class="hidden-upload" accept="video/*" onchange="handleVideoUpload(event)">
+        </div>
+      </div>
+
+      <!-- TAB: MEDIA (full gallery) -->
+      <div id="tab-media" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-images"></i> Media Gallery</div>
+          <div class="highlights-grid">
+            <div class="highlight-item"><img src="https://via.placeholder.com/200/9f85e5/ffffff?text=Photo1"></div>
+            <div class="highlight-item"><img src="https://via.placeholder.com/200/7f5fd6/ffffff?text=Photo2"></div>
+            <div class="highlight-item"><img src="https://via.placeholder.com/200/6848c2/ffffff?text=Photo3"></div>
+            <div class="highlight-item"><div style="background:#c2b0f5;width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><i class="fas fa-play-circle" style="font-size:3rem;color:#6848c2;"></i></div><div class="highlight-play"><i class="fas fa-play"></i></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PACKAGES -->
+      <div id="tab-packages" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-box"></i> Performance Packages</div>
+          <div class="package-card selected">
+            <div style="display: flex; justify-content: space-between;">
+              <div><strong>Essential (2 hours)</strong><br><span style="font-size:0.9rem;color:gray;">One set, basic sound</span></div>
+              <div style="font-weight:700; color:var(--plum-700);">K2,500</div>
+            </div>
+          </div>
+          <div class="package-card">
+            <div style="display: flex; justify-content: space-between;">
+              <div><strong>Standard (3 hours)</strong><br><span style="font-size:0.9rem;color:gray;">Two sets, full PA</span></div>
+              <div style="font-weight:700; color:var(--plum-700);">K3,800</div>
+            </div>
+          </div>
+          <div class="package-card">
+            <div style="display: flex; justify-content: space-between;">
+              <div><strong>Premium (4+ hours)</strong><br><span style="font-size:0.9rem;color:gray;">Custom songs, full production</span></div>
+              <div style="font-weight:700; color:var(--plum-700);">K5,500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: REVIEWS -->
+      <div id="tab-reviews" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-star"></i> Client Reviews</div>
+          <div class="review-item">
+            <div class="review-header">
+              <div class="review-author"><div class="avatar-sm">S</div><div><strong>Sarah M.</strong><div style="font-size:0.8rem;color:gray;">Wedding</div></div></div>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p>"Incredible performance! They made our wedding night unforgettable."</p>
+          </div>
+          <div class="review-item">
+            <div class="review-header">
+              <div class="review-author"><div class="avatar-sm">J</div><div><strong>James O.</strong><div style="font-size:0.8rem;color:gray;">Corporate</div></div></div>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p>"Professional, punctual, and musically outstanding. Highly recommend."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PROFESSIONAL DETAILS -->
+      <div id="tab-pro-details" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-briefcase"></i> Professional Information</div>
+          <div style="display: grid; gap: 24px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem;">Years of Experience</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--plum-700);">12 years</div>
+              </div>
+              <div>
+                <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem;">Base Hourly Rate</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--plum-700);">K700/hour</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem;">Minimum Booking</div>
+                <div style="font-size: 1.3rem; font-weight: 700;">1 hour</div>
+              </div>
+              <div>
+                <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem;">Travel Radius</div>
+                <div style="font-size: 1.3rem; font-weight: 700;">50 km from Lusaka</div>
+              </div>
+            </div>
+
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">Travel Fee</div>
+              <div style="font-size: 1.1rem;">K150 (for locations outside base radius)</div>
+            </div>
+
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">Professional Bio</div>
+              <p style="color: var(--gray-600); line-height: 1.6;">Award-winning hip-hop artist with over a decade of experience in live performances, studio recording, and event entertainment. Specialized in creating high-energy performances that engage diverse audiences. Past performances include major festivals, corporate events, and private celebrations across Zambia.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fas fa-award"></i> Professional Credentials</div>
+          <div style="display: grid; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <span><strong>Verified Professional</strong> – Identity and credentials verified by Plum</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <span><strong>Background Checked</strong> – Passed comprehensive background verification</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <span><strong>Bank Account Verified</strong> – Payment information verified</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <span><strong>Policy Compliant</strong> – Agreed to all platform policies and terms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: LEGAL & VERIFIED INFO -->
+      <div id="tab-legal-info" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-id-card"></i> Identity Verification</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Full Legal Name</div>
+              <div style="font-weight: 700; font-size: 1.1rem;">Kachilonda Chanda</div>
+            </div>
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Stage Name</div>
+              <div style="font-weight: 700; font-size: 1.1rem;">Kachilonda</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">ID Type</div>
+              <div>National ID</div>
+            </div>
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">ID Number</div>
+              <div>ZM-123456/K</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Date of Birth</div>
+              <div>January 15, 1995</div>
+            </div>
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Nationality</div>
+              <div>Zambia</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fas fa-map-marker-alt"></i> Address Information</div>
+          <div style="display: grid; gap: 12px;">
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Residential Address</div>
+              <div>123 Independence Avenue</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+              <div>
+                <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">City</div>
+                <div>Lusaka</div>
+              </div>
+              <div>
+                <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Province</div>
+                <div>Lusaka</div>
+              </div>
+              <div>
+                <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Postal Code</div>
+                <div>10101</div>
+              </div>
+            </div>
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Phone Number</div>
+              <div>+260 979 876 543</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fas fa-university"></i> Payment Information</div>
+          <div style="background: #f8f9ff; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+            <div style="font-size: 0.85rem; color: var(--gray-500); margin-bottom: 8px;">
+              <i class="fas fa-lock"></i> Banking information is encrypted and secure. Only visible to verified artists.
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Bank Name</div>
+              <div>Zanaco Bank</div>
+            </div>
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Account Type</div>
+              <div>Savings Account</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Account Holder</div>
+              <div>Kachilonda Chanda</div>
+            </div>
+            <div>
+              <div style="color: var(--gray-500); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Verification Status</div>
+              <div style="color: #10b981; font-weight: 600;">✓ Verified</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fas fa-file-contract"></i> Policy Acknowledgments</div>
+          <div style="display: grid; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f0fdf4; border-radius: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <div>
+                <div style="font-weight: 600;">Terms of Service</div>
+                <div style="font-size: 0.85rem; color: var(--gray-600);">Agreed on March 1, 2025</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f0fdf4; border-radius: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <div>
+                <div style="font-weight: 600;">Privacy Policy</div>
+                <div style="font-size: 0.85rem; color: var(--gray-600);">Agreed on March 1, 2025</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f0fdf4; border-radius: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <div>
+                <div style="font-weight: 600;">Code of Conduct</div>
+                <div style="font-size: 0.85rem; color: var(--gray-600);">Agreed on March 1, 2025</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f0fdf4; border-radius: 8px;">
+              <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+              <div>
+                <div style="font-weight: 600;">Payment Policy</div>
+                <div style="font-size: 0.85rem; color: var(--gray-600);">Agreed on March 1, 2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fas fa-shield-alt"></i> Verification Status</div>
+          <div style="display: grid; gap: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #eff6ff; border-radius: 8px;">
+              <span style="font-weight: 600;">Identity Verified</span>
+              <span style="color: #10b981; font-weight: 600;">✓ Verified</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #eff6ff; border-radius: 8px;">
+              <span style="font-weight: 600;">Background Check</span>
+              <span style="color: #10b981; font-weight: 600;">✓ Passed</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #eff6ff; border-radius: 8px;">
+              <span style="font-weight: 600;">Bank Account Verified</span>
+              <span style="color: #10b981; font-weight: 600;">✓ Verified</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #eff6ff; border-radius: 8px;">
+              <span style="font-weight: 600;">Compliance Status</span>
+              <span style="color: #10b981; font-weight: 600;">✓ Compliant</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: AVAILABILITY -->
+      <div id="tab-availability" class="tab-content" style="display: none;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-calendar-alt"></i> Availability</div>
+          <p style="margin-bottom: 16px;">March 2025 – green = available, red = booked</p>
+          <div style="display:grid; grid-template-columns: repeat(7,1fr); gap:5px;">
+            <div style="text-align:center;font-weight:600;">S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+            <!-- Simplified calendar -->
+            <div></div><div></div><div></div><div style="background:#e0f2fe; border-radius:8px; padding:5px;text-align:center;">1</div>
+            <div style="background:#e0f2fe; border-radius:8px; padding:5px;text-align:center;">2</div>
+            <div style="background:#fee2e2; border-radius:8px; padding:5px;text-align:center;">3</div>
+            <div style="background:#fee2e2; border-radius:8px; padding:5px;text-align:center;">4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR (Booking) -->
+    <div>
+      <div class="booking-card">
+        <div class="price-pill">
+          <span class="price-amount">K3,800</span>
+          <span class="price-per">/ event</span>
+        </div>
+        <div style="background:#fff3cd; border:1px solid #fcd34d; border-radius: 12px; padding:12px; margin-bottom:20px; font-size:0.85rem;">
+          <i class="fas fa-bolt" style="color:#b45309;"></i> High demand – 3 people inquired this week
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Event Date</label>
+          <input type="date" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Event Type</label>
+          <select class="form-select">
+            <option>Wedding</option>
+            <option>Corporate</option>
+            <option>Birthday</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-input" placeholder="Lusaka">
+        </div>
+
+        <button class="btn btn-primary w-full btn-lg" style="margin-bottom:12px;"><i class="fas fa-calendar-check"></i> Check Availability</button>
+        <button class="btn btn-outline w-full"><i class="fas fa-comment"></i> Send Message</button>
+
+        <div class="divider"></div>
+        <div style="font-size:0.8rem; color:var(--gray-500); text-align:center;"><i class="fas fa-lock"></i> Payments protected by Plum</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIMILAR ARTISTS SECTION -->
+<div class="similar-section">
+  <div class="container">
+    <h3 class="similar-title">Similar Artists You May Like</h3>
+    <div class="artists-grid">
+      <a href="#" class="artist-card">
+        <div class="artist-card-img"><i class="fas fa-music"></i></div>
+        <div class="artist-card-body">
+          <div class="artist-card-category">Traditional Music</div>
+          <div class="artist-card-name">Kalimba King</div>
+          <div class="artist-card-rating"><i class="fas fa-star" style="color:#fbbf24;"></i> 4.9</div>
+        </div>
+      </a>
+      <a href="#" class="artist-card">
+        <div class="artist-card-img"><i class="fas fa-headphones"></i></div>
+        <div class="artist-card-body">
+          <div class="artist-card-category">DJ/Producer</div>
+          <div class="artist-card-name">DJ Esthero</div>
+          <div class="artist-card-rating"><i class="fas fa-star" style="color:#fbbf24;"></i> 4.8</div>
+        </div>
+      </a>
+      <a href="#" class="artist-card">
+        <div class="artist-card-img"><i class="fas fa-star"></i></div>
+        <div class="artist-card-body">
+          <div class="artist-card-category">Celebrity</div>
+          <div class="artist-card-name">Sophia Mwale</div>
+          <div class="artist-card-rating"><i class="fas fa-star" style="color:#fbbf24;"></i> 5.0</div>
+        </div>
+      </a>
+      <a href="#" class="artist-card">
+        <div class="artist-card-img"><i class="fas fa-video"></i></div>
+        <div class="artist-card-body">
+          <div class="artist-card-category">Content Creator</div>
+          <div class="artist-card-name">Mulilo Productions</div>
+          <div class="artist-card-rating"><i class="fas fa-star" style="color:#fbbf24;"></i> 5.0</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Tab switching
+  function switchTab(el, tabName) {
+    document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(tc => tc.style.display = 'none');
+    document.getElementById('tab-' + tabName).style.display = 'block';
+  }
+
+  // Profile image preview (simulate upload)
+  function previewProfileImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.querySelector('.avatar-wrap img');
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Highlight upload handlers (demo: just alert)
+  function handleHighlightUpload(e) {
+    const files = e.target.files;
+    if (files.length > 0) {
+      alert(`Uploaded ${files.length} photo(s). In a real app, they would appear in the grid.`);
+      // Here you'd typically upload and then append new elements.
+    }
+  }
+
+  function handleVideoUpload(e) {
+    const file = e.target.files[0];
+    if (file) {
+      alert(`Video "${file.name}" selected. In a real app, it would be processed and shown.`);
+    }
+  }
+
+  // Package selection
+  document.querySelectorAll('.package-card').forEach(card => {
+    card.addEventListener('click', function() {
+      document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  });
+</script>
+</body>
+</html>

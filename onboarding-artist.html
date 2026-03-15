@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome Artist — Plum Onboarding</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #f7f2ff 0%, #ede4ff 100%);
+      color: #1e1b2b;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    :root {
+      --plum-50: #f7f2ff;
+      --plum-100: #ede4ff;
+      --plum-200: #dacfff;
+      --plum-300: #c2b0f5;
+      --plum-400: #9f85e5;
+      --plum-500: #7f5fd6;
+      --plum-600: #6848c2;
+      --plum-700: #5336a3;
+      --plum-800: #3f2980;
+      --plum-900: #2d1c5c;
+      --gray-50: #f9fafc;
+      --gray-100: #f2f4f8;
+      --gray-200: #e6e9f0;
+      --gray-300: #d0d6e0;
+      --gray-400: #a8b1c2;
+      --gray-500: #7f8a9e;
+      --gray-600: #5e677b;
+      --gray-700: #3d4457;
+      --white: #ffffff;
+      --shadow-sm: 0 8px 20px -6px rgba(60, 30, 100, 0.08);
+      --shadow-md: 0 16px 30px -10px rgba(80, 40, 140, 0.15);
+      --shadow-lg: 0 25px 40px -12px rgba(70, 30, 130, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(190, 170, 230, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--plum-800);
+      text-decoration: none;
+    }
+
+    .navbar-actions a {
+      padding: 8px 16px;
+      margin-left: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .navbar-actions a:hover {
+      background: var(--plum-100);
+      color: var(--plum-700);
+    }
+
+    /* MAIN CONTENT */
+    .onboarding-wrapper {
+      padding: 60px 0;
+    }
+
+    .onboarding-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .onboarding-header h1 {
+      font-size: 2.5rem;
+      color: var(--plum-800);
+      margin-bottom: 16px;
+    }
+
+    .onboarding-header p {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* CHECKLIST */
+    .checklist-container {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
+    }
+
+    .checklist-container h2 {
+      font-size: 1.8rem;
+      color: var(--plum-800);
+      margin-bottom: 32px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      background: var(--gray-50);
+      border-radius: 12px;
+      border-left: 4px solid var(--plum-300);
+      transition: all 0.2s;
+    }
+
+    .checklist-item.completed {
+      background: #f0fdf4;
+      border-left-color: #10b981;
+    }
+
+    .checklist-item:hover {
+      transform: translateX(4px);
+    }
+
+    .checklist-checkbox {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--plum-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--plum-700);
+      font-weight: 700;
+      flex-shrink: 0;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    .checklist-item.completed .checklist-checkbox {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    .checklist-content {
+      flex: 1;
+    }
+
+    .checklist-title {
+      font-weight: 700;
+      color: var(--plum-800);
+      margin-bottom: 4px;
+    }
+
+    .checklist-description {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      margin-bottom: 12px;
+    }
+
+    .checklist-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--plum-600);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .checklist-btn:hover {
+      background: var(--plum-700);
+      transform: scale(1.02);
+    }
+
+    /* TIPS & BEST PRACTICES */
+    .tips-section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
+    }
+
+    .tips-section h2 {
+      font-size: 1.8rem;
+      color: var(--plum-800);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .tip-card {
+      background: var(--gray-50);
+      border-radius: 12px;
+      padding: 24px;
+      border-left: 4px solid var(--plum-500);
+    }
+
+    .tip-title {
+      font-weight: 700;
+      color: var(--plum-700);
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .tip-description {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, var(--plum-600), var(--plum-800));
+      color: var(--white);
+      border-radius: 16px;
+      padding: 50px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 40px;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 40px;
+      background: var(--white);
+      color: var(--plum-700);
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--plum-600);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .onboarding-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .cta-section {
+        padding: 32px 24px;
+      }
+
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">Plum</a>
+  <div class="navbar-actions">
+    <a href="dashboard-artist.html">Dashboard</a>
+    <a href="artistprofile.html">My Profile</a>
+    <a href="login.html">Log Out</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="onboarding-wrapper">
+  <div class="container">
+    <!-- HEADER -->
+    <div class="onboarding-header">
+      <h1>Welcome to Plum, Artist! <i class="fas fa-music"></i></h1>
+      <p>Your registration is complete! Let's get your profile ready to start receiving bookings.</p>
+    </div>
+
+    <!-- SETUP CHECKLIST -->
+    <div class="checklist-container">
+      <h2>Setup Checklist</h2>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox">✓</div>
+        <div class="checklist-content">
+          <div class="checklist-title">Your Account is Verified</div>
+          <div class="checklist-description">Your registration is complete and your profile information has been submitted for verification. You should receive verification status within 48 hours.</div>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox">2</div>
+        <div class="checklist-content">
+          <div class="checklist-title">Complete Your Profile</div>
+          <div class="checklist-description">Add professional photos, portfolio links, and detailed information about your services to attract more bookings.</div>
+          <a href="dashboard-artist.html#profile" class="checklist-btn">
+            <i class="fas fa-edit"></i> Complete Profile
+          </a>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox">3</div>
+        <div class="checklist-content">
+          <div class="checklist-title">Set Up Your Services & Packages</div>
+          <div class="checklist-description">Define the services you offer, your rates, and package options to make it easy for clients to book you.</div>
+          <a href="dashboard-artist.html#packages" class="checklist-btn">
+            <i class="fas fa-plus"></i> Create Services
+          </a>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox">4</div>
+        <div class="checklist-content">
+          <div class="checklist-title">Manage Your Availability</div>
+          <div class="checklist-description">Set your available dates and times so customers know when you can perform at their events.</div>
+          <a href="dashboard-artist.html#availability" class="checklist-btn">
+            <i class="fas fa-calendar"></i> Set Availability
+          </a>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox">5</div>
+        <div class="checklist-content">
+          <div class="checklist-title">Start Receiving Bookings</div>
+          <div class="checklist-description">Once your profile is complete, you'll start appearing in search results and receive booking requests from clients.</div>
+          <a href="dashboard-artist.html#bookings" class="checklist-btn">
+            <i class="fas fa-inbox"></i> View Bookings
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEST PRACTICES & TIPS -->
+    <div class="tips-section">
+      <h2>Tips for Success</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-title"><i class="fas fa-star"></i> High-Quality Profile Photo</div>
+          <div class="tip-description">Use a clear, professional profile photo. High-quality images attract more bookings and help clients remember you.</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-title"><i class="fas fa-pencil"></i> Detailed Descriptions</div>
+          <div class="tip-description">Write compelling descriptions of your experience, specialties, and what makes you unique. Help clients understand what you offer.</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-title"><i class="fas fa-camera"></i> Portfolio & Media</div>
+          <div class="tip-description">Add photos and videos of your performances, past events, or highlights. Social proof significantly increases bookings.</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-title"><i class="fas fa-reply-all"></i> Respond Quickly</div>
+          <div class="tip-description">Reply to booking inquiries within 24 hours. Fast responses increase your chances of getting booked.</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-title"><i class="fas fa-tags"></i> Competitive Pricing</div>
+          <div class="tip-description">Research market rates in Zambia and set prices that reflect your experience and value. You can adjust over time.</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-title"><i class="fas fa-heart"></i> Ask for Reviews</div>
+          <div class="tip-description">After completing bookings, ask satisfied clients to leave reviews. Positive reviews build trust and attract more business.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORTANT INFORMATION -->
+    <div class="tips-section" style="background: #fff8e1; border-left: 4px solid #f59e0b;">
+      <h2>Important Information</h2>
+      <div style="background: transparent; display: grid; gap: 16px;">
+        <div>
+          <strong style="color: #92400e;"><i class="fas fa-info-circle"></i> 15% Platform Fee</strong>
+          <p style="color: #78350f; margin-top: 8px;">Plum charges a 15% platform fee on all bookings. You receive 85% of the booking amount after the event is completed.</p>
+        </div>
+        <div>
+          <strong style="color: #92400e;"><i class="fas fa-file-contract"></i> Payment Policy</strong>
+          <p style="color: #78350f; margin-top: 8px;">Payments are processed 48 hours after event completion. Your bank account must be verified before receiving payments.</p>
+        </div>
+        <div>
+          <strong style="color: #92400e;"><i class="fas fa-ban"></i> Cancellation Penalties</strong>
+          <p style="color: #78350f; margin-top: 8px;">Canceling within 24 hours results in 100% penalty. Please be responsible and honor your commitments to maintain your reputation.</p>
+        </div>
+        <div>
+          <strong style="color: #92400e;"><i class="fas fa-gavel"></i> Code of Conduct</strong>
+          <p style="color: #78350f; margin-top: 8px;">Review our <a href="code-of-conduct.html" style="color: #b45309; text-decoration: underline;">Code of Conduct</a> to understand platform policies and expectations.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA SECTION -->
+    <div class="cta-section">
+      <h2>Ready to Get Started?</h2>
+      <p>Complete your profile and start receiving booking requests. The more complete your profile, the more bookings you'll get!</p>
+      <a href="dashboard-artist.html" class="btn-cta">
+        <i class="fas fa-arrow-right"></i> Go to Dashboard
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Plum Entertainment. All rights reserved. | <a href="terms.html">Terms</a> | <a href="privacy.html">Privacy</a> | <a href="code-of-conduct.html">Code of Conduct</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

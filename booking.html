@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book The Velvet Trio — Plum</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/booking.css">
+  <link rel="stylesheet" href="componenets.css">
+
+
+  
+</head>
+<body>
+
+<nav class="navbar scrolled">
+  <a href="../index.html" class="navbar-logo">Plum <span class="logo-dot"></span></a>
+  <div class="navbar-actions">
+    <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+  </div>
+</nav>
+
+<!-- STEPS BAR -->
+<div class="steps-wrapper">
+  <div class="container">
+    <div class="steps-inner">
+      <div class="step-item-wrap">
+        <div class="step-num active" id="sn-1">1</div>
+        <span class="step-txt active" id="st-1">Event Details</span>
+      </div>
+      <div class="step-connector" id="sc-1"></div>
+      <div class="step-item-wrap">
+        <div class="step-num" id="sn-2">2</div>
+        <span class="step-txt" id="st-2">Packages & Add-ons</span>
+      </div>
+      <div class="step-connector" id="sc-2"></div>
+      <div class="step-item-wrap">
+        <div class="step-num" id="sn-3">3</div>
+        <span class="step-txt" id="st-3">Payment</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div style="margin-top:8px;padding:14px 0;">
+    <a href="artist-profile.html" style="font-size:0.875rem;color:var(--plum-500);">← Back to Artist Profile</a>
+  </div>
+
+  <div class="booking-layout">
+    <!-- FORM AREA -->
+    <div>
+
+      <!-- STEP 1: Event Details -->
+      <div class="booking-form-card booking-step" id="booking-step-1">
+        <h2 class="booking-step-title">Tell us about your event</h2>
+        <p class="booking-step-sub">Help The Velvet Trio prepare the perfect performance for you.</p>
+
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Event Date *</label>
+              <input type="date" class="form-input" id="event-date" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Event Start Time *</label>
+              <input type="time" class="form-input" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Event Type *</label>
+            <select class="form-select">
+              <option value="">Select your event type</option>
+              <option>Wedding Reception</option>
+              <option>Wedding Ceremony</option>
+              <option>Corporate Event / Gala</option>
+              <option>Birthday Party</option>
+              <option>Private Dinner Party</option>
+              <option>Concert / Show</option>
+              <option>Bar / Restaurant</option>
+              <option>Festival</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Event Venue / Location *</label>
+            <input type="text" class="form-input" placeholder="Venue name and full address" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Expected Guest Count</label>
+              <select class="form-select">
+                <option>Under 50 guests</option>
+                <option selected>50–100 guests</option>
+                <option>100–200 guests</option>
+                <option>200–500 guests</option>
+                <option>500+ guests</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Performance Duration</label>
+              <select class="form-select">
+                <option>1 hour</option>
+                <option selected>2 hours</option>
+                <option>3 hours</option>
+                <option>4 hours</option>
+                <option>4+ hours</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Song Requests / Special Notes</label>
+            <textarea class="form-textarea" placeholder="List any specific songs, theme requirements, dress code preferences, or other special requests…"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Indoor or Outdoor?</label>
+            <div style="display:flex;gap:12px;margin-top:4px;">
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.9rem;font-weight:500;color:var(--plum-700);">
+                <input type="radio" name="venue-type" value="indoor" style="accent-color:var(--plum-600);" checked> Indoor
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.9rem;font-weight:500;color:var(--plum-700);">
+                <input type="radio" name="venue-type" value="outdoor" style="accent-color:var(--plum-600);"> Outdoor
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.9rem;font-weight:500;color:var(--plum-700);">
+                <input type="radio" name="venue-type" value="both" style="accent-color:var(--plum-600);"> Both
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Packages & Add-ons -->
+      <div class="booking-form-card booking-step" id="booking-step-2" style="display:none;">
+        <h2 class="booking-step-title">Choose your package</h2>
+        <p class="booking-step-sub">Select the package that best fits your event needs.</p>
+
+        <div style="margin-bottom:28px;">
+          <div class="package-option" data-price="800" onclick="selectPackage(this)" style="border:2px solid var(--plum-200);border-radius:var(--radius-lg);padding:20px;cursor:pointer;margin-bottom:12px;transition:var(--transition);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-weight:700;font-size:1rem;color:var(--plum-800);"><i class="fas fa-music"></i> Essential Package <span style="font-size:0.8rem;font-weight:500;color:var(--gray-500);">2 hours</span></div>
+                <div style="font-size:0.875rem;color:var(--gray-500);margin-top:4px;line-height:1.5;">1 × 90-min set, standard PA system, setlist consultation</div>
+              </div>
+              <div style="font-size:1.3rem;font-weight:700;color:var(--plum-600);flex-shrink:0;margin-left:16px;">K2,500</div>
+            </div>
+          </div>
+          <div class="package-option selected" data-price="1200" onclick="selectPackage(this)" style="border:2px solid var(--plum-600);border-radius:var(--radius-lg);padding:20px;cursor:pointer;margin-bottom:12px;background:var(--plum-50);transition:var(--transition);position:relative;">
+            <div style="position:absolute;top:-10px;left:20px;background:var(--plum-600);color:white;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:var(--radius-full);letter-spacing:0.04em;">MOST POPULAR</div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-weight:700;font-size:1rem;color:var(--plum-800);"><i class="fas fa-guitar"></i> Standard Package <span style="font-size:0.8rem;font-weight:500;color:var(--gray-500);">3 hours</span></div>
+                <div style="font-size:0.875rem;color:var(--gray-500);margin-top:4px;line-height:1.5;">2 × 45-min sets, up to 5 custom requests, full PA system</div>
+              </div>
+              <div style="font-size:1.3rem;font-weight:700;color:var(--plum-600);flex-shrink:0;margin-left:16px;">K3,800</div>
+            </div>
+          </div>
+          <div class="package-option" data-price="1800" onclick="selectPackage(this)" style="border:2px solid var(--plum-200);border-radius:var(--radius-lg);padding:20px;cursor:pointer;transition:var(--transition);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-weight:700;font-size:1rem;color:var(--plum-800);">✨ Premium Package <span style="font-size:0.8rem;font-weight:500;color:var(--gray-500);">4+ hours</span></div>
+                <div style="font-size:0.875rem;color:var(--gray-500);margin-top:4px;line-height:1.5;">Full wedding coverage, unlimited requests, cocktail hour & reception</div>
+              </div>
+              <div style="font-size:1.3rem;font-weight:700;color:var(--plum-600);flex-shrink:0;margin-left:16px;">K5,500</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add-ons -->
+        <div style="font-family:var(--font-display);font-size:1.2rem;color:var(--plum-800);margin-bottom:16px;">Optional Add-ons</div>
+        <div class="addon-item" onclick="this.querySelector('input').click()">
+          <div class="addon-item-left">
+            <input type="checkbox" class="addon-check" data-price="200" style="accent-color:var(--plum-600);width:18px;height:18px;" onclick="event.stopPropagation()" />
+            <div>
+              <div class="addon-info-name"><i class="fas fa-microphone"></i> MC Services</div>
+              <div class="addon-info-desc">Professional emcee for your event (announcements, introductions)</div>
+            </div>
+          </div>
+          <div style="font-weight:700;color:var(--plum-600);">+K700</div>
+        </div>
+        <div class="addon-item" onclick="this.querySelector('input').click()">
+          <div class="addon-item-left">
+            <input type="checkbox" class="addon-check" data-price="150" style="accent-color:var(--plum-600);width:18px;height:18px;" onclick="event.stopPropagation()" />
+            <div>
+              <div class="addon-info-name"><i class="fas fa-music"></i> Extra Hour</div>
+              <div class="addon-info-desc">Add one additional hour of performance time</div>
+            </div>
+          </div>
+          <div style="font-weight:700;color:var(--plum-600);">+K500</div>
+        </div>
+        <div class="addon-item" onclick="this.querySelector('input').click()">
+          <div class="addon-item-left">
+            <input type="checkbox" class="addon-check" data-price="100" style="accent-color:var(--plum-600);width:18px;height:18px;" onclick="event.stopPropagation()" />
+            <div>
+              <div class="addon-info-name"><i class="fas fa-heart"></i> First Dance Learning</div>
+              <div class="addon-info-desc">We'll learn and perform your specific first dance song</div>
+            </div>
+          </div>
+          <div style="font-weight:700;color:var(--plum-600);">+K300</div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Payment -->
+      <div class="booking-form-card booking-step" id="booking-step-3" style="display:none;">
+        <h2 class="booking-step-title">Secure Payment</h2>
+        <p class="booking-step-sub">Your payment is protected. Funds are held by Plum until after the event.</p>
+
+        <div style="background:var(--plum-50);border:1px solid var(--plum-200);border-radius:var(--radius-md);padding:16px;margin-bottom:28px;display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:1.3rem;">🔒</span>
+          <div>
+            <div style="font-weight:600;font-size:0.9375rem;color:var(--plum-800);">Plum Payment Protection</div>
+            <div style="font-size:0.85rem;color:var(--gray-500);margin-top:3px;line-height:1.5;">Your payment is held securely by Plum and only released to the artist after your event. All transactions are processed through our secure platform — never directly to the artist.</div>
+          </div>
+        </div>
+
+        <!-- Deposit info -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;">
+          <div style="background:var(--cream);border-radius:var(--radius-md);padding:16px;text-align:center;border:1px solid var(--plum-200);">
+            <div style="font-size:1.4rem;font-weight:700;color:var(--plum-700);" id="deposit-amount">K750</div>
+            <div style="font-size:0.82rem;color:var(--gray-500);margin-top:4px;">Due Today (20% deposit)</div>
+          </div>
+          <div style="background:var(--cream);border-radius:var(--radius-md);padding:16px;text-align:center;border:1px solid var(--plum-200);">
+            <div style="font-size:1.4rem;font-weight:700;color:var(--plum-700);" id="remaining-amount">K3,000</div>
+            <div style="font-size:0.82rem;color:var(--gray-500);margin-top:4px;">Due 7 days before event</div>
+          </div>
+        </div>
+
+        <!-- Payment method -->
+        <div style="font-weight:600;font-size:0.9375rem;color:var(--plum-800);margin-bottom:14px;">Payment Method</div>
+
+        <div class="payment-method selected" onclick="selectPayment(this)">
+          <div class="payment-icon">VISA</div>
+          <div>
+            <div class="payment-name">Credit / Debit Card</div>
+            <div class="payment-desc">Visa, Mastercard, Amex, Discover</div>
+          </div>
+        </div>
+        <div class="payment-method" onclick="selectPayment(this)">
+          <div class="payment-icon" style="font-size:1.2rem;"><i class="fas fa-wallet"></i></div>
+          <div>
+            <div class="payment-name">PayPal</div>
+            <div class="payment-desc">Pay with your PayPal account</div>
+          </div>
+        </div>
+        <div class="payment-method" onclick="selectPayment(this)">
+          <div class="payment-icon" style="font-size:1.2rem;">🍎</div>
+          <div>
+            <div class="payment-name">Apple Pay</div>
+            <div class="payment-desc">Quick payment with Face ID / Touch ID</div>
+          </div>
+        </div>
+
+        <!-- Card Fields -->
+        <div id="card-fields" style="margin-top:20px;display:flex;flex-direction:column;gap:16px;">
+          <div class="form-group">
+            <label class="form-label">Card Number</label>
+            <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Expiry Date</label>
+              <input type="text" class="form-input" placeholder="MM / YY" maxlength="7" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">CVV</label>
+              <input type="text" class="form-input" placeholder="123" maxlength="4" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Name on Card</label>
+            <input type="text" class="form-input" placeholder="Full name as shown on card" />
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-top:20px;padding:14px;background:var(--gray-100);border-radius:var(--radius-md);">
+          <input type="checkbox" style="accent-color:var(--plum-600);margin-top:3px;flex-shrink:0;" checked />
+          <span style="font-size:0.85rem;color:var(--gray-600);line-height:1.6;">I agree to Plum's <a href="#" style="color:var(--plum-600);">Booking Terms</a> and authorize the deposit charge. I understand the remaining balance is due 7 days before the event.</span>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div style="display:flex;justify-content:space-between;margin-top:24px;gap:12px;">
+        <button class="btn btn-outline btn-lg" id="booking-back" style="display:none;">← Back</button>
+        <button class="btn btn-primary btn-lg" id="booking-next" style="margin-left:auto;">Continue →</button>
+        <button class="btn btn-gold btn-lg" id="booking-submit" style="display:none;">🔒 Confirm & Pay K750</button>
+      </div>
+    </div>
+
+    <!-- ORDER SUMMARY SIDEBAR -->
+    <div>
+      <div class="summary-card">
+        <div style="font-family:var(--font-display);font-size:1.2rem;color:var(--plum-900);margin-bottom:20px;">Order Summary</div>
+
+        <div class="summary-artist">
+          <div class="summary-artist-avatar"><i class="fas fa-guitar"></i></div>
+          <div>
+            <div style="font-weight:700;font-size:1rem;color:var(--plum-800);">The Velvet Trio</div>
+            <div style="font-size:0.82rem;color:var(--gray-500);">Jazz Band · New York, NY</div>
+            <div class="stars" style="margin-top:4px;font-size:0.8rem;">★★★★★</div>
+          </div>
+        </div>
+
+        <div id="event-summary">
+          <div class="summary-line">
+            <span style="color:var(--gray-500);">Event Date</span>
+            <strong>TBD</strong>
+          </div>
+          <div class="summary-line">
+            <span style="color:var(--gray-500);">Event Type</span>
+            <strong>TBD</strong>
+          </div>
+          <div class="summary-line">
+            <span style="color:var(--gray-500);">Duration</span>
+            <strong>2 hours</strong>
+          </div>
+        </div>
+
+        <div style="height:1px;background:var(--plum-100);margin:16px 0;"></div>
+
+        <div class="summary-line">
+          <span style="color:var(--gray-500);">Package: Standard</span>
+          <span id="summary-price" style="font-weight:600;">K3,800</span>
+        </div>
+        <div class="summary-line" id="addon-mc-line" style="display:none;">
+          <span style="color:var(--gray-500);">+ MC Services</span>
+          <span>K700</span>
+        </div>
+        <div class="summary-line">
+          <span style="color:var(--gray-500);">Plum service fee (12%)</span>
+          <span>K450</span>
+        </div>
+
+        <div class="summary-line total">
+          <span>Total</span>
+          <span id="booking-total">K4,200</span>
+        </div>
+
+        <div style="margin-top:20px;padding:14px;background:var(--plum-50);border-radius:var(--radius-md);font-size:0.82rem;line-height:1.6;color:var(--plum-700);">
+          <strong>Cancellation Policy:</strong> Full refund if cancelled 30+ days before event. 50% refund within 15–30 days.
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;margin-top:16px;font-size:0.78rem;color:var(--gray-500);">
+          🔒 Secured by 256-bit SSL encryption
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/booking.js"></script>
+<script>
+function selectPackage(el) {
+  document.querySelectorAll('.package-option').forEach(p => {
+    p.style.borderColor = 'var(--plum-200)';
+    p.style.background = 'var(--white)';
+    p.classList.remove('selected');
+  });
+  el.style.borderColor = 'var(--plum-600)';
+  el.style.background = 'var(--plum-50)';
+  el.classList.add('selected');
+  const price = parseInt(el.dataset.price);
+  document.getElementById('summary-price').textContent = 'K' + price.toLocaleString();
+  const fee = Math.round(price * 0.12);
+  document.getElementById('booking-total').textContent = 'K' + (price + fee).toLocaleString();
+  const deposit = Math.round((price + fee) * 0.2);
+  document.getElementById('deposit-amount').textContent = 'K' + deposit;
+  document.getElementById('remaining-amount').textContent = 'K' + ((price + fee) - deposit);
+}
+
+function selectPayment(el) {
+  document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('card-fields').style.display =
+    el.querySelector('.payment-name').textContent.includes('Card') ? 'flex' : 'none';
+}
+
+// Update steps UI
+function updateBookingSteps(step) {
+  [1,2,3].forEach(i => {
+    const sn = document.getElementById('sn-' + i);
+    const st = document.getElementById('st-' + i);
+    sn.classList.remove('active','done');
+    st.classList.remove('active');
+    if (i < step) { sn.classList.add('done'); sn.textContent = '✓'; }
+    else if (i === step) { sn.classList.add('active'); sn.textContent = i; st.classList.add('active'); }
+    else { sn.textContent = i; }
+    if (i < 3) {
+      const sc = document.getElementById('sc-' + i);
+      if (sc) sc.classList.toggle('done', i < step);
+    }
+  });
+}
+
+// Override booking.js step update
+const origUpdateSteps = window.updateSteps;
+document.getElementById('booking-next').addEventListener('click', () => {
+  setTimeout(() => updateBookingSteps(window.currentStep || 1), 10);
+});
+document.getElementById('booking-back').addEventListener('click', () => {
+  setTimeout(() => updateBookingSteps(window.currentStep || 1), 10);
+});
+</script>
+</body>
+</html>
