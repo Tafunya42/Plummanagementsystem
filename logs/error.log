@@ -1,0 +1,208 @@
+[25-Mar-2026 22:59:26 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"artist","agree_terms":true,"stage_name":"Yo Boy"}
+[25-Mar-2026 23:05:27 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:05:37 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:05:37 Europe/Berlin] User creation failed: Unknown column 'token' in 'field list'
+[25-Mar-2026 23:05:49 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:06:51 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:07:03 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:08:07 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:08:19 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:09:05 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:12:42 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:22:00 Europe/Berlin] Resend request received: {"token":"<?php echo htmlspecialchars($token); ?>"}
+[25-Mar-2026 23:22:11 Europe/Berlin] Resend request received: {"token":"<?php echo htmlspecialchars($token); ?>"}
+[25-Mar-2026 23:22:52 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:23:47 Europe/Berlin] Verify request received: {"code":"364137","token":"<?php echo htmlspecialchars($token); ?>"}
+[25-Mar-2026 23:31:17 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[25-Mar-2026 23:33:24 Europe/Berlin] Verify request received: {"code":"748703","token":"b4207b9c28550627c8d4267db5a801564c02fa6602a71b13a7ae0c5bb4b4b143"}
+[26-Mar-2026 00:51:46 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:52:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:52:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:52:45 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:53:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 00:54:38 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"artist","agree_terms":true,"stage_name":"Yo Boy"}
+[26-Mar-2026 00:54:49 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"artist","agree_terms":true,"stage_name":"Yo Boy"}
+[26-Mar-2026 00:55:04 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"artist","agree_terms":true,"stage_name":"Yo Boy"}
+[26-Mar-2026 00:55:24 Europe/Berlin] Verify request received: {"code":"600420","token":"4d4570903073a7e5e1b843d7b0cf102ebe832dfc7e88c5976170560b7672f443"}
+[26-Mar-2026 00:58:56 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:01:33 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:02:01 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:39 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:40 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:41 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:41 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:41 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:43 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:03:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:09:17 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:09:37 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'replied_at' in 'field list' in C:\xampp\htdocs\plum\dashboard-artist.php:108
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-artist.php(108): mysqli->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-artist.php on line 108
+[26-Mar-2026 01:21:07 Europe/Berlin] Registration request: {"full_name":"Aaron Mubiana","email":"aaronmubby@gmail.com","password":"Aaronmubby@23","user_type":"client","agree_terms":true}
+[26-Mar-2026 01:21:47 Europe/Berlin] Verify request received: {"code":"307585","token":"518b75f606dfbd50e8706b8010cb98a3f85e269ec07b76ed7549678c2bb1912a"}
+[26-Mar-2026 01:21:49 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:69
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(69): mysqli->prepare('\r\n    SELECT b....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 69
+[26-Mar-2026 01:24:01 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:90
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(90): mysqli->prepare('\r\n    SELECT u....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 90
+[26-Mar-2026 01:24:03 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:90
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(90): mysqli->prepare('\r\n    SELECT u....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 90
+[26-Mar-2026 01:24:21 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:90
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(90): mysqli->prepare('\r\n    SELECT u....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 90
+[26-Mar-2026 01:24:22 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'u.category' in 'field list' in C:\xampp\htdocs\plum\dashboard-client.php:90
+Stack trace:
+#0 C:\xampp\htdocs\plum\dashboard-client.php(90): mysqli->prepare('\r\n    SELECT u....')
+#1 {main}
+  thrown in C:\xampp\htdocs\plum\dashboard-client.php on line 90

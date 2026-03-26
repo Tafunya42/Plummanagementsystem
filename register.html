@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -59,28 +60,43 @@
       text-decoration: none;
       gap: 6px;
     }
-    .btn-sm { padding: 8px 18px; font-size: 0.9rem; }
-    .btn-lg { padding: 14px 28px; font-size: 1rem; }
+
+    .btn-sm {
+      padding: 8px 18px;
+      font-size: 0.9rem;
+    }
+
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 1rem;
+    }
+
     .btn-primary {
       background: var(--plum-600);
       color: white;
       box-shadow: 0 6px 14px rgba(132, 60, 255, 0.25);
     }
+
     .btn-primary:hover {
       background: var(--plum-700);
       transform: scale(1.02);
       box-shadow: 0 10px 20px rgba(109, 40, 217, 0.3);
     }
+
     .btn-ghost {
       background: transparent;
       color: var(--plum-700);
       border: 1px solid var(--plum-200);
     }
+
     .btn-ghost:hover {
       background: var(--plum-50);
       border-color: var(--plum-300);
     }
-    .w-full { width: 100%; }
+
+    .w-full {
+      width: 100%;
+    }
 
     /* navbar (same) */
     .navbar {
@@ -93,10 +109,19 @@
       border-bottom: 1px solid rgba(230, 210, 255, 0.3);
       animation: slideDown 0.6s ease-out;
     }
+
     @keyframes slideDown {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .navbar-logo {
       font-size: 1.8rem;
       font-weight: 700;
@@ -106,6 +131,7 @@
       align-items: center;
       gap: 6px;
     }
+
     .logo-dot {
       width: 10px;
       height: 10px;
@@ -114,8 +140,26 @@
       display: inline-block;
       animation: pulse 2s infinite;
     }
-    @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
-    .navbar-links { display: flex; gap: 2.5rem; }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.6;
+      }
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
     .navbar-link {
       text-decoration: none;
       color: var(--gray-600);
@@ -123,7 +167,11 @@
       transition: color 0.2s;
       position: relative;
     }
-    .navbar-link:hover { color: var(--plum-700); }
+
+    .navbar-link:hover {
+      color: var(--plum-700);
+    }
+
     .navbar-link::after {
       content: '';
       position: absolute;
@@ -134,8 +182,15 @@
       background: var(--plum-400);
       transition: width 0.2s ease;
     }
-    .navbar-link:hover::after { width: 100%; }
-    .navbar-actions { display: flex; gap: 12px; }
+
+    .navbar-link:hover::after {
+      width: 100%;
+    }
+
+    .navbar-actions {
+      display: flex;
+      gap: 12px;
+    }
 
     /* layout */
     .auth-layout {
@@ -155,6 +210,7 @@
       overflow: hidden;
       border-radius: 0 3rem 3rem 0;
     }
+
     .auth-panel::before {
       content: '';
       position: absolute;
@@ -167,6 +223,7 @@
       z-index: 0;
       animation: floatBlob3 18s infinite alternate;
     }
+
     .auth-panel::after {
       content: '';
       position: absolute;
@@ -179,15 +236,34 @@
       z-index: 0;
       animation: floatBlob4 22s infinite alternate;
     }
+
     @keyframes floatBlob3 {
-      0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-      100% { transform: translate(-20px, 40px) scale(1.15); opacity: 1; }
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: translate(-20px, 40px) scale(1.15);
+        opacity: 1;
+      }
     }
+
     @keyframes floatBlob4 {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, -30px) scale(1.2); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(30px, -30px) scale(1.2);
+      }
     }
-    .panel-content { position: relative; z-index: 2; }
+
+    .panel-content {
+      position: relative;
+      z-index: 2;
+    }
+
     .panel-logo {
       font-size: 2rem;
       font-weight: 700;
@@ -200,6 +276,7 @@
       opacity: 0;
       animation: fadeUp 0.5s 0.1s forwards;
     }
+
     .panel-quote {
       font-size: 2.3rem;
       font-weight: 500;
@@ -209,7 +286,14 @@
       opacity: 0;
       animation: fadeUp 0.5s 0.2s forwards;
     }
-    .panel-quote em { background: linear-gradient(120deg, #9f5fff, #6d28d9); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .panel-quote em {
+      background: linear-gradient(120deg, #9f5fff, #6d28d9);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     .panel-sub {
       font-size: 1.1rem;
       color: var(--gray-500);
@@ -217,10 +301,19 @@
       opacity: 0;
       animation: fadeUp 0.5s 0.3s forwards;
     }
+
     @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(15px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .panel-cards {
       display: flex;
       flex-direction: column;
@@ -229,21 +322,24 @@
       opacity: 0;
       animation: fadeUp 0.5s 0.4s forwards;
     }
+
     .mini-artist-card {
       display: flex;
       align-items: center;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(4px);
       padding: 12px 18px;
       border-radius: 40px;
       box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(255,255,255,0.7);
+      border: 1px solid rgba(255, 255, 255, 0.7);
       transition: all 0.2s ease;
     }
+
     .mini-artist-card:hover {
       transform: translateX(6px) scale(1.01);
       background: white;
     }
+
     .mini-artist-icon {
       font-size: 1.5rem;
       width: 40px;
@@ -254,9 +350,21 @@
       color: var(--plum-600);
       margin-right: 14px;
     }
-    .mini-artist-name { font-weight: 600; color: var(--plum-800); }
-    .mini-artist-cat { font-size: 0.8rem; color: var(--gray-500); }
-    .mini-artist-stars { margin-left: auto; color: #fbbf24; }
+
+    .mini-artist-name {
+      font-weight: 600;
+      color: var(--plum-800);
+    }
+
+    .mini-artist-cat {
+      font-size: 0.8rem;
+      color: var(--gray-500);
+    }
+
+    .mini-artist-stars {
+      margin-left: auto;
+      color: #fbbf24;
+    }
 
     /* right panel register */
     .auth-form-panel {
@@ -270,11 +378,24 @@
       box-shadow: var(--shadow-lg);
       animation: slideRight 0.5s 0.2s both;
     }
+
     @keyframes slideRight {
-      0% { opacity: 0; transform: translateX(20px); }
-      100% { opacity: 1; transform: translateX(0); }
+      0% {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
-    .auth-form-box { max-width: 420px; width: 100%; }
+
+    .auth-form-box {
+      max-width: 420px;
+      width: 100%;
+    }
+
     .auth-title {
       font-size: 2rem;
       font-weight: 700;
@@ -282,6 +403,7 @@
       margin-bottom: 8px;
       animation: fadeUp 0.5s 0.25s both;
     }
+
     .auth-subtitle {
       font-size: 0.95rem;
       color: var(--gray-500);
@@ -316,13 +438,20 @@
       gap: 8px;
     }
 
-    .role-tab i { font-size: 1rem; color: var(--gray-400); }
+    .role-tab i {
+      font-size: 1rem;
+      color: var(--gray-400);
+    }
+
     .role-tab.active {
       background: white;
       color: var(--plum-700);
       box-shadow: var(--shadow-sm);
     }
-    .role-tab.active i { color: var(--plum-600); }
+
+    .role-tab.active i {
+      color: var(--plum-600);
+    }
 
     /* Role info box */
     .role-info-box {
@@ -343,12 +472,17 @@
       align-items: center;
       gap: 8px;
     }
-    .info-title i { color: var(--plum-500); }
+
+    .info-title i {
+      color: var(--plum-500);
+    }
+
     .info-features {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
+
     .info-feature {
       display: flex;
       align-items: center;
@@ -356,14 +490,26 @@
       font-size: 0.85rem;
       color: var(--gray-600);
     }
-    .info-feature i { color: var(--plum-500); width: 18px; font-size: 0.9rem; }
+
+    .info-feature i {
+      color: var(--plum-500);
+      width: 18px;
+      font-size: 0.9rem;
+    }
 
     /* Form panels */
-    .form-panel { display: none; }
-    .form-panel.active { display: block; }
+    .form-panel {
+      display: none;
+    }
+
+    .form-panel.active {
+      display: block;
+    }
 
     /* Form fields */
-    .field-group { margin-bottom: 20px; }
+    .field-group {
+      margin-bottom: 20px;
+    }
 
     label {
       display: block;
@@ -421,7 +567,12 @@
       font-size: 0.8rem;
       margin: 20px 0;
     }
-    .or-line { flex: 1; height: 1px; background: var(--gray-200); }
+
+    .or-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
 
     /* Social buttons */
     .social-btns {
@@ -430,6 +581,7 @@
       gap: 12px;
       margin-bottom: 24px;
     }
+
     .social-btn {
       padding: 12px;
       border-radius: 40px;
@@ -444,11 +596,15 @@
       cursor: pointer;
       transition: 0.2s;
     }
+
     .social-btn:hover {
       background: var(--gray-50);
       border-color: var(--plum-300);
     }
-    .social-btn i { font-size: 1.1rem; }
+
+    .social-btn i {
+      font-size: 1.1rem;
+    }
 
     /* Submit button */
     .btn-submit {
@@ -469,6 +625,7 @@
       gap: 10px;
       margin-bottom: 20px;
     }
+
     .btn-submit:hover {
       background: var(--plum-700);
       transform: translateY(-2px);
@@ -481,12 +638,16 @@
       font-size: 0.85rem;
       color: var(--gray-500);
     }
+
     .signup-link {
       color: var(--plum-600);
       font-weight: 600;
       text-decoration: none;
     }
-    .signup-link:hover { color: var(--plum-700); }
+
+    .signup-link:hover {
+      color: var(--plum-700);
+    }
 
     .back-link {
       font-size: 0.9rem;
@@ -497,242 +658,216 @@
       gap: 6px;
       margin-bottom: 20px;
     }
-    .back-link:hover { color: var(--plum-700); gap: 10px; }
+
+    .back-link:hover {
+      color: var(--plum-700);
+      gap: 10px;
+    }
   </style>
 </head>
+
 <body>
-<nav class="navbar">
-  <a href="index.html" class="navbar-logo">Plum <span class="logo-dot"></span></a>
-  <div class="navbar-links">
-    <a href="Browse.html" class="navbar-link">Find Artists</a>
-    <a href="#" class="navbar-link">How It Works</a>
-    <a href="#" class="navbar-link">For Artists</a>
-  </div>
-  <div class="navbar-actions">
-    <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
-    <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
-  </div>
-</nav>
-
-<div class="auth-layout">
-  <!-- LEFT PANEL (register variant) -->
-  <div class="auth-panel">
-    <div class="panel-content">
-      <a href="index.html" class="panel-logo">Plum <span class="logo-dot"></span></a>
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Plum <span class="logo-dot"></span></a>
+    <div class="navbar-links">
+      <a href="Browse.html" class="navbar-link">Find Artists</a>
+      <a href="#" class="navbar-link">How It Works</a>
+      <a href="#" class="navbar-link">For Artists</a>
     </div>
-    <div class="panel-content" style="margin: auto 0;">
-      <p class="panel-quote">Start your journey with <em>extraordinary</em> talent.</p>
-      <p class="panel-sub">Join thousands of clients and artists creating unforgettable events.</p>
+    <div class="navbar-actions">
+      <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+      <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
     </div>
-    <div class="panel-content">
-      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--plum-300);margin-bottom:14px;">Artists on Plum</div>
-      <div class="panel-cards">
-        <div class="mini-artist-card">
-          <div class="mini-artist-icon"><i class="fas fa-microphone"></i></div>
-          <div><div class="mini-artist-name">Kachilonda</div><div class="mini-artist-cat">Hip-Hop Artist · Lusaka</div></div>
-          <div class="mini-artist-stars">★★★★★</div>
+  </nav>
+
+  <div class="auth-layout">
+    <!-- LEFT PANEL (register variant) -->
+    <div class="auth-panel">
+      <div class="panel-content">
+        <a href="index.html" class="panel-logo">Plum <span class="logo-dot"></span></a>
+      </div>
+      <div class="panel-content" style="margin: auto 0;">
+        <p class="panel-quote">Start your journey with <em>extraordinary</em> talent.</p>
+        <p class="panel-sub">Join thousands of clients and artists creating unforgettable events.</p>
+      </div>
+      <div class="panel-content">
+        <div
+          style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--plum-300);margin-bottom:14px;">
+          Artists on Plum</div>
+        <div class="panel-cards">
+          <div class="mini-artist-card">
+            <div class="mini-artist-icon"><i class="fas fa-microphone"></i></div>
+            <div>
+              <div class="mini-artist-name">Kachilonda</div>
+              <div class="mini-artist-cat">Hip-Hop Artist · Lusaka</div>
+            </div>
+            <div class="mini-artist-stars">★★★★★</div>
+          </div>
+          <div class="mini-artist-card">
+            <div class="mini-artist-icon"><i class="fas fa-star"></i></div>
+            <div>
+              <div class="mini-artist-name">Sophia Mwale</div>
+              <div class="mini-artist-cat">Celebrity · Ndola</div>
+            </div>
+            <div class="mini-artist-stars">★★★★★</div>
+          </div>
+          <div class="mini-artist-card">
+            <div class="mini-artist-icon"><i class="fas fa-headphones"></i></div>
+            <div>
+              <div class="mini-artist-name">DJ Esthero</div>
+              <div class="mini-artist-cat">DJ/Producer · Livingstone</div>
+            </div>
+            <div class="mini-artist-stars">★★★★☆</div>
+          </div>
         </div>
-        <div class="mini-artist-card">
-          <div class="mini-artist-icon"><i class="fas fa-star"></i></div>
-          <div><div class="mini-artist-name">Sophia Mwale</div><div class="mini-artist-cat">Celebrity · Ndola</div></div>
-          <div class="mini-artist-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <!-- RIGHT FORM PANEL (register) -->
+    <div class="auth-form-panel">
+      <div class="auth-form-box">
+
+        <h1 class="auth-title">Create an account</h1>
+        <p class="auth-subtitle">Join as a client or artist and start connecting.</p>
+
+        <!-- Role Tabs (client / artist) -->
+        <div class="role-tabs" id="roleTabs">
+          <button class="role-tab active" id="tab-client" onclick="switchRole('client')"><i class="fas fa-user"></i>
+            Client</button>
+          <button class="role-tab" id="tab-artist" onclick="switchRole('artist')"><i class="fas fa-microphone-alt"></i>
+            Artist</button>
         </div>
-        <div class="mini-artist-card">
-          <div class="mini-artist-icon"><i class="fas fa-headphones"></i></div>
-          <div><div class="mini-artist-name">DJ Esthero</div><div class="mini-artist-cat">DJ/Producer · Livingstone</div></div>
-          <div class="mini-artist-stars">★★★★☆</div>
+
+        <!-- Role-specific info boxes (dynamic) -->
+        <div id="info-client" class="role-info-box">
+          <div class="info-title"><i class="fas fa-user"></i> Client Benefits</div>
+          <div class="info-features">
+            <div class="info-feature"><i class="fas fa-calendar-check"></i> Book & manage</div>
+            <div class="info-feature"><i class="fas fa-star"></i> Read reviews</div>
+            <div class="info-feature"><i class="fas fa-credit-card"></i> Secure pay</div>
+            <div class="info-feature"><i class="fas fa-comment-dots"></i> Direct chat</div>
+          </div>
         </div>
+        <div id="info-artist" class="role-info-box" style="display: none;">
+          <div class="info-title"><i class="fas fa-microphone-alt"></i> Artist Benefits</div>
+          <div class="info-features">
+            <div class="info-feature"><i class="fas fa-chart-line"></i> Earn money</div>
+            <div class="info-feature"><i class="fas fa-calendar-alt"></i> Set schedule</div>
+            <div class="info-feature"><i class="fas fa-envelope"></i> Get bookings</div>
+            <div class="info-feature"><i class="fas fa-rss"></i> Grow profile</div>
+          </div>
+        </div>
+
+        <!-- Social Signup Buttons -->
+        <div class="social-btns">
+          <button class="social-btn">
+            <i class="fab fa-google"></i>
+          </button>
+          <button class="social-btn">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+        </div>
+
+        <div class="or-divider">
+          <div class="or-line"></div>
+          <span>or continue with email</span>
+          <div class="or-line"></div>
+        </div>
+
+        <!-- CLIENT FORM -->
+        <div class="form-panel active" id="panel-client">
+          <div class="field-group">
+            <label>Full Name</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input class="input-field" type="text" id="c-name" placeholder="Alex Rivera">
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input class="input-field" type="email" id="c-email" placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input class="input-field" type="password" id="c-password" placeholder="Create a password">
+              <button class="pw-toggle" onclick="togglePassword('c-password', this)" type="button"><i
+                  class="far fa-eye"></i></button>
+            </div>
+          </div>
+          <label
+            style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--gray-600);cursor:pointer;margin:20px 0;">
+            <input type="checkbox" style="accent-color:var(--plum-600);" id="c-agree"> I agree to Terms & Privacy Policy
+          </label>
+          <button class="btn-submit" onclick="handleSignup('client')"><i class="fas fa-arrow-right"></i> Create
+            Account</button>
+        </div>
+
+        <!-- ARTIST FORM -->
+        <div class="form-panel" id="panel-artist">
+          <div class="field-group">
+            <label>Full Name</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input class="input-field" type="text" id="a-name" placeholder="Your full name">
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Stage Name (Optional)</label>
+            <div class="input-wrapper">
+              <i class="fas fa-star"></i>
+              <input class="input-field" type="text" id="a-stage" placeholder="Your stage name">
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input class="input-field" type="email" id="a-email" placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input class="input-field" type="password" id="a-password" placeholder="Create a password">
+              <button class="pw-toggle" onclick="togglePassword('a-password', this)" type="button"><i
+                  class="far fa-eye"></i></button>
+            </div>
+          </div>
+          <label
+            style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--gray-600);cursor:pointer;margin:20px 0;">
+            <input type="checkbox" style="accent-color:var(--plum-600);" id="a-agree"> I agree to Terms & Privacy Policy
+          </label>
+          <button class="btn-submit" onclick="handleSignup('artist')"><i class="fas fa-arrow-right"></i> Create
+            Account</button>
+        </div>
+
+        <p class="signup-row">
+          Already have an account? <a href="login.html" class="signup-link">Sign In</a>
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- RIGHT FORM PANEL (register) -->
-  <div class="auth-form-panel">
-    <div class="auth-form-box">
 
-      <h1 class="auth-title">Create an account</h1>
-      <p class="auth-subtitle">Join as a client or artist and start connecting.</p>
+  <!-- For client form - add after each field-group -->
+  <div class="field-error" id="c-name-err"></div>
+  <div class="field-error" id="c-email-err"></div>
+  <div class="field-error" id="c-pw-err"></div>
+  <div class="field-error" id="c-terms-err"></div>
 
-      <!-- Role Tabs (client / artist) -->
-      <div class="role-tabs" id="roleTabs">
-        <button class="role-tab active" id="tab-client" onclick="switchRole('client')"><i class="fas fa-user"></i> Client</button>
-        <button class="role-tab" id="tab-artist" onclick="switchRole('artist')"><i class="fas fa-microphone-alt"></i> Artist</button>
-      </div>
+  <!-- For artist form -->
+  <div class="field-error" id="a-name-err"></div>
+  <div class="field-error" id="a-email-err"></div>
+  <div class="field-error" id="a-pw-err"></div>
+  <div class="field-error" id="a-terms-err"></div>
 
-      <!-- Role-specific info boxes (dynamic) -->
-      <div id="info-client" class="role-info-box">
-        <div class="info-title"><i class="fas fa-user"></i> Client Benefits</div>
-        <div class="info-features">
-          <div class="info-feature"><i class="fas fa-calendar-check"></i> Book & manage</div>
-          <div class="info-feature"><i class="fas fa-star"></i> Read reviews</div>
-          <div class="info-feature"><i class="fas fa-credit-card"></i> Secure pay</div>
-          <div class="info-feature"><i class="fas fa-comment-dots"></i> Direct chat</div>
-        </div>
-      </div>
-      <div id="info-artist" class="role-info-box" style="display: none;">
-        <div class="info-title"><i class="fas fa-microphone-alt"></i> Artist Benefits</div>
-        <div class="info-features">
-          <div class="info-feature"><i class="fas fa-chart-line"></i> Earn money</div>
-          <div class="info-feature"><i class="fas fa-calendar-alt"></i> Set schedule</div>
-          <div class="info-feature"><i class="fas fa-envelope"></i> Get bookings</div>
-          <div class="info-feature"><i class="fas fa-rss"></i> Grow profile</div>
-        </div>
-      </div>
-
-      <!-- Social Signup Buttons -->
-      <div class="social-btns">
-        <button class="social-btn">
-          <i class="fab fa-google"></i>
-        </button>
-        <button class="social-btn">
-          <i class="fab fa-facebook-f"></i>
-        </button>
-      </div>
-
-      <div class="or-divider">
-        <div class="or-line"></div>
-        <span>or continue with email</span>
-        <div class="or-line"></div>
-      </div>
-
-      <!-- CLIENT FORM -->
-      <div class="form-panel active" id="panel-client">
-        <div class="field-group">
-          <label>Full Name</label>
-          <div class="input-wrapper">
-            <i class="fas fa-user"></i>
-            <input class="input-field" type="text" id="c-name" placeholder="Alex Rivera">
-          </div>
-        </div>
-        <div class="field-group">
-          <label>Email Address</label>
-          <div class="input-wrapper">
-            <i class="fas fa-envelope"></i>
-            <input class="input-field" type="email" id="c-email" placeholder="you@example.com">
-          </div>
-        </div>
-        <div class="field-group">
-          <label>Password</label>
-          <div class="input-wrapper">
-            <i class="fas fa-lock"></i>
-            <input class="input-field" type="password" id="c-password" placeholder="Create a password">
-            <button class="pw-toggle" onclick="togglePassword('c-password', this)" type="button"><i class="far fa-eye"></i></button>
-          </div>
-        </div>
-        <label style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--gray-600);cursor:pointer;margin:20px 0;">
-          <input type="checkbox" style="accent-color:var(--plum-600);" id="c-agree"> I agree to Terms & Privacy Policy
-        </label>
-        <button class="btn-submit" onclick="handleSignup('client')"><i class="fas fa-arrow-right"></i> Create Account</button>
-      </div>
-
-      <!-- ARTIST FORM -->
-      <div class="form-panel" id="panel-artist">
-        <div class="field-group">
-          <label>Full Name</label>
-          <div class="input-wrapper">
-            <i class="fas fa-user"></i>
-            <input class="input-field" type="text" id="a-name" placeholder="Your full name">
-          </div>
-        </div>
-        <div class="field-group">
-          <label>Stage Name (Optional)</label>
-          <div class="input-wrapper">
-            <i class="fas fa-star"></i>
-            <input class="input-field" type="text" id="a-stage" placeholder="Your stage name">
-          </div>
-        </div>
-        <div class="field-group">
-          <label>Email Address</label>
-          <div class="input-wrapper">
-            <i class="fas fa-envelope"></i>
-            <input class="input-field" type="email" id="a-email" placeholder="you@example.com">
-          </div>
-        </div>
-        <div class="field-group">
-          <label>Password</label>
-          <div class="input-wrapper">
-            <i class="fas fa-lock"></i>
-            <input class="input-field" type="password" id="a-password" placeholder="Create a password">
-            <button class="pw-toggle" onclick="togglePassword('a-password', this)" type="button"><i class="far fa-eye"></i></button>
-          </div>
-        </div>
-        <label style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--gray-600);cursor:pointer;margin:20px 0;">
-          <input type="checkbox" style="accent-color:var(--plum-600);" id="a-agree"> I agree to Terms & Privacy Policy
-        </label>
-        <button class="btn-submit" onclick="handleSignup('artist')"><i class="fas fa-arrow-right"></i> Create Account</button>
-      </div>
-
-      <p class="signup-row">
-        Already have an account? <a href="login.html" class="signup-link">Sign In</a>
-      </p>
-    </div>
-  </div>
-</div>
-
-<script>
-let selectedRole = 'client';
-
-function switchRole(role) {
-  selectedRole = role;
-  
-  // Update tabs
-  document.querySelectorAll('.role-tab').forEach(tab => tab.classList.remove('active'));
-  document.getElementById('tab-' + role).classList.add('active');
-  
-  // Show/hide info boxes
-  document.querySelectorAll('[id^="info-"]').forEach(box => box.style.display = 'none');
-  document.getElementById('info-' + role).style.display = 'flex';
-  
-  // Show/hide form panels
-  document.querySelectorAll('.form-panel').forEach(panel => panel.classList.remove('active'));
-  document.getElementById('panel-' + role).classList.add('active');
-}
-
-function togglePassword(fieldId, button) {
-  const field = document.getElementById(fieldId);
-  if (field.type === 'password') {
-    field.type = 'text';
-    button.innerHTML = '<i class="far fa-eye-slash"></i>';
-  } else {
-    field.type = 'password';
-    button.innerHTML = '<i class="far fa-eye"></i>';
-  }
-}
-
-function handleSignup(role) {
-  // Validate required fields
-  if (role === 'client') {
-    const name = document.getElementById('c-name').value;
-    const email = document.getElementById('c-email').value;
-    const password = document.getElementById('c-password').value;
-    const agree = document.getElementById('c-agree').checked;
-    
-    if (!name || !email || !password) {
-      alert('Please fill all fields');
-      return;
-    }
-    if (!agree) {
-      alert('Please agree to Terms & Privacy Policy');
-      return;
-    }
-  } else {
-    const name = document.getElementById('a-name').value;
-    const email = document.getElementById('a-email').value;
-    const password = document.getElementById('a-password').value;
-    const agree = document.getElementById('a-agree').checked;
-    
-    if (!name || !email || !password) {
-      alert('Please fill all fields');
-      return;
-    }
-    if (!agree) {
-      alert('Please agree to Terms & Privacy Policy');
-      return;
-    }
-  }
-  
-  window.location.href = role === 'artist' ? 'onboarding-artist.html' : 'onboarding-client.html';
-}
-</script>
+  <script src="assets/js/register.js" defer></script>
 </body>
+
 </html>
