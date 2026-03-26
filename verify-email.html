@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email | Talent Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo"><i data-lucide="star"></i><span>Talent</span></a>
+        </div>
+    </nav>
+
+    <!-- Email Verification Container -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Verify Your Email</h1>
+                <p>We've sent a verification link to your email</p>
+            </div>
+
+            <!-- Initial State -->
+            <div id="verifyInitial" class="verify-content">
+                <div class="verify-icon">
+                    <i data-lucide="mail-check"></i>
+                </div>
+                <p class="verify-text">A verification link has been sent to <strong id="verifyEmail">you@example.com</strong></p>
+                <p class="verify-subtext">Click the link in your email to verify your account. Link expires in 24 hours.</p>
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #E5E7EB;">
+                <p class="verify-text" style="margin-bottom: 1.5rem;">Didn't receive the email?</p>
+                <button type="button" class="btn-secondary full-width" id="resendBtn"><i data-lucide="send"></i> Resend Verification Link</button>
+            </div>
+
+            <!-- Success State -->
+            <div id="verifySuccess" class="success-message" style="display: none;">
+                <div class="success-icon">
+                    <i data-lucide="check-circle"></i>
+                </div>
+                <h2>Email Verified!</h2>
+                <p>Your email has been successfully verified. You can now start exploring the Talent Marketplace.</p>
+                <button type="button" class="btn-primary full-width" onclick="window.location.href='index.html'"><i data-lucide="arrow-right"></i> Go to Dashboard</button>
+            </div>
+
+            <!-- Error State -->
+            <div id="verifyError" class="error-message" style="display: none;">
+                <div class="error-icon">
+                    <i data-lucide="alert-circle"></i>
+                </div>
+                <h2>Verification Failed</h2>
+                <p>The verification link has expired or is invalid. Please request a new one.</p>
+                <button type="button" class="btn-primary full-width" id="resendErrorBtn"><i data-lucide="send"></i> Send New Link</button>
+            </div>
+
+            <!-- Back link -->
+            <div class="auth-footer">
+                <p><a href="auth.html" class="link-primary">&larr; Back to Sign In</a></p>
+            </div>
+        </div>
+
+        <!-- Side Illustration -->
+        <div class="auth-side">
+            <div class="illustration">
+                <i data-lucide="mail-check"></i>
+                <h2>Email Verification</h2>
+                <p>Keep your account secure with email verification</p>
+                <ul class="benefits-list">
+                    <li><i data-lucide="check"></i> One-time verification</li>
+                    <li><i data-lucide="check"></i> 24-hour link validity</li>
+                    <li><i data-lucide="check"></i> Secure confirmation</li>
+                    <li><i data-lucide="check"></i> Account protection</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

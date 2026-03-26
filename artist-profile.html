@@ -1,0 +1,1446 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jazz Collective | Premium Artist Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ========== PLUM THEME ========== */
+        :root {
+            --bg: #080910;
+            --bg-2: #0e1020;
+            --bg-3: #141628;
+            --purple: #8B2BE2;
+            --purple-l: #a84df5;
+            --lime: #C4E000;
+            --lime-d: #9bb300;
+            --amber: #F5A300;
+            --white: #F0EFF8;
+            --muted: #7B7B9A;
+            --border: rgba(255,255,255,0.07);
+            --card-bg: rgba(255,255,255,0.03);
+            --shadow-purple: 0 0 60px rgba(139,43,226,0.35);
+            --shadow-lime: 0 0 40px rgba(196,224,0,0.2);
+            --r-sm: 8px;
+            --r-md: 14px;
+            --r-lg: 22px;
+            --r-xl: 32px;
+            --font-head: 'Unbounded', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Animated mesh background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(139,43,226,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(196,224,0,0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-head);
+            font-weight: 700;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(14,16,32,0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            gap: 2rem;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--lime) 0%, var(--purple-l) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .navbar-logo i {
+            color: var(--lime);
+            background: none;
+            -webkit-background-clip: unset;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex: 1;
+        }
+
+        .navbar-menu a {
+            color: var(--muted);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar-menu a:hover { color: var(--lime); }
+
+        .navbar-cta { margin-left: auto; }
+
+        .share-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--white);
+            border-radius: var(--r-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-btn:hover {
+            border-color: var(--purple);
+            background: rgba(139,43,226,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Cover Section */
+        .cover-section {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: rgba(14,16,32,0.5);
+            backdrop-filter: blur(20px);
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: -60px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .profile-info {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-end;
+        }
+
+        .profile-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: var(--r-xl);
+            border: 3px solid var(--purple);
+            box-shadow: var(--shadow-purple);
+            object-fit: cover;
+        }
+
+        .artist-details {
+            flex: 1;
+            padding-bottom: 1rem;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.25rem;
+            flex-wrap: wrap;
+        }
+
+        .artist-name {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(196,224,0,0.2);
+            color: var(--lime);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid rgba(196,224,0,0.3);
+        }
+
+        .artist-title {
+            font-size: 1.25rem;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .artist-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-item i { color: var(--purple-l); }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            padding: 0.875rem 1.75rem;
+            background: var(--lime);
+            color: #0a0b10;
+            border: none;
+            border-radius: var(--r-md);
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lime);
+        }
+
+        .btn-primary.full-width { width: 100%; justify-content: center; }
+
+        .btn-secondary {
+            padding: 0.875rem 1.75rem;
+            border: 1px solid var(--border);
+            color: var(--white);
+            background: transparent;
+            border-radius: var(--r-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--purple);
+            color: var(--purple-l);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding: 0 2rem;
+        }
+
+        /* Profile Grid */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Section Card */
+        .section-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s var(--transition);
+        }
+
+        .section-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-purple);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        /* Bio */
+        .bio-text {
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* Tags */
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tag-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--purple), var(--purple-l));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--r-md);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 0.5rem 1rem;
+            border-radius: var(--r-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            border-color: var(--purple);
+            color: var(--purple-l);
+        }
+
+        /* Media Tabs */
+        .media-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            bottom: -1px;
+            font-size: 0.95rem;
+        }
+
+        .tab-btn.active {
+            color: var(--lime);
+            border-bottom-color: var(--lime);
+        }
+
+        .tab-btn:hover { color: var(--lime); }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--r-lg);
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* Video List */
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-item {
+            border-radius: var(--r-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .video-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--purple);
+        }
+
+        .video-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .video-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            color: var(--white);
+        }
+
+        .video-info p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* Audio List */
+        .audio-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .audio-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            align-items: center;
+        }
+
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--purple);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .play-btn:hover {
+            background: var(--purple-l);
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background: var(--lime);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+
+        .audio-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            color: var(--white);
+        }
+
+        .audio-info p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-card {
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-purple);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--lime);
+            background: linear-gradient(135deg, rgba(196,224,0,0.05), rgba(139,43,226,0.05));
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--lime);
+            color: #0a0b10;
+            padding: 0.4rem 1rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .pricing-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            color: var(--white);
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--lime);
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features i {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: var(--lime);
+        }
+
+        .pricing-note {
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border-left: 3px solid var(--amber);
+            border-radius: var(--r-md);
+            font-size: 0.875rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* History Timeline */
+        .history-timeline {
+            position: relative;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .history-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .history-marker {
+            width: 40px;
+            height: 40px;
+            background: var(--purple);
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .history-content h4 {
+            margin-bottom: 0.25rem;
+            color: var(--white);
+        }
+
+        .history-date {
+            font-size: 0.85rem;
+            color: var(--lime);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .history-description {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* Calendar */
+        .calendar-subtitle {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-nav {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--purple-l);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .calendar-nav:hover { color: var(--lime); }
+
+        .calendar-month {
+            font-size: 1.25rem;
+            color: var(--white);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day-name {
+            text-align: center;
+            font-weight: 600;
+            color: var(--muted);
+            font-size: 0.875rem;
+            padding: 0.75rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--r-md);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+            background: transparent;
+            border-color: transparent;
+        }
+
+        .calendar-day.available {
+            background: rgba(196,224,0,0.2);
+            color: var(--lime);
+            border-color: rgba(196,224,0,0.3);
+        }
+
+        .calendar-day.available:hover {
+            background: var(--lime);
+            color: #0a0b10;
+            transform: scale(1.05);
+        }
+
+        .calendar-day.blocked {
+            background: rgba(239,68,68,0.2);
+            color: #f87171;
+            border-color: rgba(239,68,68,0.3);
+        }
+
+        /* Reviews */
+        .reviews-header {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rating-summary {
+            text-align: center;
+        }
+
+        .rating-score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--lime);
+            margin-bottom: 0.25rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .rating-stars i {
+            width: 20px;
+            height: 20px;
+            color: var(--amber);
+        }
+
+        .rating-count {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .rating-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .rating-bar {
+            display: grid;
+            grid-template-columns: 40px 1fr 50px;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .rating-bar span:first-child {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            background: var(--amber);
+        }
+
+        .rating-bar span:last-child {
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .review-item {
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            transition: all 0.3s;
+        }
+
+        .review-item:hover {
+            border-color: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .review-author {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .review-author img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+        }
+
+        .review-author h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            color: var(--white);
+        }
+
+        .review-role {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .review-stars i {
+            width: 16px;
+            height: 16px;
+            color: var(--amber);
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .review-text {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Sidebar */
+        .sidebar-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--muted);
+        }
+
+        .social-link:hover {
+            background: var(--purple);
+            border-color: var(--purple);
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        /* Portfolio Link */
+        .portfolio-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--r-md);
+            margin-bottom: 0.75rem;
+            transition: all 0.3s;
+            color: var(--purple-l);
+            font-weight: 500;
+        }
+
+        .portfolio-link:hover {
+            background: rgba(139,43,226,0.1);
+            color: var(--lime);
+        }
+
+        /* Stats */
+        .stat-item {
+            padding: 0.75rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-item:last-child { border-bottom: none; }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Card */
+        .cta-card {
+            background: linear-gradient(135deg, rgba(139,43,226,0.1), rgba(196,224,0,0.05));
+            border: 1px solid var(--purple);
+        }
+
+        .cta-text {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col p {
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col a {
+            font-size: 0.875rem;
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--muted);
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover { color: var(--lime); }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-3);
+            border: 1px solid var(--border);
+            border-radius: var(--r-md);
+            color: var(--white);
+            font-family: var(--font-body);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .profile-grid { grid-template-columns: 1fr; }
+            .reviews-header { grid-template-columns: 1fr; }
+            .header-container { flex-direction: column; align-items: flex-start; }
+            .action-buttons { width: 100%; flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+        }
+        @media (max-width: 768px) {
+            .navbar-container { flex-direction: column; padding: 1rem; }
+            .navbar-menu { gap: 1rem; flex-direction: column; text-align: center; }
+            .navbar-cta { width: 100%; }
+            .share-btn { width: 100%; }
+            .cover-section { height: 200px; }
+            .profile-photo { width: 120px; height: 120px; }
+            .artist-name { font-size: 1.5rem; }
+            .artist-meta { flex-direction: column; gap: 0.75rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .video-list { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .profile-header { padding: 1rem; }
+            .profile-photo { width: 100px; height: 100px; }
+            .artist-name { font-size: 1.25rem; }
+            .title-row { flex-direction: column; align-items: flex-start; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .tab-btn { padding: 0.5rem; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo"><i data-lucide="star"></i><span>Plum</span></a>
+            <ul class="navbar-menu">
+                <li><a href="index.html">Browse Talent</a></li>
+                <li><a href="#gallery">Portfolio</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+            </ul>
+            <div class="navbar-cta">
+                <button class="share-btn" id="shareBtn"><i data-lucide="share-2"></i> Share Profile</button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="cover-section">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400&h=400&fit=crop" alt="Cover" class="cover-image">
+    </section>
+
+    <section class="profile-header">
+        <div class="header-container">
+            <div class="profile-info">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=JazzCollective" alt="The Jazz Collective" class="profile-photo">
+                <div class="artist-details">
+                    <div class="title-row">
+                        <h1 class="artist-name">The Jazz Collective</h1>
+                        <span class="verified-badge"><i data-lucide="check-circle"></i> Verified</span>
+                    </div>
+                    <h2 class="artist-title">Live Jazz Band - 4 Members</h2>
+                    <div class="artist-meta">
+                        <div class="meta-item"><i data-lucide="map-pin"></i> New York, NY</div>
+                        <div class="meta-item"><i data-lucide="star"></i> 4.9 (124 bookings)</div>
+                        <div class="meta-item"><i data-lucide="clock"></i> Available Now</div>
+                    </div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-primary" id="bookBtn"><i data-lucide="calendar"></i> Request Booking</button>
+                <button class="btn-secondary" id="saveBtn"><i data-lucide="heart"></i> Save</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="profile-grid">
+            <div class="profile-main">
+                <!-- Bio -->
+                <div class="section-card">
+                    <h2 class="section-title">About</h2>
+                    <p class="bio-text">The Jazz Collective is a dynamic 4-piece jazz ensemble specializing in upscale events, corporate functions, and private celebrations. With over 15 years of combined experience, we bring sophisticated ambiance and energetic performances to every occasion. Our repertoire includes classic jazz standards, contemporary smooth jazz, and bossa nova selections, all performed live.</p>
+                </div>
+
+                <!-- Category & Skills -->
+                <div class="section-card">
+                    <h2 class="section-title">Category & Skills</h2>
+                    <div class="tag-group">
+                        <span class="tag-primary">Musicians</span>
+                        <span class="tag">Jazz</span>
+                        <span class="tag">Live Band</span>
+                        <span class="tag">Events</span>
+                        <span class="tag">Corporate</span>
+                        <span class="tag">Weddings</span>
+                        <span class="tag">Parties</span>
+                    </div>
+                </div>
+
+                <!-- Media Gallery -->
+                <div class="section-card">
+                    <h2 class="section-title" id="gallery">Media Gallery</h2>
+                    <div class="media-tabs">
+                        <button class="tab-btn active" data-tab="photos"><i data-lucide="image"></i> Photos</button>
+                        <button class="tab-btn" data-tab="videos"><i data-lucide="video"></i> Videos</button>
+                        <button class="tab-btn" data-tab="audio"><i data-lucide="music"></i> Audio Samples</button>
+                    </div>
+                    <div class="media-content">
+                        <div class="tab-content active" data-tab="photos">
+                            <div class="gallery-grid">
+                                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300" alt="Performance 1"><div class="gallery-overlay"><i data-lucide="eye"></i></div></div>
+                                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300" alt="Performance 2"><div class="gallery-overlay"><i data-lucide="eye"></i></div></div>
+                                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=300" alt="Performance 3"><div class="gallery-overlay"><i data-lucide="eye"></i></div></div>
+                                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300" alt="Performance 4"><div class="gallery-overlay"><i data-lucide="eye"></i></div></div>
+                                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=300" alt="Performance 5"><div class="gallery-overlay"><i data-lucide="eye"></i></div></div>
+                                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=300" alt="Performance 6"><div class="gallery-overlay"><i data-lucide="eye"></i></div></div>
+                            </div>
+                        </div>
+                        <div class="tab-content" data-tab="videos">
+                            <div class="video-list">
+                                <div class="video-item"><img src="https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=400&h=200&fit=crop" alt="Video"><div class="video-info"><h4>Live Performance - Corporate Event</h4><p>3:45 duration</p></div></div>
+                                <div class="video-item"><img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=200&fit=crop" alt="Video"><div class="video-info"><h4>Wedding Reception Performance</h4><p>5:20 duration</p></div></div>
+                                <div class="video-item"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop" alt="Video"><div class="video-info"><h4>Private Event Highlights</h4><p>4:15 duration</p></div></div>
+                            </div>
+                        </div>
+                        <div class="tab-content" data-tab="audio">
+                            <div class="audio-list">
+                                <div class="audio-item">
+                                    <div class="audio-player">
+                                        <button class="play-btn" data-track="1"><i data-lucide="play"></i></button>
+                                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                                    </div>
+                                    <div class="audio-info"><h4>Autumn Leaves - Jazz Standard</h4><p>2:34</p></div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-player">
+                                        <button class="play-btn" data-track="2"><i data-lucide="play"></i></button>
+                                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                                    </div>
+                                    <div class="audio-info"><h4>Take Five - Dave Brubeck</h4><p>5:24</p></div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-player">
+                                        <button class="play-btn" data-track="3"><i data-lucide="play"></i></button>
+                                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                                    </div>
+                                    <div class="audio-info"><h4>Girl from Ipanema - Bossa Nova</h4><p>3:12</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div class="section-card">
+                    <h2 class="section-title" id="pricing">Pricing</h2>
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <h3>2-Hour Set</h3>
+                            <div class="price">$1,500</div>
+                            <ul class="pricing-features"><li><i data-lucide="check"></i> 4-piece live band</li><li><i data-lucide="check"></i> 2 hours performance</li><li><i data-lucide="check"></i> Sound system included</li><li><i data-lucide="x"></i> Technical rider</li></ul>
+                        </div>
+                        <div class="pricing-card featured">
+                            <div class="featured-badge">Most Popular</div>
+                            <h3>Full Day (8 Hours)</h3>
+                            <div class="price">$4,500</div>
+                            <ul class="pricing-features"><li><i data-lucide="check"></i> 4-piece live band</li><li><i data-lucide="check"></i> 8 hours performance</li><li><i data-lucide="check"></i> Sound system included</li><li><i data-lucide="check"></i> Technical rider</li></ul>
+                        </div>
+                        <div class="pricing-card">
+                            <h3>Corporate/Event</h3>
+                            <div class="price">Custom</div>
+                            <ul class="pricing-features"><li><i data-lucide="check"></i> Custom arrangements</li><li><i data-lucide="check"></i> Travel negotiable</li><li><i data-lucide="check"></i> Special requests</li><li><i data-lucide="check"></i> Event consultation</li></ul>
+                        </div>
+                    </div>
+                    <div class="pricing-note"><i data-lucide="info"></i><span>Travel fees and venue setup may apply. Contact for custom quotes.</span></div>
+                </div>
+
+                <!-- Work History -->
+                <div class="section-card">
+                    <h2 class="section-title">Performance History</h2>
+                    <div class="history-timeline">
+                        <div class="history-item"><div class="history-marker"></div><div class="history-content"><h4>The Plaza Hotel - Platinum Gala</h4><div class="history-date">March 15, 2026</div><div class="history-description">Performed for 500+ guests at the annual Platinum Gala. Received standing ovation for our rendition of classic jazz standards.</div></div></div>
+                        <div class="history-item"><div class="history-marker"></div><div class="history-content"><h4>Johnson-Morris Wedding Reception</h4><div class="history-date">March 8, 2026</div><div class="history-description">Performed cocktail hour music for 300 guests. Couple specially requested our performance for the first dance.</div></div></div>
+                        <div class="history-item"><div class="history-marker"></div><div class="history-content"><h4>Corporate Conference Opening Gala</h4><div class="history-date">February 28, 2026</div><div class="history-description">Entertained 400 business executives at tech conference opening. Featured in event highlights reel.</div></div></div>
+                    </div>
+                </div>
+
+                <!-- Availability Calendar -->
+                <div class="section-card">
+                    <h2 class="section-title">Availability</h2>
+                    <p class="calendar-subtitle">Green: Available | Red: Booked</p>
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth"><i data-lucide="chevron-left"></i></button>
+                        <span class="calendar-month" id="currentMonth">April 2026</span>
+                        <button class="calendar-nav" id="nextMonth"><i data-lucide="chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+
+                <!-- Reviews -->
+                <div class="section-card">
+                    <h2 class="section-title" id="reviews">Reviews & Ratings</h2>
+                    <div class="reviews-header">
+                        <div class="rating-summary">
+                            <div class="rating-score">4.9</div>
+                            <div class="rating-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                            <div class="rating-count">Based on 124 reviews</div>
+                        </div>
+                        <div class="rating-breakdown">
+                            <div class="rating-bar"><span>5 <i data-lucide="star"></i></span><div class="bar"><div class="fill" style="width: 85%"></div></div><span>105</span></div>
+                            <div class="rating-bar"><span>4 <i data-lucide="star"></i></span><div class="bar"><div class="fill" style="width: 12%"></div></div><span>15</span></div>
+                            <div class="rating-bar"><span>3 <i data-lucide="star"></i></span><div class="bar"><div class="fill" style="width: 2%"></div></div><span>3</span></div>
+                            <div class="rating-bar"><span>2 <i data-lucide="star"></i></span><div class="bar"><div class="fill" style="width: 0%"></div></div><span>0</span></div>
+                            <div class="rating-bar"><span>1 <i data-lucide="star"></i></span><div class="bar"><div class="fill" style="width: 1%"></div></div><span>1</span></div>
+                        </div>
+                    </div>
+                    <div class="reviews-list">
+                        <div class="review-item"><div class="review-header"><div class="review-author"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Client1" alt="Client"><div><h4>Sarah Wilson</h4><p class="review-role">Wedding Planner</p></div></div><div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div></div><p class="review-date">2 weeks ago</p><p class="review-text">The Jazz Collective was absolutely phenomenal! They made our wedding reception unforgettable. Professional, talented, and brought such joy to our guests. Highly recommend!</p></div>
+                        <div class="review-item"><div class="review-header"><div class="review-author"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Client2" alt="Client"><div><h4>Michael Chen</h4><p class="review-role">Corporate Event Manager</p></div></div><div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div></div><p class="review-date">1 month ago</p><p class="review-text">Booked them for our annual gala and they exceeded all expectations. Professional communication, punctual, and their music set the perfect atmosphere. Already booking them again!</p></div>
+                        <div class="review-item"><div class="review-header"><div class="review-author"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Client3" alt="Client"><div><h4>Jessica Brown</h4><p class="review-role">Event Coordinator</p></div></div><div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div></div><p class="review-date">1.5 months ago</p><p class="review-text">Outstanding talent! They played at our private dinner for 40 guests and everyone was captivated. Great energy, excellent musicianship. Worth every penny!</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Quick Stats</h3>
+                    <div class="stat-item"><span class="stat-label">Bookings</span><span class="stat-value">124</span></div>
+                    <div class="stat-item"><span class="stat-label">Response Time</span><span class="stat-value">2 hours</span></div>
+                    <div class="stat-item"><span class="stat-label">Members</span><span class="stat-value">4</span></div>
+                    <div class="stat-item"><span class="stat-label">Years Active</span><span class="stat-value">15+</span></div>
+                </div>
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-link"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="social-link"><i data-lucide="youtube"></i></a>
+                        <a href="#" class="social-link"><i data-lucide="globe"></i></a>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Portfolio</h3>
+                    <a href="#" class="portfolio-link"><i data-lucide="external-link"></i> www.jazzcollective.com</a>
+                    <a href="#" class="portfolio-link"><i data-lucide="music"></i> Spotify Album</a>
+                    <a href="#" class="portfolio-link"><i data-lucide="camera"></i> Instagram Gallery</a>
+                </div>
+                <div class="sidebar-card cta-card">
+                    <h3 class="sidebar-title">Ready to book?</h3>
+                    <p class="cta-text">Contact us now to check availability and discuss your event requirements.</p>
+                    <button class="btn-primary full-width" id="bookBtn2"><i data-lucide="calendar"></i> Request Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col"><h4>About Plum</h4><p>Connect with amazing performers for your next event.</p></div>
+            <div class="footer-col"><h4>Browse</h4><ul><li><a href="#">Musicians</a></li><li><a href="#">Comedians</a></li><li><a href="#">Photographers</a></li></ul></div>
+            <div class="footer-col"><h4>Help</h4><ul><li><a href="#">Booking Guide</a></li><li><a href="#">FAQ</a></li><li><a href="#">Contact</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Plum Talent Marketplace. All rights reserved.</p></div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Booking</h2>
+                <button class="modal-close" id="closeModal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm">
+                    <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
+                    <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" required></div>
+                    <div class="form-group"><label>Event Date</label><input type="date" required></div>
+                    <div class="form-group"><label>Event Type</label><select><option>Wedding</option><option>Corporate Event</option><option>Private Party</option><option>Other</option></select></div>
+                    <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your event..."></textarea></div>
+                    <button type="submit" class="btn-primary full-width">Send Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+   <script src="artist-profile.js"></script> 
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metropolitan Event Management - Event Organizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/artist-profile.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo"><i data-lucide="star"></i><span>Talent</span></a>
+            <ul class="navbar-menu">
+                <li><a href="index.html">Find Talent</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="navbar-cta">
+                <button class="share-btn" id="shareBtn"><i data-lucide="share-2"></i> Share</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cover Section -->
+    <section class="cover-section">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1400&h=400&fit=crop" alt="Cover" class="cover-image">
+    </section>
+
+    <!-- Profile Header -->
+    <section class="profile-header">
+        <div class="header-container">
+            <div class="profile-info">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=MetroEvents" alt="Metropolitan Events" class="profile-photo">
+                <div class="artist-details">
+                    <div class="title-row">
+                        <h1 class="artist-name">Metropolitan Event Management</h1>
+                        <span class="verified-badge"><i data-lucide="check-circle"></i> Verified</span>
+                    </div>
+                    <h2 class="artist-title">Professional Event Organizer</h2>
+                    <div class="artist-meta">
+                        <div class="meta-item"><i data-lucide="map-pin"></i> New York, NY</div>
+                        <div class="meta-item"><i data-lucide="star"></i> 4.8 (89 events)</div>
+                        <div class="meta-item"><i data-lucide="briefcase"></i> 12 Years Experience</div>
+                    </div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-primary" id="contactBtn"><i data-lucide="mail"></i> Contact</button>
+                <button class="btn-secondary" id="saveBtn"><i data-lucide="heart"></i> Save</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="profile-grid">
+            <!-- Main Content -->
+            <div class="profile-main">
+                <!-- Bio -->
+                <div class="section-card">
+                    <h2 class="section-title">About</h2>
+                    <p class="bio-text">Metropolitan Event Management is a full-service event planning and production company specializing in corporate galas, private celebrations, weddings, and large-scale conferences. With over 12 years of experience, we've orchestrated more than 500 successful events featuring top-tier talent from across the entertainment industry. Our team is committed to creating unforgettable experiences through meticulous planning, creative vision, and seamless coordination with world-class performers and service providers.</p>
+                </div>
+
+                <!-- Event Types & Specialties -->
+                <div class="section-card">
+                    <h2 class="section-title">Event Types & Specialties</h2>
+                    <div class="tag-group">
+                        <span class="tag-primary">Corporate Events</span>
+                        <span class="tag">Galas</span>
+                        <span class="tag">Weddings</span>
+                        <span class="tag">Conferences</span>
+                        <span class="tag">Private Parties</span>
+                        <span class="tag">Product Launches</span>
+                        <span class="tag">Award Ceremonies</span>
+                        <span class="tag">Fundraisers</span>
+                    </div>
+                </div>
+
+                <!-- Past Events -->
+                <div class="section-card">
+                    <h2 class="section-title" id="events">Past Events Hosted</h2>
+                    <div class="events-timeline">
+                        <div class="event-item">
+                            <div class="event-marker"></div>
+                            <div class="event-content">
+                                <h4>The Plaza Hotel Platinum Gala 2026</h4>
+                                <div class="event-date">March 15, 2026</div>
+                                <p class="event-description">Annual luxury gala for 500+ guests. Featured live jazz entertainment by The Jazz Collective and culinary performances.</p>
+                                <div class="event-artists">
+                                    <span class="artist-badge">
+                                        <a href="artist-profile.html">The Jazz Collective</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-marker"></div>
+                            <div class="event-content">
+                                <h4>Tech Innovation Conference 2026</h4>
+                                <div class="event-date">February 28, 2026</div>
+                                <p class="event-description">International tech conference for 1000+ attendees. Opening gala with live entertainment, networking events, and closing ceremony.</p>
+                                <div class="event-artists">
+                                    <span class="artist-badge">
+                                        <a href="artist-profile.html">DJ Supreme</a>
+                                    </span>
+                                    <span class="artist-badge">
+                                        <a href="artist-profile.html">Energy Dance Crew</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-marker"></div>
+                            <div class="event-content">
+                                <h4>Luxury Brand Anniversary Celebration</h4>
+                                <div class="event-date">February 10, 2026</div>
+                                <p class="event-description">Private VIP celebration for 200 elite guests. Multi-venue event with live performances and interactive entertainment experiences.</p>
+                                <div class="event-artists">
+                                    <span class="artist-badge">
+                                        <a href="artist-profile.html">Sarah Comedy</a>
+                                    </span>
+                                    <span class="artist-badge">
+                                        <a href="artist-profile.html">Creative Lens Studio</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-marker"></div>
+                            <div class="event-content">
+                                <h4>Johnson-Morris Wedding Reception</h4>
+                                <div class="event-date">January 20, 2026</div>
+                                <p class="event-description">Elegant wedding reception for 350 guests. Full coordination including entertainment, catering, décor, and guest experience.</p>
+                                <div class="event-artists">
+                                    <span class="artist-badge">
+                                        <a href="artist-profile.html">Urban Groove Band</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking History -->
+                <div class="section-card">
+                    <h2 class="section-title">Booking Statistics</h2>
+                    <div class="booking-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">89</div>
+                            <div class="stat-name">Total Events</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">142</div>
+                            <div class="stat-name">Talent Booked</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">45.2K</div>
+                            <div class="stat-name">Total Guests</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-name">Repeat Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews from Artists -->
+                <div class="section-card">
+                    <h2 class="section-title" id="reviews">Reviews from Artists</h2>
+                    <div class="reviews-header-org">
+                        <div class="rating-summary">
+                            <div class="rating-score">4.8</div>
+                            <div class="rating-stars">
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                            </div>
+                            <div class="rating-count">Based on 89 reviews</div>
+                        </div>
+                    </div>
+                    <div class="reviews-list">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Artist1" alt="Artist">
+                                    <div>
+                                        <h4>The Jazz Collective</h4>
+                                        <p class="review-role">Jazz Band</p>
+                                    </div>
+                                </div>
+                                <div class="review-stars">
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                </div>
+                            </div>
+                            <p class="review-date">2 weeks ago</p>
+                            <p class="review-text">Professional, organized, and incredibly responsive. Metropolitan Events made our performance at the Platinum Gala seamless. Excellent coordination from booking to execution. Will definitely work with them again!</p>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Artist2" alt="Artist">
+                                    <div>
+                                        <h4>DJ Supreme</h4>
+                                        <p class="review-role">DJ</p>
+                                    </div>
+                                </div>
+                                <div class="review-stars">
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                </div>
+                            </div>
+                            <p class="review-date">1 month ago</p>
+                            <p class="review-text">Top-tier event organizer! Clear communication, professional handling of technical requirements, and amazing crowd management. They arranged everything perfectly for the Tech Conference. Highly recommended!</p>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Artist3" alt="Artist">
+                                    <div>
+                                        <h4>Energy Dance Crew</h4>
+                                        <p class="review-role">Dance Group</p>
+                                    </div>
+                                </div>
+                                <div class="review-stars">
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                    <i data-lucide="star"></i>
+                                </div>
+                            </div>
+                            <p class="review-date">2 months ago</p>
+                            <p class="review-text">Metropolitan Events handles everything professionally. Great attention to detail, supportive team, and always accommodating to artist needs. Perfect coordination for our Tech Conference gig!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <!-- Quick Stats -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Organization Stats</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Events Organized</span>
+                        <span class="stat-value">89</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Founded</span>
+                        <span class="stat-value">2014</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Team Size</span>
+                        <span class="stat-value">12 People</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Response Time</span>
+                        <span class="stat-value">4 hours</span>
+                    </div>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Contact Information</h3>
+                    <div class="contact-item" id="contact">
+                        <i data-lucide="mail"></i>
+                        <div>
+                            <p class="contact-label">Email</p>
+                            <p class="contact-value">info@metropolitanevents.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="phone"></i>
+                        <div>
+                            <p class="contact-label">Phone</p>
+                            <p class="contact-value">+1 (212) 555-0123</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="map-pin"></i>
+                        <div>
+                            <p class="contact-label">Address</p>
+                            <p class="contact-value">New York, NY 10001</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="globe"></i>
+                        <div>
+                            <p class="contact-label">Website</p>
+                            <p class="contact-value"><a href="#">www.metropolitanevents.com</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferred Contact Method -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Booking Preferences</h3>
+                    <p class="preference-label">Preferred Contact Method:</p>
+                    <p class="preference-value">Email (fastest response)</p>
+                    <p class="preference-label" style="margin-top: 1rem;">Booking Lead Time:</p>
+                    <p class="preference-value">3-6 months recommended</p>
+                    <p class="preference-label" style="margin-top: 1rem;">Event Budget Range:</p>
+                    <p class="preference-value"> - +</p>
+                </div>
+
+                <!-- Social Links -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Follow Us</h3>
+                    <div class="social-links" style="margin-bottom: 1rem;">
+                        <a href="#" class="social-link" title="Facebook"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="social-link" title="Instagram"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-link" title="LinkedIn"><i data-lucide="linkedin"></i></a>
+                        <a href="#" class="social-link" title="Twitter"><i data-lucide="twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="sidebar-card cta-card">
+                    <h3 class="sidebar-title">Booking Interest?</h3>
+                    <p class="cta-text">Ready to collaborate? Contact Metropolitan Event Management to discuss your next event and entertainment needs.</p>
+                    <button class="btn-primary full-width" id="contactBtn2"><i data-lucide="mail"></i> Get in Touch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>About Talent</h4>
+                <p>Connect event organizers with amazing performers.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="#">Browse Talent</a></li>
+                    <li><a href="#">Event Organizers</a></li>
+                    <li><a href="#">Top Rated</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <ul>
+                    <li><a href="#">Booking Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Talent Marketplace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/organizer-profile.js"></script>
+</body>
+</html>

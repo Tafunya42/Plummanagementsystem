@@ -1,995 +1,578 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plum — Book Extraordinary Talent</title>
-  <!-- Font Awesome for professional icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <!-- Google Fonts Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      background: #f8f6ff; /* soft lavender background */
-      color: #1e1b2b;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-
-    :root {
-      --plum-50: #f7f2ff;
-      --plum-100: #ede4ff;
-      --plum-200: #dacfff;
-      --plum-300: #c2b0f5;
-      --plum-400: #9f85e5;
-      --plum-500: #7f5fd6;
-      --plum-600: #6848c2;
-      --plum-700: #5336a3;
-      --plum-800: #3f2980;
-      --plum-900: #2d1c5c;
-      --gray-50: #f9fafc;
-      --gray-100: #f2f4f8;
-      --gray-200: #e6e9f0;
-      --gray-300: #d0d6e0;
-      --gray-400: #a8b1c2;
-      --gray-500: #7f8a9e;
-      --gray-600: #5e677b;
-      --gray-700: #3d4457;
-      --white: #ffffff;
-      --shadow-sm: 0 8px 20px -6px rgba(60, 30, 100, 0.08);
-      --shadow-md: 0 16px 30px -10px rgba(80, 40, 140, 0.15);
-      --shadow-lg: 0 25px 40px -12px rgba(70, 30, 130, 0.25);
-      --border-radius-card: 32px;
-      --border-radius-element: 60px;
-    }
-
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 30px;
-    }
-
-    /* ===== NAVBAR (matching other pages) ===== */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(190, 170, 230, 0.3);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      transition: background 0.3s, box-shadow 0.3s;
-    }
-
-    .navbar.scrolled {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .navbar-logo {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: var(--plum-800);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      letter-spacing: -0.02em;
-    }
-
-    .logo-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--plum-500);
-      border-radius: 50%;
-      display: inline-block;
-      animation: pulse 3s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.2); background: #a07cff; }
-    }
-
-    .navbar-links {
-      display: flex;
-      gap: 2.5rem;
-    }
-
-    .navbar-link {
-      text-decoration: none;
-      color: var(--gray-600);
-      font-weight: 500;
-      transition: color 0.2s;
-      position: relative;
-    }
-
-    .navbar-link:hover {
-      color: var(--plum-700);
-    }
-
-    .navbar-link::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 0;
-      height: 2.5px;
-      background: linear-gradient(90deg, var(--plum-400), var(--plum-600));
-      transition: width 0.2s ease;
-      border-radius: 4px;
-    }
-
-    .navbar-link:hover::after {
-      width: 100%;
-    }
-
-    .navbar-actions {
-      display: flex;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 40px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      border: 1px solid transparent;
-      text-decoration: none;
-      gap: 8px;
-      padding: 8px 18px;
-      font-size: 0.9rem;
-    }
-
-    .btn-sm { padding: 8px 18px; font-size: 0.9rem; }
-    .btn-lg { padding: 14px 32px; font-size: 1rem; }
-    .btn-primary {
-      background: var(--plum-600);
-      color: white;
-      box-shadow: 0 8px 18px -6px rgba(104, 72, 194, 0.3);
-    }
-    .btn-primary:hover {
-      background: var(--plum-700);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 24px -8px rgba(83, 54, 163, 0.4);
-    }
-    .btn-ghost {
-      background: transparent;
-      color: var(--plum-700);
-      border: 1px solid var(--plum-200);
-    }
-    .btn-ghost:hover {
-      background: var(--plum-50);
-      border-color: var(--plum-300);
-    }
-    .btn-gold {
-      background: white;
-      color: var(--plum-800);
-      border: none;
-      font-weight: 600;
-    }
-    .btn-gold:hover {
-      background: #f0eaff;
-      transform: scale(0.98);
-    }
-
-    /* ===== HERO SECTION with Codewave‑like animated background ===== */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 0 80px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #2a1b4a 0%, #3f2980 50%, #5336a3 100%);
-    }
-
-    /* animated blobs / orbs */
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(159, 133, 229, 0.25) 0%, transparent 70%);
-      top: -200px;
-      right: -100px;
-      border-radius: 50%;
-      animation: floatBlob 20s infinite alternate ease-in-out;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(194, 176, 245, 0.2) 0%, transparent 70%);
-      bottom: -150px;
-      left: -100px;
-      border-radius: 50%;
-      animation: floatBlob2 18s infinite alternate;
-    }
-
-    @keyframes floatBlob {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(-40px, 40px) scale(1.2); }
-    }
-
-    @keyframes floatBlob2 {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(50px, -30px) scale(1.3); }
-    }
-
-    .hero .container {
-      position: relative;
-      z-index: 2;
-      color: white;
-    }
-
-    .hero-content {
-      max-width: 700px;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-eyebrow span {
-      width: 40px;
-      height: 2px;
-      background: var(--plum-300);
-      display: inline-block;
-    }
-
-    .hero-title {
-      font-size: 4rem;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      animation: fadeUp 0.8s 0.2s both;
-    }
-
-    .hero-title em {
-      font-style: normal;
-      background: linear-gradient(145deg, #ffffff, #e0c9ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-subtitle {
-      font-size: 1.2rem;
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-      animation: fadeUp 0.8s 0.3s both;
-    }
-
-    .hero-search {
-      display: flex;
-      gap: 12px;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(6px);
-      padding: 8px;
-      border-radius: 80px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      max-width: 600px;
-      margin-bottom: 2rem;
-      animation: fadeUp 0.8s 0.4s both;
-    }
-
-    .hero-search input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 60px;
-      padding: 14px 22px;
-      font-size: 1rem;
-      color: white;
-      outline: none;
-    }
-
-    .hero-search input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .hero-search .btn-primary {
-      background: white;
-      color: var(--plum-800);
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 3rem;
-      animation: fadeUp 0.8s 0.5s both;
-    }
-
-    .tag-button {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 40px;
-      padding: 8px 20px;
-      font-size: 0.9rem;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s;
-      backdrop-filter: blur(4px);
-    }
-
-    .tag-button:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    .trust-badges {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.6s both;
-    }
-
-    .trust-badge {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .trust-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: white;
-      backdrop-filter: blur(4px);
-    }
-
-    .trust-text h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: white;
-    }
-
-    .trust-text p {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    /* ===== VALUE PROPOSITION ===== */
-    .section {
-      padding: 80px 0;
-    }
-
-    .section-darker {
-      background: var(--plum-50);
-    }
-
-    .section-title {
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: var(--plum-800);
-      text-align: center;
-      margin-bottom: 16px;
-    }
-
-    .section-subtitle {
-      font-size: 1.2rem;
-      color: var(--gray-500);
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 48px;
-    }
-
-    .value-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .value-left {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .value-card {
-      background: white;
-      border-radius: var(--border-radius-card);
-      padding: 40px 20px;
-      text-align: center;
-      font-weight: 600;
-      color: var(--plum-800);
-      box-shadow: var(--shadow-md);
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: default;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .value-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .value-right h3 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--plum-800);
-      margin-bottom: 24px;
-    }
-
-    .value-right p {
-      font-size: 1.1rem;
-      color: var(--gray-600);
-      margin-bottom: 16px;
-    }
-
-    /* ===== HOW IT WORKS ===== */
-    .how-steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-
-    .step-card {
-      background: white;
-      border-radius: var(--border-radius-card);
-      padding: 40px 30px;
-      box-shadow: var(--shadow-sm);
-      text-align: center;
-      transition: 0.2s;
-    }
-
-    .step-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .step-number {
-      width: 60px;
-      height: 60px;
-      background: var(--plum-100);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--plum-700);
-      margin: 0 auto 24px;
-    }
-
-    .step-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--plum-800);
-      margin-bottom: 12px;
-    }
-
-    .step-description {
-      color: var(--gray-500);
-    }
-
-    /* ===== CATEGORY GRID ===== */
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-    }
-
-    .category-card {
-      background: white;
-      border-radius: 30px;
-      padding: 32px 20px;
-      text-align: center;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: var(--shadow-sm);
-      transition: 0.2s;
-      border: 1px solid var(--gray-100);
-    }
-
-    .category-card:hover {
-      transform: scale(1.03);
-      box-shadow: var(--shadow-md);
-    }
-
-    .category-icon {
-      font-size: 2.8rem;
-      color: var(--plum-600);
-      margin-bottom: 16px;
-    }
-
-    .category-name {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--plum-800);
-      margin-bottom: 8px;
-    }
-
-    .category-count {
-      font-size: 0.85rem;
-      color: var(--gray-500);
-    }
-
-    /* ===== FEATURED ARTISTS CARDS ===== */
-    .featured-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
-    }
-
-    .artist-card {
-      background: white;
-      border-radius: 30px;
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      transition: 0.2s;
-    }
-
-    .artist-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .artist-image {
-      height: 180px;
-      background: linear-gradient(145deg, #f0e9ff, #e0d2ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      color: var(--plum-600);
-    }
-
-    .artist-info {
-      padding: 22px 20px 24px;
-    }
-
-    .artist-category {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--plum-500);
-      font-weight: 600;
-    }
-
-    .artist-name {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--plum-800);
-      margin: 4px 0;
-    }
-
-    .artist-location {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--gray-500);
-      font-size: 0.9rem;
-      margin-bottom: 8px;
-    }
-
-    .artist-rating {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .stars {
-      color: #f8b739;
-      letter-spacing: 2px;
-    }
-
-    .artist-price {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--plum-700);
-    }
-
-    /* ===== TESTIMONIALS ===== */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-
-    .testimonial-card {
-      background: white;
-      border-radius: 30px;
-      padding: 30px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .testimonial-quote {
-      font-size: 1rem;
-      font-style: italic;
-      color: var(--gray-600);
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .author-avatar {
-      width: 48px;
-      height: 48px;
-      background: var(--plum-100);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      color: var(--plum-700);
-    }
-
-    .author-name {
-      font-weight: 600;
-      color: var(--plum-800);
-    }
-
-    .author-role {
-      font-size: 0.8rem;
-      color: var(--gray-500);
-    }
-
-    /* ===== CTA BANNER ===== */
-    .cta-banner {
-      background: linear-gradient(115deg, #2d1c5c, #5336a3);
-      border-radius: 60px;
-      padding: 60px 40px;
-      text-align: center;
-      color: white;
-    }
-
-    .cta-title {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .cta-subtitle {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-
-    /* ===== FOOTER ===== */
-    .footer {
-      background: white;
-      padding: 60px 0 30px;
-      border-top: 1px solid var(--gray-200);
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 40px;
-    }
-
-    .footer-logo {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--plum-800);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .footer-tagline {
-      color: var(--gray-500);
-      margin-bottom: 20px;
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 16px;
-    }
-
-    .social-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--plum-50);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--plum-600);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-
-    .social-icon:hover {
-      background: var(--plum-100);
-      transform: scale(1.1);
-    }
-
-    .footer-heading {
-      font-weight: 600;
-      color: var(--plum-800);
-      margin-bottom: 16px;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-link {
-      color: var(--gray-500);
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    .footer-link:hover {
-      color: var(--plum-600);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid var(--gray-200);
-      padding-top: 24px;
-      text-align: center;
-      color: var(--gray-400);
-      font-size: 0.85rem;
-    }
-
-    /* responsive tweaks */
-    @media (max-width: 1000px) {
-      .featured-grid, .category-grid, .testimonials-grid, .how-steps {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .value-grid {
-        grid-template-columns: 1fr;
-      }
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero-title { font-size: 2.8rem; }
-      .featured-grid, .category-grid, .testimonials-grid, .how-steps {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<!-- NAVBAR (fixed) -->
-<nav class="navbar" id="navbar">
-  <a href="index.html" class="navbar-logo">Plum <span class="logo-dot"></span></a>
-  <div class="navbar-links">
-    <a href="Browse.html" class="navbar-link">Find Artists</a>
-    <a href="#how" class="navbar-link">How It Works</a>
-    <a href="#" class="navbar-link">For Artists</a>
-  </div>
-  <div class="navbar-actions">
-    <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
-    <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+  <title>PLUM — The Sweet Spot for Bookings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="index.css">
+   
+ </head>
+ <body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <!-- Replace with your actual logo if needed -->
+        <img src="https://placehold.co/120x40?text=PLUM" alt="PLUM — The Sweet Spot for Bookings" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#browse">Browse Talent</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#join">For Artists</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="login.html" class="nav-login"> Login</a>
+        <a href="#browse" class="btn btn-primary" style="padding:10px 22px;font-size:0.88rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Find Talent
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
 
-<!-- HERO with animated background -->
-<section class="hero">
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
   <div class="container">
-    <div class="hero-content">
-      <div class="hero-eyebrow"><span></span> The easiest way to book talent</div>
-      <h1 class="hero-title">Book <em>extraordinary</em><br>talent, stress‑free</h1>
-      <p class="hero-subtitle">Discover world‑class musicians, performers, and event professionals. Browse, compare, and book with complete confidence.</p>
-      <div class="hero-search">
-        <input type="text" placeholder="Search musicians, performers, services…" id="heroSearchInput" />
-        <a href="Browse.html" class="btn btn-primary" id="heroSearchBtn">Browse All</a>
-      </div>
-      <div class="hero-tags">
-        <span class="tag-button" onclick="window.location.href='Browse.html?search=bands';">Live Bands</span>
-        <span class="tag-button" onclick="window.location.href='Browse.html?search=dj';">DJs</span>
-        <span class="tag-button" onclick="window.location.href='Browse.html?search=singers';">Singers</span>
-        <span class="tag-button" onclick="window.location.href='Browse.html?search=magicians';">Magicians</span>
-        <span class="tag-button" onclick="window.location.href='Browse.html?search=photographers';">Photographers</span>
-      </div>
-      <div class="trust-badges">
-        <div class="trust-badge">
-          <div class="trust-icon"><i class="fas fa-check-circle"></i></div>
-          <div class="trust-text"><h4>Verified Artists</h4><p>All entertainers reviewed</p></div>
+    <div class="hero-grid">
+      <!-- Left copy -->
+      <div class="hero-copy">
+        <div class="hero-kicker">
+          <span class="hero-kicker-dot"></span>
+          The Sweet Spot for Bookings
         </div>
-        <div class="trust-badge">
-          <div class="trust-icon"><i class="fas fa-shield-alt"></i></div>
-          <div class="trust-text"><h4>Safe Payments</h4><p>Protected transactions</p></div>
+        <h1 class="hero-title">
+          Book World-Class<br>
+          <span class="highlight">Talent</span> for<br>Any Event
+        </h1>
+        <p class="hero-subtitle">
+          From live bands and DJs to photographers and comedians — discover verified talent, check live availability, and book in minutes.
+        </p>
+        <div class="hero-actions">
+          <a href="#browse" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Browse Talent
+          </a>
+          <a href="#how" class="btn btn-outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            See How It Works
+          </a>
         </div>
-        <div class="trust-badge">
-          <div class="trust-icon"><i class="fas fa-star"></i></div>
-          <div class="trust-text"><h4>Real Reviews</h4><p>Honest feedback</p></div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">8,300<span>+</span></div>
+            <div class="hero-stat-label">Verified Artists</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">42k<span>+</span></div>
+            <div class="hero-stat-label">Events Booked</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">4.9<span>★</span></div>
+            <div class="hero-stat-label">Average Rating</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right visual (always visible) -->
+      <div class="hero-visual">
+        <div class="hero-card hc-main">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80" alt="Live performer" />
+          <div class="live-badge"><span class="live-dot"></span>Available Tonight</div>
+          <div class="hc-label">
+            <div class="hc-label-avatar">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&auto=format&fit=crop" alt="Artist">
+            </div>
+            <div>
+              <div class="hc-label-name">Marcus &amp; The Collective</div>
+              <div class="hc-label-meta">Jazz · Live Band</div>
+            </div>
+            <div class="hc-label-stars">★ 4.9</div>
+          </div>
+        </div>
+        <div class="hero-card hc-sm1">
+          <img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=400&auto=format&fit=crop&q=80" alt="DJ" />
+          <div class="hc-label" style="padding:8px 12px;">
+            <div class="hc-label-avatar">
+              <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=80&auto=format&fit=crop" alt="DJ">
+            </div>
+            <div>
+              <div class="hc-label-name" style="font-size:0.78rem;">DJ Nkosi</div>
+              <div class="hc-label-meta">Afrobeats · EDM</div>
+            </div>
+            <div class="hc-label-stars">★ 4.8</div>
+          </div>
+        </div>
+        <div class="hero-card hc-sm2">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300&auto=format&fit=crop&q=80" alt="Event" />
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VALUE PROPOSITION -->
-<section class="section">
+<!-- ═══ SEARCH ════════════════════════════════════════════ -->
+<div class="search-strip">
   <div class="container">
-    <div class="value-grid">
-      <div class="value-left">
-        <div class="value-card"><i class="fas fa-ring" style="font-size: 2rem; margin-bottom: 16px; color: var(--plum-500);"></i> Weddings</div>
-        <div class="value-card"><i class="fas fa-building" style="font-size: 2rem; margin-bottom: 16px; color: var(--plum-500);"></i> Corporate Events</div>
-        <div class="value-card"><i class="fas fa-birthday-cake" style="font-size: 2rem; margin-bottom: 16px; color: var(--plum-500);"></i> Personal Occasions</div>
-        <div class="value-card"><i class="fas fa-music" style="font-size: 2rem; margin-bottom: 16px; color: var(--plum-500);"></i> Festivals</div>
+    <div class="search-bar">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <input type="text" placeholder="What type of talent? (Musician, DJ, Comedian…)" />
       </div>
-      <div class="value-right">
-        <h3>With us, everyone wins</h3>
-        <p><strong>Planners have the confidence</strong> to bring their events to life, while <strong>entertainers and professionals</strong> enjoy quality leads and more opportunities to do what they love.</p>
-        <p>When booking is easy, everyone can focus on what really matters — <strong>crafting experiences that leave a lasting impression on guests.</strong></p>
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input type="text" placeholder="City or region" />
+      </div>
+      <div class="search-field" style="border-right:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+        <input type="date" />
+      </div>
+      <button class="search-submit" onclick="handleSearch()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STATS BAR ══════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item reveal delay-1">
+        <div class="stat-num">8,<span class="accent">300</span>+</div>
+        <div class="stat-label">Verified Artists</div>
+      </div>
+      <div class="stat-item reveal delay-2">
+        <div class="stat-num"><span class="accent">42</span>k+</div>
+        <div class="stat-label">Events Completed</div>
+      </div>
+      <div class="stat-item reveal delay-3">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Talent Categories</div>
+      </div>
+      <div class="stat-item reveal delay-4">
+        <div class="stat-num">4.<span class="accent">9</span>★</div>
+        <div class="stat-label">Avg. Artist Rating</div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- HOW IT WORKS -->
-<section class="section section-darker" id="how">
+<!-- ═══ CATEGORIES ═════════════════════════════════════════ -->
+<section class="section categories" id="browse">
   <div class="container">
-    <h2 class="section-title">How it works</h2>
-    <p class="section-subtitle">Booking talent has never been easier. Three simple steps to your perfect event.</p>
-    <div class="how-steps">
-      <div class="step-card">
-        <div class="step-number">1</div>
-        <h3 class="step-title">Browse & Compare</h3>
-        <p class="step-description">Explore thousands of talented entertainers. Filter by category, location, price, and availability.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">2</div>
-        <h3 class="step-title">Book Securely</h3>
-        <p class="step-description">Connect with artists and book with confidence. Our protection guarantees your satisfaction.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">3</div>
-        <h3 class="step-title">Enjoy Your Event</h3>
-        <p class="step-description">Sit back and enjoy world-class entertainment. We handle all the logistics.</p>
-      </div>
+    <div class="reveal">
+      <div class="section-label">Browse</div>
+      <h2 class="section-title">Find the <span>Perfect Talent</span><br>for Your Event</h2>
     </div>
-  </div>
-</section>
-
-<!-- BROWSE CATEGORIES (with icons) -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">Browse by Category</h2>
-    <p class="section-subtitle">From musicians to photographers, we've got every type of talent.</p>
-    <div class="category-grid">
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-music"></i></div><div class="category-name">Musicians</div><div class="category-count">2,340+</div></a>
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-laugh"></i></div><div class="category-name">Comedians</div><div class="category-count">1,890+</div></a>
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-microphone-alt"></i></div><div class="category-name">MCs and Hosts</div><div class="category-count">1,560+</div></a>
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-shoe-prints"></i></div><div class="category-name">Dancers</div><div class="category-count">1,450+</div></a>
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-feather"></i></div><div class="category-name">Spoken Word Artists</div><div class="category-count">980+</div></a>
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-star"></i></div><div class="category-name">Influencers</div><div class="category-count">2,120+</div></a>
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-theater-masks"></i></div><div class="category-name">Actors</div><div class="category-count">3,200+</div></a>
-      <a href="Browse.html" class="category-card"><div class="category-icon"><i class="fas fa-video"></i></div><div class="category-name">Content Creators</div><div class="category-count">4,560+</div></a>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURED ARTISTS (with K prices) -->
-<section class="section section-darker">
-  <div class="container">
-    <h2 class="section-title">Featured Artists</h2>
-    <p class="section-subtitle">Most‑booked and highest‑rated performers.</p>
-    <div class="featured-grid">
-      <div class="artist-card">
-        <div class="artist-image"><i class="fas fa-microphone-alt"></i></div>
-        <div class="artist-info">
-          <div class="artist-category">Hip-Hop/Rap</div>
-          <div class="artist-name">Kachilonda</div>
-          <div class="artist-location"><i class="fas fa-map-marker-alt"></i> Lusaka</div>
-          <div class="artist-rating"><span class="stars">★★★★★</span> <span style="color: var(--gray-500);">(128)</span></div>
-          <div class="artist-price">From K700</div>
+    <div class="cat-grid">
+      <div class="cat-card reveal delay-1">
+        <img src="https://images.unsplash.com/photo-1501386761578-eaa54b5e5e12?w=900&auto=format&fit=crop&q=80" alt="Musicians" />
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <div>
+            <div class="cat-name">Musicians</div>
+            <div class="cat-count">2,543 available</div>
+          </div>
+          <div class="cat-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
-      <div class="artist-card">
-        <div class="artist-image"><i class="fas fa-headphones"></i></div>
-        <div class="artist-info">
-          <div class="artist-category">DJ/Music Producer</div>
-          <div class="artist-name">DJ Esthero</div>
-          <div class="artist-location"><i class="fas fa-map-marker-alt"></i> Livingstone</div>
-          <div class="artist-rating"><span class="stars">★★★★★</span> <span style="color: var(--gray-500);">(156)</span></div>
-          <div class="artist-price">From K600</div>
+      <div class="cat-card reveal delay-2">
+        <img src="https://images.unsplash.com/photo-1574169207511-e21a21c8075a?w=600&auto=format&fit=crop&q=80" alt="DJs" />
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <div>
+            <div class="cat-name">DJs</div>
+            <div class="cat-count">945 available</div>
+          </div>
+          <div class="cat-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
-      <div class="artist-card">
-        <div class="artist-image"><i class="fas fa-star"></i></div>
-        <div class="artist-info">
-          <div class="artist-category">Celebrity/Entertainer</div>
-          <div class="artist-name">Sophia Mwale</div>
-          <div class="artist-location"><i class="fas fa-map-marker-alt"></i> Ndola</div>
-          <div class="artist-rating"><span class="stars">★★★★★</span> <span style="color: var(--gray-500);">(203)</span></div>
-          <div class="artist-price">From K1,000</div>
+      <div class="cat-card reveal delay-3">
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&auto=format&fit=crop&q=80" alt="Photographers" />
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <div>
+            <div class="cat-name">Photographers</div>
+            <div class="cat-count">1,234 available</div>
+          </div>
+          <div class="cat-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
-      <div class="artist-card">
-        <div class="artist-image"><i class="fas fa-music"></i></div>
-        <div class="artist-info">
-          <div class="artist-category">Traditional Music</div>
-          <div class="artist-name">Kalimba King</div>
-          <div class="artist-location"><i class="fas fa-map-marker-alt"></i> Kitwe</div>
-          <div class="artist-rating"><span class="stars">★★★★★</span> <span style="color: var(--gray-500);">(89)</span></div>
-          <div class="artist-price">From K300</div>
+      <div class="cat-card reveal delay-4">
+        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=500&auto=format&fit=crop&q=80" alt="Comedians" />
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <div>
+            <div class="cat-name">Comedians</div>
+            <div class="cat-count">856 available</div>
+          </div>
+          <div class="cat-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
-    </div>
-    <div style="text-align: center; margin-top: 48px;">
-      <a href="Browse.html" class="btn btn-primary btn-lg">Explore All Artists</a>
+      <div class="cat-card reveal delay-5">
+        <img src="https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=500&auto=format&fit=crop&q=80" alt="Dancers" />
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <div>
+            <div class="cat-name">Dancers</div>
+            <div class="cat-count">678 available</div>
+          </div>
+          <div class="cat-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="cat-card reveal delay-1">
+        <img src="https://images.unsplash.com/photo-1478737270197-1f4fa0b8e44e?w=500&auto=format&fit=crop&q=80" alt="MCs" />
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <div>
+            <div class="cat-name">MCs & Hosts</div>
+            <div class="cat-count">432 available</div>
+          </div>
+          <div class="cat-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="section">
+<!-- ═══ FEATURED ARTISTS ═══════════════════════════════════ -->
+<section class="section featured" id="featured">
   <div class="container">
-    <h2 class="section-title">What Our Customers Say</h2>
-    <p class="section-subtitle">Join thousands of happy event planners.</p>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <p class="testimonial-quote">"We found the perfect band for our wedding on the first try. The booking process was smooth, and they were absolutely incredible!"</p>
-        <div class="testimonial-author"><div class="author-avatar">S</div><div><div class="author-name">Sarah & James</div><div class="author-role">Wedding Clients</div></div></div>
+    <div class="featured-header">
+      <div class="reveal">
+        <div class="section-label">This Week</div>
+        <h2 class="section-title">Featured <span>Artists</span></h2>
       </div>
-      <div class="testimonial-card">
-        <p class="testimonial-quote">"Outstanding selection and customer service. The photographers here are world‑class. Highly recommend."</p>
-        <div class="testimonial-author"><div class="author-avatar">M</div><div><div class="author-name">Marcus Chen</div><div class="author-role">Event Organizer</div></div></div>
+      <div class="scroll-btns reveal">
+        <button class="scroll-btn" id="scrollLeft">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="scroll-btn" id="scrollRight">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
-      <div class="testimonial-card">
-        <p class="testimonial-quote">"Best platform for booking entertainers. Amazing variety, transparent pricing, and hassle‑free from start to finish."</p>
-        <div class="testimonial-author"><div class="author-avatar">A</div><div><div class="author-name">Amanda Rodriguez</div><div class="author-role">Party Planner</div></div></div>
+    </div>
+    <div class="featured-track" id="artistTrack">
+      <!-- Artist 1 -->
+      <div class="artist-card reveal delay-1">
+        <div class="artist-img">
+          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&auto=format&fit=crop&q=80" alt="Jazz Collective" />
+          <div class="artist-badge"><span class="pill">Musicians</span></div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name">The Jazz Collective</div>
+          <div class="artist-meta">
+            <div class="artist-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Lusaka, ZM
+            </div>
+            <div class="artist-rating">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              4.9 (124)
+            </div>
+          </div>
+          <div class="artist-footer">
+            <div class="artist-price">$800 <small>/ event</small></div>
+            <button class="artist-book">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- Artist 2 -->
+      <div class="artist-card reveal delay-2">
+        <div class="artist-img">
+          <img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=400&auto=format&fit=crop&q=80" alt="DJ Vibes" />
+          <div class="artist-badge"><span class="pill lime">DJs</span></div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name">DJ Nkosi Supreme</div>
+          <div class="artist-meta">
+            <div class="artist-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Harare, ZW
+            </div>
+            <div class="artist-rating">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              4.8 (212)
+            </div>
+          </div>
+          <div class="artist-footer">
+            <div class="artist-price">$600 <small>/ event</small></div>
+            <button class="artist-book">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- Artist 3 -->
+      <div class="artist-card reveal delay-3">
+        <div class="artist-img">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&auto=format&fit=crop&q=80" alt="Photographer" />
+          <div class="artist-badge"><span class="pill amber">Photographers</span></div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name">Creative Lens Studio</div>
+          <div class="artist-meta">
+            <div class="artist-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Nairobi, KE
+            </div>
+            <div class="artist-rating">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              4.9 (156)
+            </div>
+          </div>
+          <div class="artist-footer">
+            <div class="artist-price">$1,200 <small>/ event</small></div>
+            <button class="artist-book">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- Artist 4 -->
+      <div class="artist-card reveal delay-4">
+        <div class="artist-img">
+          <img src="https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=400&auto=format&fit=crop&q=80" alt="Dancers" />
+          <div class="artist-badge"><span class="pill">Dancers</span></div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name">Energy Dance Crew</div>
+          <div class="artist-meta">
+            <div class="artist-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Lusaka, ZM
+            </div>
+            <div class="artist-rating">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              4.8 (98)
+            </div>
+          </div>
+          <div class="artist-footer">
+            <div class="artist-price">$500 <small>/ event</small></div>
+            <button class="artist-book">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- Artist 5 -->
+      <div class="artist-card reveal delay-5">
+        <div class="artist-img">
+          <img src="https://images.unsplash.com/photo-1587038380850-cfaf5c2effa0?w=400&auto=format&fit=crop&q=80" alt="Stand-Up" />
+          <div class="artist-badge"><span class="pill lime">Comedian</span></div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name">Sarah Mwale Comedy</div>
+          <div class="artist-meta">
+            <div class="artist-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Cape Town, ZA
+            </div>
+            <div class="artist-rating">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              4.9 (89)
+            </div>
+          </div>
+          <div class="artist-footer">
+            <div class="artist-price">$750 <small>/ event</small></div>
+            <button class="artist-book">Book Now</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="section">
+<!-- ═══ HOW IT WORKS ════════════════════════════════════════ -->
+<section class="section how" id="how">
   <div class="container">
-    <div class="cta-banner">
-      <h2 class="cta-title">Ready to book <em style="font-style: italic;">extraordinary talent</em>?</h2>
-      <p class="cta-subtitle">Start browsing thousands of talented performers today.</p>
-      <a href="Browse.html" class="btn btn-gold btn-lg" style="margin-top: 24px;">Browse Artists Now</a>
+    <div class="how-grid">
+      <div class="how-visual reveal-left">
+        <div class="how-img-wrap">
+          <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=700&auto=format&fit=crop&q=80" alt="Event performance" />
+        </div>
+        <div class="how-floating how-f1">
+          <div class="how-f-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="how-f-label">Verified Instantly</div>
+            <div class="how-f-value">All artists are ID-checked</div>
+          </div>
+        </div>
+        <div class="how-floating how-f2">
+          <div class="how-f-icon lime">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="how-f-label">Secure Payments</div>
+            <div class="how-f-value">Held in escrow until event</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="section-label">Simple Process</div>
+        <h2 class="section-title">Book in <span>3 Easy</span><br>Steps</h2>
+        <p class="section-sub" style="margin-bottom:40px;">
+          No phone-tag, no hidden fees. Browse, pick your favourite artist, and confirm — all within minutes.
+        </p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num s1">01</div>
+            <div class="step-body">
+              <h3>Browse &amp; Compare</h3>
+              <p>Filter thousands of verified performers by category, location, date, and budget. Watch showreels and read genuine client reviews.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num s2">02</div>
+            <div class="step-body">
+              <h3>Request &amp; Confirm</h3>
+              <p>Send a booking request directly. Artists respond within 24 hours. Confirm details and secure your slot with a deposit.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num s3">03</div>
+            <div class="step-body">
+              <h3>Experience &amp; Review</h3>
+              <p>Enjoy a world-class performance. Payment is released to the artist only after your event goes off without a hitch.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ════════════════════════════════════════ -->
+<section class="section testimonials" id="testimonials">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:0;">
+      <div class="section-label" style="justify-content:center;">
+        <span>Client Reviews</span>
+      </div>
+      <h2 class="section-title" style="text-align:center;">Loved by Event <span>Organizers</span></h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card reveal delay-1">
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="t-quote">"PLUM completely transformed how we source talent for our corporate events. The quality of performers is consistently exceptional, and the booking process is seamless."</p>
+        <div class="t-author">
+          <div class="t-avatar">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop" alt="Jessica Chen">
+          </div>
+          <div>
+            <div class="t-name">Jessica Chen</div>
+            <div class="t-role">Corporate Events Manager · Lusaka</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-card reveal delay-2">
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="t-quote">"This platform replaced three different booking services we were using. The selection is incredible, artists are responsive, and the escrow payment gives real peace of mind."</p>
+        <div class="t-author">
+          <div class="t-avatar">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" alt="Marcus Thompson">
+          </div>
+          <div>
+            <div class="t-name">Marcus Thompson</div>
+            <div class="t-role">Wedding Planner · Nairobi</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-card reveal delay-3">
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="t-quote">"Booked a photographer and a DJ for our conference gala. Both were phenomenal. The reviews on PLUM are genuine and thorough — made decision-making so easy."</p>
+        <div class="t-author">
+          <div class="t-avatar">
+            <img src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?w=100&auto=format&fit=crop" alt="Aisha Patel">
+          </div>
+          <div>
+            <div class="t-name">Aisha Banda</div>
+            <div class="t-role">Events Coordinator · Harare</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--ARTIST JOIN CTA -->
+<section class="cta-section" id="join">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="cta-grid">
+        <div>
+          <div class="cta-kicker">For Performers</div>
+          <h2 class="cta-title">Are You a Performer?<br>Start Earning Today.</h2>
+          <p class="cta-desc">Join over 8,000 verified artists already earning through PLUM. Set your own rates, manage your schedule, and grow your audience — all in one place.</p>
+          <div style="display:flex;gap:14px;margin-bottom:40px;flex-wrap:wrap;">
+            <a href="#" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Become a Partner
+            </a>
+            <a href="#" class="btn btn-outline">Learn More</a>
+          </div>
+          <div class="cta-perks">
+            <div class="cta-perk">
+              <div class="perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Set your own rates — you're in control
+            </div>
+            <div class="cta-perk">
+              <div class="perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Manage availability with a built-in calendar
+            </div>
+            <div class="cta-perk">
+              <div class="perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Secure escrow payments, paid within 48hrs
+            </div>
+            <div class="cta-perk">
+              <div class="perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Build a verified portfolio and rating profile
+            </div>
+          </div>
+        </div>
+        <div class="cta-visual">
+          <img class="cta-img"
+            src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&auto=format&fit=crop&q=80"
+            alt="Performer on stage" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -998,77 +581,56 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div>
-        <div class="footer-logo">Plum <span class="logo-dot"></span></div>
-        <p class="footer-tagline">The premium marketplace connecting extraordinary talent with unforgettable events.</p>
-        <div class="footer-social">
-          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      <div class="footer-brand">
+        <img src="https://placehold.co/120x40?text=PLUM" alt="PLUM" />
+        <p>The sweet spot for bookings. Connecting outstanding talent with events across Africa and beyond.</p>
+        <div class="footer-socials">
+          <a class="footer-social" href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a class="footer-social" href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a class="footer-social" href="#" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M4 20L20 4"/></svg>
+          </a>
         </div>
       </div>
-      <div>
-        <div class="footer-heading">For Clients</div>
-        <div class="footer-links">
-          <a href="Browse.html" class="footer-link">Find Artists</a>
-          <a href="#" class="footer-link">How Booking Works</a>
-          <a href="#" class="footer-link">Event Planning</a>
-          <a href="#" class="footer-link">Corporate Events</a>
-          <a href="#" class="footer-link">Wedding Planning</a>
-        </div>
+      <div class="footer-col">
+        <h5>For Organizers</h5>
+        <ul class="footer-links">
+          <li><a href="#">Browse Talent</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">Pricing & Fees</a></li>
+          <li><a href="#">Event Planning Guide</a></li>
+        </ul>
       </div>
-      <div>
-        <div class="footer-heading">For Artists</div>
-        <div class="footer-links">
-          <a href="register.html" class="footer-link">Join as Artist</a>
-          <a href="#" class="footer-link">Dashboard</a>
-          <a href="#" class="footer-link">Pricing</a>
-          <a href="#" class="footer-link">Success Stories</a>
-          <a href="#" class="footer-link">Support</a>
-        </div>
+      <div class="footer-col">
+        <h5>For Artists</h5>
+        <ul class="footer-links">
+          <li><a href="#">Join PLUM</a></li>
+          <li><a href="#">Artist Earnings</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Success Stories</a></li>
+        </ul>
       </div>
-      <div>
-        <div class="footer-heading">Company</div>
-        <div class="footer-links">
-          <a href="#" class="footer-link">About</a>
-          <a href="#" class="footer-link">Blog</a>
-          <a href="#" class="footer-link">Careers</a>
-          <a href="#" class="footer-link">Press</a>
-          <a href="#" class="footer-link">Contact</a>
-        </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Plum Entertainment. All rights reserved.</span>
+      <div class="footer-copy">&copy; 2026 PLUM. All rights reserved.</div>
+      <div class="footer-tagline"><span class="footer-tagline-dot"></span>The Sweet Spot for Bookings</div>
     </div>
   </div>
 </footer>
-
-<script>
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
-    if (window.scrollY > 50) navbar.classList.add('scrolled');
-    else navbar.classList.remove('scrolled');
-  });
-
-  // Simple search redirection (combine with Browse.html)
-  document.getElementById('heroSearchBtn')?.addEventListener('click', (e) => {
-    const input = document.getElementById('heroSearchInput');
-    if (input.value.trim()) {
-      window.location.href = 'Browse.html?search=' + encodeURIComponent(input.value.trim());
-    } else {
-      window.location.href = 'Browse.html';
-    }
-  });
-  document.getElementById('heroSearchInput')?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      document.getElementById('heroSearchBtn').click();
-    }
-  });
-</script>
-
+ <script src="index.js"></script>
 </body>
 </html>
-
