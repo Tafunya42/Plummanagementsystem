@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Chanda & The Soul Collective — PLUM Artist Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="artist-profile.css"/>
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo">
+        <img src="images/Plum LogoNew.png" alt="PLUM" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="nav-logo-txt">PLUM</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="browse.html">Browse Talent</a></li>
+        <li><a href="#gallery">Portfolio</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#availability">Availability</a></li>
+      </ul>
+      <div class="nav-r">
+        <button class="nav-share" id="shareBtn">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share Profile
+        </button>
+        <a href="login.html" style="padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);font-size:.85rem;text-decoration:none;transition:all .3s">Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ COVER ════════════════════════════════════════════════ -->
+<div class="cover">
+  <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400&auto=format&fit=crop&q=80" alt="Cover" />
+</div>
+
+<!-- ═══ PROFILE HEADER ══════════════════════════════════════ -->
+<div class="profile-header">
+  <div class="ph-inner">
+    <div class="ph-top">
+      <div class="ph-left">
+        <div class="ph-photo">
+          <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=296&auto=format&fit=crop&q=80" alt="Chanda"/>
+        </div>
+        <div class="ph-info">
+          <div class="ph-row">
+            <h1 class="ph-name">Chanda &amp; The Soul Collective</h1>
+            <span class="verified">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Verified
+            </span>
+          </div>
+          <p class="ph-subtitle">Afro-Soul Live Band &mdash; 5 Members</p>
+          <div class="ph-meta">
+            <div class="ph-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Lusaka, Zambia
+            </div>
+            <div class="ph-meta-item">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="var(--a)" stroke="none"/></svg>
+              4.9 &nbsp;(124 bookings)
+            </div>
+            <div class="ph-meta-item avail">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Available This Weekend
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ph-actions">
+        <button class="btn btn-l" id="bookBtn">
+          <svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          Request Booking
+        </button>
+        <button class="btn btn-o" id="saveBtn">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAIN LAYOUT ══════════════════════════════════════════ -->
+<div class="container">
+  <div class="layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="main-col">
+
+      <!-- About -->
+      <div class="card">
+        <h2 class="card-title">About</h2>
+        <p class="bio">Chanda &amp; The Soul Collective is a 5-piece Afro-Soul live band rooted in Lusaka, Zambia. We blend contemporary Afrobeats, soulful R&amp;B, and traditional Zambian rhythms into an unforgettable live experience. With over a decade of collective performance across corporate galas, private weddings, and festivals, we bring warmth, energy, and world-class musicianship to every stage. Our repertoire spans original compositions to tasteful covers — curated for your event's mood.</p>
+      </div>
+
+      <!-- Skills & Categories -->
+      <div class="card">
+        <h2 class="card-title">Category &amp; Skills</h2>
+        <div class="tags">
+          <span class="tag-main">Musicians</span>
+          <span class="tag">Afro-Soul</span>
+          <span class="tag">Live Band</span>
+          <span class="tag">R&amp;B</span>
+          <span class="tag">Afrobeats</span>
+          <span class="tag">Weddings</span>
+          <span class="tag">Corporate Events</span>
+          <span class="tag">Galas</span>
+          <span class="tag">Festivals</span>
+        </div>
+      </div>
+
+      <!-- Media Gallery -->
+      <div class="card" id="gallery">
+        <h2 class="card-title">Media Gallery</h2>
+        <div class="tabs">
+          <button class="tab-btn on" data-tab="photos">
+            <svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Photos
+          </button>
+          <button class="tab-btn" data-tab="videos">
+            <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            Videos
+          </button>
+          <button class="tab-btn" data-tab="audio">
+            <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            Audio Samples
+          </button>
+        </div>
+
+        <div class="tab-pane on" data-tab="photos">
+          <div class="gallery">
+            <div class="gal-item" data-src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&auto=format&fit=crop&q=80"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&auto=format&fit=crop&q=80" alt="Performance"/><div class="gal-ov"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+            <div class="gal-item" data-src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&auto=format&fit=crop&q=80" alt="Stage"/><div class="gal-ov"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+            <div class="gal-item" data-src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&auto=format&fit=crop&q=80"><img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&auto=format&fit=crop&q=80" alt="Concert"/><div class="gal-ov"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+            <div class="gal-item" data-src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&auto=format&fit=crop&q=80" alt="Band"/><div class="gal-ov"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+            <div class="gal-item" data-src="https://images.unsplash.com/photo-1501386761578-eaa54b5e5e12?w=800&auto=format&fit=crop&q=80"><img src="https://images.unsplash.com/photo-1501386761578-eaa54b5e5e12?w=400&auto=format&fit=crop&q=80" alt="Live"/><div class="gal-ov"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+            <div class="gal-item" data-src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80"><img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&auto=format&fit=crop&q=80" alt="Event"/><div class="gal-ov"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="tab-pane" data-tab="videos">
+          <div class="videos">
+            <div class="vid-item">
+              <div class="vid-thumb"><img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&auto=format&fit=crop&q=80" alt="Video 1"/><div class="vid-play"><div class="vid-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+              <div class="vid-info"><h4>Corporate Gala Highlights</h4><p>4:20 &nbsp;·&nbsp; March 2026</p></div>
+            </div>
+            <div class="vid-item">
+              <div class="vid-thumb"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&auto=format&fit=crop&q=80" alt="Video 2"/><div class="vid-play"><div class="vid-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+              <div class="vid-info"><h4>Wedding Reception — Livingstone</h4><p>5:12 &nbsp;·&nbsp; February 2026</p></div>
+            </div>
+            <div class="vid-item">
+              <div class="vid-thumb"><img src="https://images.unsplash.com/photo-1501386761578-eaa54b5e5e12?w=400&auto=format&fit=crop&q=80" alt="Video 3"/><div class="vid-play"><div class="vid-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+              <div class="vid-info"><h4>Festival Stage — Lusaka</h4><p>3:45 &nbsp;·&nbsp; January 2026</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" data-tab="audio">
+          <div class="audio-list">
+            <div class="audio-item">
+              <button class="play-btn" data-track="1"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+              <div class="audio-bar"><div class="progress-track"><div class="progress-fill"></div></div></div>
+              <div class="audio-meta"><h4>Lusaka Nights (Original)</h4><p>Afro-Soul</p></div>
+              <span class="audio-dur">3:28</span>
+            </div>
+            <div class="audio-item">
+              <button class="play-btn" data-track="2"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+              <div class="audio-bar"><div class="progress-track"><div class="progress-fill"></div></div></div>
+              <div class="audio-meta"><h4>Zambian Sunrise (Cover)</h4><p>Afrobeats</p></div>
+              <span class="audio-dur">4:05</span>
+            </div>
+            <div class="audio-item">
+              <button class="play-btn" data-track="3"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+              <div class="audio-bar"><div class="progress-track"><div class="progress-fill"></div></div></div>
+              <div class="audio-meta"><h4>River Soul (Original)</h4><p>Neo-Soul</p></div>
+              <span class="audio-dur">2:54</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="card" id="pricing">
+        <h2 class="card-title">Pricing</h2>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <h3>2-Hour Set</h3>
+            <div class="price-amt">K&nbsp;8,250 <span>/ event</span></div>
+            <ul class="price-features">
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>5-piece live band</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>2 hours performance</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Basic PA system</li>
+              <li class="feat-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Extended set</li>
+            </ul>
+            <button class="btn btn-o btn-fw" onclick="document.getElementById('bookModal').classList.add('on')">Choose Plan</button>
+          </div>
+          <div class="price-card featured">
+            <div class="feat-badge">Most Popular</div>
+            <h3>Full Evening</h3>
+            <div class="price-amt">K&nbsp;20,625 <span>/ event</span></div>
+            <ul class="price-features">
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>5-piece live band</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Up to 6 hours</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Full PA + lighting rig</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>MC between sets</li>
+            </ul>
+            <button class="btn btn-l btn-fw" onclick="document.getElementById('bookModal').classList.add('on')">Choose Plan</button>
+          </div>
+          <div class="price-card">
+            <h3>Custom / Corporate</h3>
+            <div class="price-amt">Custom <span>&nbsp;</span></div>
+            <ul class="price-features">
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tailored setlist</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Travel negotiable</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Event consultation</li>
+              <li class="feat-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Special requests</li>
+            </ul>
+            <button class="btn btn-o btn-fw" onclick="document.getElementById('bookModal').classList.add('on')">Get Quote</button>
+          </div>
+        </div>
+        <div class="price-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Travel fees and venue setup charges may apply. Prices shown in ZMW — toggle USD on the homepage. Contact for a personalised quote.
+        </div>
+      </div>
+
+      <!-- Performance History -->
+      <div class="card">
+        <h2 class="card-title">Performance History</h2>
+        <div class="timeline">
+          <div class="t-item">
+            <div class="t-dot"></div>
+            <div class="t-date">March 15, 2026</div>
+            <h4>Intercontinental Lusaka — Annual Gala</h4>
+            <p>Headlined the evening for 400+ guests. Received a standing ovation for an extended Afro-Soul medley closing the night.</p>
+          </div>
+          <div class="t-item">
+            <div class="t-dot"></div>
+            <div class="t-date">March 1, 2026</div>
+            <h4>Mutale–Nkonde Wedding Reception — Livingstone</h4>
+            <p>Performed cocktail hour and reception sets for 280 guests at the Victoria Falls Hotel. Couple's first dance was an original composition.</p>
+          </div>
+          <div class="t-item">
+            <div class="t-dot"></div>
+            <div class="t-date">February 14, 2026</div>
+            <h4>Airtel Zambia Valentine's Gala — Lusaka</h4>
+            <p>Featured entertainment act for corporate client event with 600 attendees. Covered in Zambia Daily Mail.</p>
+          </div>
+          <div class="t-item">
+            <div class="t-dot"></div>
+            <div class="t-date">January 22, 2026</div>
+            <h4>Lusaka Cultural Festival — Main Stage</h4>
+            <p>Opened for international headliner to a crowd of 3,000. Festival Director's highlight of the opening night.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Availability Calendar -->
+      <div class="card" id="availability">
+        <h2 class="card-title">Availability</h2>
+        <div class="cal-legend">
+          <div class="cal-leg-item"><div class="cal-leg-dot av"></div>Available</div>
+          <div class="cal-leg-item"><div class="cal-leg-dot bk"></div>Booked</div>
+        </div>
+        <div class="cal-header">
+          <button class="cal-nav" id="calPrev">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <span class="cal-month" id="calLabel">April 2026</span>
+          <button class="cal-nav" id="calNext">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="card" id="reviews">
+        <h2 class="card-title">Reviews &amp; Ratings</h2>
+        <div class="reviews-summary">
+          <div class="rs-score">
+            <div class="rs-num">4.9</div>
+            <div class="rs-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="rs-count">Based on 124 reviews</div>
+          </div>
+          <div class="rs-bars">
+            <div class="rs-bar"><span class="rs-bar-lbl">5 <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div class="rs-track"><div class="rs-fill" style="width:85%"></div></div><span class="rs-cnt">105</span></div>
+            <div class="rs-bar"><span class="rs-bar-lbl">4 <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div class="rs-track"><div class="rs-fill" style="width:12%"></div></div><span class="rs-cnt">15</span></div>
+            <div class="rs-bar"><span class="rs-bar-lbl">3 <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div class="rs-track"><div class="rs-fill" style="width:2%"></div></div><span class="rs-cnt">3</span></div>
+            <div class="rs-bar"><span class="rs-bar-lbl">2 <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div class="rs-track"><div class="rs-fill" style="width:0%"></div></div><span class="rs-cnt">0</span></div>
+            <div class="rs-bar"><span class="rs-bar-lbl">1 <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div class="rs-track"><div class="rs-fill" style="width:1%"></div></div><span class="rs-cnt">1</span></div>
+          </div>
+        </div>
+        <div class="review-list">
+          <div class="review">
+            <div class="review-top">
+              <div class="review-author">
+                <div class="review-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=76&auto=format&fit=crop&q=80" alt="Jessica"/></div>
+                <div><div class="review-name">Jessica Mulenga</div><div class="review-role">Corporate Events Manager</div></div>
+              </div>
+              <div class="review-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            </div>
+            <p class="review-date">2 weeks ago &nbsp;·&nbsp; Annual Gala, Lusaka</p>
+            <p class="review-text">Chanda and the band were absolutely phenomenal. They read the room perfectly — starting smooth and building to an incredible energy by midnight. Every single guest was on the dance floor. Professional, punctual, and genuinely talented. We're already re-booking for our next event.</p>
+          </div>
+          <div class="review">
+            <div class="review-top">
+              <div class="review-author">
+                <div class="review-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=76&auto=format&fit=crop&q=80" alt="Mutale"/></div>
+                <div><div class="review-name">Mutale Nkonde</div><div class="review-role">Wedding Client</div></div>
+              </div>
+              <div class="review-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            </div>
+            <p class="review-date">1 month ago &nbsp;·&nbsp; Wedding Reception, Livingstone</p>
+            <p class="review-text">The most beautiful addition to our wedding. They composed a short original piece for our first dance — that alone was worth everything. Our guests are still talking about how incredible the music was. Thank you from the bottom of our hearts.</p>
+          </div>
+          <div class="review">
+            <div class="review-top">
+              <div class="review-author">
+                <div class="review-av"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=76&auto=format&fit=crop&q=80" alt="Thandeka"/></div>
+                <div><div class="review-name">Thandeka Banda</div><div class="review-role">Events Coordinator, Ndola</div></div>
+              </div>
+              <div class="review-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.27 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            </div>
+            <p class="review-date">6 weeks ago &nbsp;·&nbsp; Corporate Conference, Ndola</p>
+            <p class="review-text">Booked them for a high-profile conference opening gala with 500+ attendees. They were utterly professional from first contact to final bow. The PLUM booking process made it seamless — I'd recommend both the platform and this band without hesitation.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-col -->
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="s-card">
+        <div class="s-title">Quick Stats</div>
+        <div class="s-stat"><span class="s-stat-lbl">Total Bookings</span><span class="s-stat-val">124</span></div>
+        <div class="s-stat"><span class="s-stat-lbl">Response Time</span><span class="s-stat-val">&lt; 2 hours</span></div>
+        <div class="s-stat"><span class="s-stat-lbl">Band Members</span><span class="s-stat-val">5</span></div>
+        <div class="s-stat"><span class="s-stat-lbl">Years Active</span><span class="s-stat-val">12+</span></div>
+        <div class="s-stat"><span class="s-stat-lbl">Avg. Rating</span><span class="s-stat-val" style="color:var(--a)">★ 4.9</span></div>
+        <div class="s-stat"><span class="s-stat-lbl">Based In</span><span class="s-stat-val">Lusaka, ZM</span></div>
+      </div>
+
+      <div class="s-card">
+        <div class="s-title">Connect</div>
+        <div class="socials">
+          <a href="#" class="soc-btn" title="Instagram"><svg viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+          <a href="#" class="soc-btn" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" class="soc-btn" title="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" class="soc-btn" title="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+          <a href="#" class="soc-btn" title="Website"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="s-card">
+        <div class="s-title">Portfolio Links</div>
+        <div class="port-links">
+          <a href="#" class="port-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>chandasoulcollective.com</a>
+          <a href="#" class="port-link"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Spotify — Stream Our Music</a>
+          <a href="#" class="port-link"><svg viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>Instagram Gallery</a>
+        </div>
+      </div>
+
+      <div class="s-card cta-card">
+        <div class="s-title">Ready to Book?</div>
+        <p>Contact us to check availability and discuss your event requirements. We respond within 2 hours.</p>
+        <button class="btn btn-l btn-fw" id="bookBtn2">
+          <svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          Request Booking
+        </button>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-w">
+          <img src="Plum_LogoNew.png" alt="PLUM" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <span style="display:none;font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--p2),var(--l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">PLUM</span>
+        </div>
+        <p>The sweet spot for bookings. Connecting outstanding local talent with events across Zambia, Southern Africa and beyond.</p>
+        <div class="fsocials">
+          <a class="fsoc" href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a class="fsoc" href="#"><svg viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+          <a class="fsoc" href="#"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>For Organizers</h5><ul><li><a href="index.html">Browse Talent</a></li><li><a href="#">How It Works</a></li><li><a href="#">Pricing &amp; Fees</a></li><li><a href="#">Event Guide</a></li></ul></div>
+      <div class="footer-col"><h5>For Artists</h5><ul><li><a href="#">Join PLUM</a></li><li><a href="#">Artist Earnings</a></li><li><a href="#">Resources</a></li><li><a href="#">Success Stories</a></li></ul></div>
+      <div class="footer-col"><h5>Company</h5><ul><li><a href="#">About Us</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 PLUM. All rights reserved.</div>
+      <div class="footer-tag"><span class="tag-dot"></span>The Sweet Spot for Bookings</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ BOOKING MODAL ═════════════════════════════════════════ -->
+<div class="modal" id="bookModal">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <h2>Request Booking</h2>
+      <button class="modal-close" id="closeModal"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <form id="bookingForm">
+      <div class="form-grp"><label>Full Name</label><input type="text" placeholder="Your name" required/></div>
+      <div class="form-grp"><label>Email Address</label><input type="email" placeholder="you@email.com" required/></div>
+      <div class="form-grp"><label>Phone Number</label><input type="tel" placeholder="+260 XXX XXX XXX"/></div>
+      <div class="form-grp"><label>Event Date</label><input type="date" required/></div>
+      <div class="form-grp"><label>Event Type</label>
+        <select>
+          <option>Wedding Reception</option>
+          <option>Corporate Gala</option>
+          <option>Private Party</option>
+          <option>Festival / Concert</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-grp"><label>Package</label>
+        <select>
+          <option>2-Hour Set</option>
+          <option>Full Evening (6hrs)</option>
+          <option>Custom / Corporate</option>
+        </select>
+      </div>
+      <div class="form-grp"><label>Message</label><textarea placeholder="Tell us about your event, venue, expected guests…"></textarea></div>
+      <button type="submit" class="btn btn-l btn-fw">Send Booking Request</button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ LIGHTBOX ══════════════════════════════════════════════ -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" id="lightboxClose"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+  <img id="lightboxImg" src="" alt=""/>
+</div>
+<script src="artist-profile.js"></script>
+</body>
+</html>
+

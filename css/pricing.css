@@ -1,0 +1,109 @@
+﻿:root {
+    --primary: #7C3AED;
+    --primary-dark: #6D28D9;
+    --indigo: #3730A3;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --info: #3B82F6;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-400: #9CA3AF;
+    --gray-500: #6B7280;
+    --gray-600: #4B5563;
+    --gray-700: #374151;
+    --gray-800: #1F2937;
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 20px 25px rgba(0,0,0,0.15);
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; color: var(--gray-700); line-height: 1.6; background-image: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(124, 58, 237, 0.02) 40px, rgba(124, 58, 237, 0.02) 41px), repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(55, 48, 163, 0.015) 40px, rgba(55, 48, 163, 0.015) 41px), repeating-linear-gradient(135deg, transparent, transparent 80px, rgba(124, 58, 237, 0.01) 80px, rgba(124, 58, 237, 0.01) 82px); background-size: 80px 80px, 80px 80px, 160px 160px; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; font-weight: 700; }
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+
+.navbar { background: var(--bg2); box-shadow: 0 1px 2px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+.navbar-container { max-width: 1280px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.navbar-logo { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--primary), var(--lime)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.navbar-menu { display: flex; list-style: none; gap: 2rem; flex: 1; margin-left: 2rem; }
+.navbar-menu a { color: var(--text-muted); font-weight: 500; transition: color 0.3s; }
+.navbar-menu a:hover { color: var(--lime); }
+.navbar-actions { display: flex; gap: 1rem; }
+
+.btn-primary { background: var(--primary); color: white; padding: 0.5rem 1.25rem; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: background 0.3s; }
+.btn-primary:hover { background: var(--secondary); }
+.btn-secondary { background: white; color: var(--gray-700); padding: 0.5rem 1.25rem; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; }
+.btn-full { width: 100%; }
+.btn-large { padding: 0.75rem 1.75rem; font-size: 1rem; }
+
+.hero { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 4rem 2rem; text-align: center; position: relative; }
+.hero h1 { margin-bottom: 0.5rem; }
+.hero p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+/* Pricing Specific */
+.billing-toggle { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
+.toggle-btn { background: rgba(255,255,255,0.2); color: white; border: 2px solid transparent; padding: 0.5rem 1rem; border-radius: 999px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.toggle-btn.active { background: white; color: var(--primary); }
+
+.pricing-section { padding: 3rem 2rem; }
+.pricing-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+
+.pricing-card { background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 2rem; position: relative; transition: all 0.3s; }
+.pricing-card.featured { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: scale(1.05); }
+.badge-popular { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.375rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+
+.plan-header h2 { margin: 0 0 0.5rem; }
+.plan-description { color: var(--gray-600); margin: 0; }
+
+.plan-price { margin: 2rem 0; text-align: center; }
+.currency { font-size: 1.5rem; }
+.amount { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: var(--primary); }
+.period { color: var(--gray-600); }
+.plan-note { text-align: center; color: var(--gray-600); margin-bottom: 1.5rem; }
+
+.plan-features { margin-top: 2rem; }
+.feature { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.feature i { color: var(--success); font-size: 1.1rem; }
+.feature.disabled { color: var(--gray-400); }
+.feature.disabled i { color: var(--gray-300); }
+
+.faq-section { background: var(--gray-100); padding: 4rem 2rem; }
+.faq-section h2 { margin-bottom: 3rem; text-align: center; }
+.faq-items { max-width: 700px; margin: 0 auto; }
+
+.faq-item { background: white; border-radius: var(--radius-lg); margin-bottom: 1rem; overflow: hidden; }
+.faq-question { padding: 1.5rem; background: var(--gray-50); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.faq-question h3 { margin: 0; font-size: 1rem; }
+.faq-answer { padding: 1.5rem; display: none; color: var(--gray-600); }
+.faq-answer.active { display: block; }
+
+.testimonials-section { padding: 4rem 2rem; background: white; }
+.testimonials-section h2 { margin-bottom: 3rem; text-align: center; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+
+.testimonial { background: var(--gray-50); padding: 2rem; border-radius: var(--radius-lg); border-left: 4px solid var(--primary); }
+.testimonial .stars { color: #FFB800; margin-bottom: 1rem; }
+.testimonial p { margin: 0; }
+.testimonial-author { font-weight: 600; margin-top: 1rem; color: var(--primary); }
+
+.footer { background: var(--gray-100); padding: 2rem; text-align: center; color: var(--gray-600); }
+
+@media (max-width: 1024px) {
+    .pricing-cards { grid-template-columns: 1fr; }
+    .pricing-card.featured { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .navbar-container { flex-direction: column; gap: 1rem; }
+    .navbar-menu { flex-direction: column; margin-left: 0; }
+    .hero h1 { font-size: 1.75rem; }
+    .pricing-cards { grid-template-columns: 1fr; }
+    .billing-toggle { flex-direction: column; }
+}
