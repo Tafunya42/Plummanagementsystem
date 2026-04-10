@@ -30,10 +30,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ═══ NAV ═══════════════════════════════════════════════════ */
 .nav{position:sticky;top:0;z-index:200;background:rgba(8,5,16,.88);backdrop-filter:blur(22px);border-bottom:1px solid var(--bd)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 0}
-.nav-logo{display:flex;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:12px;padding:10px 16px;transition:all .3s;cursor:pointer}
-.nav-logo:hover{background:rgba(255,255,255,.12);transform:translateY(-2px);box-shadow:0 6px 20px rgba(170,220,0,.12)}
-.nav-logo img{height:56px;width:auto;object-fit:contain;display:block;transition:transform .3s}
-.nav-logo-txt{display:none;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.12em;background:linear-gradient(135deg,var(--p2),var(--l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-logo-wrap{display:flex;align-items:center;gap:.5rem;text-decoration:none;transition:all .3s;cursor:pointer}
+.nav-logo-wrap:hover{transform:translateY(-2px)}
+.plum-icon{display:flex;align-items:center;gap:3px;height:36px}
+.plum-bar{border-radius:10px;animation:barBounce 1.6s ease-in-out infinite}
+.plum-bar:nth-child(1){width:8px;height:24px;background:var(--l);animation-delay:0s}
+.plum-bar:nth-child(2){width:8px;height:36px;background:var(--p);animation-delay:.15s}
+.plum-bar:nth-child(3){width:8px;height:20px;background:var(--a);animation-delay:.3s}
+.plum-bar:nth-child(4){width:8px;height:36px;background:var(--p);animation-delay:.45s}
+.plum-bar:nth-child(5){width:8px;height:24px;background:var(--l);animation-delay:.6s}
+@keyframes barBounce{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.65)}}
+.nav-wordmark{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800;color:var(--iv);letter-spacing:-.02em}
+.nav-wordmark span{color:var(--p2)}
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
 .nav-links a{font-size:.83rem;letter-spacing:.04em;color:var(--id);transition:color .2s}
 .nav-links a:hover{color:var(--l)}

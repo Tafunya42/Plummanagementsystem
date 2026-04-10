@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Artist Dashboard — Plum</title>
+<meta name="description" content="Manage your bookings, inquiries, portfolio and earnings in your Plum artist workspace."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="css/adash.css"/>
+<style>
+.notif-panel{display:none;position:absolute;top:calc(100% + 8px);right:0;width:320px;background:var(--surface2,#1C1C2E);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,0.5);z-index:200;overflow:hidden;}
+.notif-panel.open{display:block;animation:slideDown 0.2s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:0.75rem;}
+.cal-day{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:600;cursor:pointer;transition:all 0.15s;border:1px solid transparent;}
+.cal-day:hover{background:rgba(139,31,200,0.2);border-color:rgba(139,31,200,0.3);}
+.cal-day.booked{background:rgba(139,31,200,0.3);border-color:rgba(139,31,200,0.5);color:#B46EE8;}
+.cal-day.available{background:rgba(184,217,0,0.15);border-color:rgba(184,217,0,0.3);color:#B8D900;}
+.cal-day.today{background:var(--purple,#8B1FC8);color:#fff;font-weight:800;}
+.cal-day.header{cursor:default;color:rgba(255,255,255,0.3);font-size:0.65rem;font-weight:700;text-transform:uppercase;background:none;border:none;}
+.cal-day.empty{cursor:default;background:none;border:none;}
+.avail-toggle{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:rgba(255,255,255,0.03);border-radius:10px;cursor:pointer;transition:background 0.2s;}
+.avail-toggle:hover{background:rgba(255,255,255,0.06);}
+.cal-legend{display:flex;gap:1rem;margin-top:0.75rem;font-size:0.7rem;color:rgba(255,255,255,0.4);}
+.cal-legend span{display:flex;align-items:center;gap:0.35rem;}
+.cal-legend .dot{width:8px;height:8px;border-radius:50%;}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<div class="dash-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a class="nav-logo-wrap" href="index.html" aria-label="PLUM home">
+        <div class="plum-icon">
+          <div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div>
+        </div>
+        <div class="nav-wordmark">PL<span>U</span>M</div>
+      </a>
+    </div>
+    <div class="sidebar-profile">
+      <div class="sp-avatar" onclick="document.getElementById('avUpload').click()">
+        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Chanda" id="sideAvatar"/>
+        <div class="sp-avatar-overlay"><i data-lucide="camera"></i></div>
+      </div>
+      <input type="file" id="avUpload" accept="image/*" style="display:none;" onchange="changeAvatar(this)"/>
+      <div>
+        <div class="sp-name">Chanda Mwewa</div>
+        <div class="sp-role"><i data-lucide="camera"></i> Photographer</div>
+        <div class="sp-badge"><i data-lucide="badge-check"></i> Verified</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-label">Main</div>
+        <a class="nav-item active" onclick="showPage('overview',this)"><i data-lucide="layout-dashboard"></i> Overview</a>
+        <a class="nav-item" onclick="showPage('bookings',this)"><i data-lucide="calendar-check"></i> Bookings <span class="badge">3</span></a>
+        <a class="nav-item" onclick="showPage('inquiries',this)"><i data-lucide="message-circle"></i> Inquiries <span class="badge">7</span></a>
+        <a class="nav-item" onclick="showPage('earnings',this)"><i data-lucide="banknote"></i> Earnings</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Profile</div>
+        <a class="nav-item" href="artist-profile.html"><i data-lucide="user-circle-2"></i> My Profile</a>
+        <a class="nav-item" onclick="openEditModal();showPage('profile',this)"><i data-lucide="edit-3"></i> Edit Profile</a>
+        <a class="nav-item" onclick="showPage('portfolio',this)"><i data-lucide="image"></i> Portfolio</a>
+        <a class="nav-item" onclick="showPage('services',this)"><i data-lucide="package"></i> Services</a>
+        <a class="nav-item" onclick="showPage('calendar',this)"><i data-lucide="calendar"></i> Availability</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Account</div>
+        <a class="nav-item" onclick="showPage('settings',this)"><i data-lucide="settings"></i> Settings</a>
+        <a class="nav-item" href="browse.html"><i data-lucide="compass"></i> Browse Market</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer"><a class="sf-logout" href="login.html"><i data-lucide="log-out"></i> Log Out</a></div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="dash-main">
+    <div class="dash-topbar">
+      <div class="topbar-title" id="pageTitle">Dashboard Overview</div>
+      <div class="topbar-right">
+        <div class="tb-greeting">Good morning, Chanda 👋</div>
+        <div style="position:relative;">
+          <div class="icon-btn" id="notifBtn" onclick="toggleNotif()"><i data-lucide="bell"></i><div class="notif-dot"></div></div>
+          <div class="notif-panel" id="notifPanel">
+            <div style="padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-weight:700;font-size:0.875rem;">Notifications</span>
+              <span style="font-size:0.72rem;color:#B46EE8;cursor:pointer;" onclick="markAllRead()">Mark all read</span>
+            </div>
+            <div style="padding:0.5rem;">
+              <div class="inq-item" style="padding:0.75rem;border-radius:12px;background:rgba(139,31,200,0.08);">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Bupe Mwale</span><span class="inq-time">2h ago</span></div><div class="inq-msg">Sent a booking inquiry for a fashion editorial shoot.</div></div>
+              </div>
+              <div class="inq-item" style="padding:0.75rem;border-radius:12px;">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Sitwala Mutale</span><span class="inq-time">5h ago</span></div><div class="inq-msg">Asked about your Event Coverage Package for May 30th.</div></div>
+              </div>
+              <div class="inq-item" style="padding:0.75rem;border-radius:12px;">
+                <div class="inq-av" style="background:rgba(184,217,0,0.15);display:flex;align-items:center;justify-content:center;"><i data-lucide="star" style="width:16px;height:16px;color:#B8D900;"></i></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">New Review</span><span class="inq-time">Yesterday</span></div><div class="inq-msg">Aaron Mubiana left you a 5★ review on your Brand Campaign.</div></div>
+              </div>
+            </div>
+            <div style="padding:0.75rem;text-align:center;border-top:1px solid rgba(255,255,255,0.06);"><span style="font-size:0.78rem;color:#B46EE8;cursor:pointer;" onclick="showPage('inquiries',null);toggleNotif()">View all inquiries →</span></div>
+          </div>
+        </div>
+        <div class="icon-btn" onclick="shareProfile()"><i data-lucide="share-2"></i></div>
+        <button class="btn-primary" onclick="window.location.href='artist-profile.html'"><i data-lucide="external-link"></i> View Profile</button>
+      </div>
+    </div>
+
+    <div class="dash-content">
+
+      <!-- OVERVIEW -->
+      <div class="page-section active" id="sec-overview">
+        <div class="welcome-banner reveal">
+          <div class="wb-text"><h2>Welcome back, Chanda! 🎉</h2><p>You have 7 new inquiries and 3 upcoming confirmed bookings.</p></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="wb-stat"><div class="num" data-target="186000" data-prefix="K">K0</div><div class="lbl">Projected earnings</div></div>
+            <button class="btn-lime" onclick="openEditModal()"><i data-lucide="edit-3"></i> Quick Edit</button>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card reveal"><div class="mc-top"><div class="mc-icon purple"><i data-lucide="message-circle"></i></div><span class="mc-change up">↑ 3 new</span></div><div class="mc-num" data-target="7" data-suffix="">0</div><div class="mc-label">Open Inquiries</div></div>
+          <div class="metric-card reveal d1"><div class="mc-top"><div class="mc-icon lime"><i data-lucide="calendar-check"></i></div><span class="mc-change up">↑ 2 this wk</span></div><div class="mc-num" data-target="6" data-suffix="">0</div><div class="mc-label">Confirmed Shows</div></div>
+          <div class="metric-card reveal d2"><div class="mc-top"><div class="mc-icon gold"><i data-lucide="banknote"></i></div><span class="mc-change up">↑ 18%</span></div><div class="mc-num">K48,200</div><div class="mc-label">Earned This Month</div></div>
+          <div class="metric-card reveal d3"><div class="mc-top"><div class="mc-icon blue"><i data-lucide="eye"></i></div><span class="mc-change up">↑ 24%</span></div><div class="mc-num" data-target="1240" data-suffix="">0</div><div class="mc-label">Profile Views</div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="dash-card reveal">
+            <div class="dc-header"><div class="dc-title">Recent Bookings</div><a class="view-all-link" onclick="showPage('bookings',null)">View all <i data-lucide="arrow-right"></i></a></div>
+            <div class="booking-row header"><div>Client</div><div>Date</div><div>Amount</div><div>Status</div><div></div></div>
+            <div class="booking-row">
+              <div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=50&q=80" alt=""/></div><div><div class="client-name">Men of Honor</div><div class="client-event">Corporate Gala</div></div></div>
+              <div>28 Apr 2025</div><div class="amount">K32,000</div>
+              <div><span class="status-badge confirmed"><i data-lucide="check"></i>Confirmed</span></div>
+              <div><button class="row-action">View</button></div>
+            </div>
+            <div class="booking-row">
+              <div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=50&q=80" alt=""/></div><div><div class="client-name">Peter Mukuka</div><div class="client-event">Wedding Photos</div></div></div>
+              <div>15 May 2025</div><div class="amount">K12,000</div>
+              <div><span class="status-badge confirmed"><i data-lucide="check"></i>Confirmed</span></div>
+              <div><button class="row-action">View</button></div>
+            </div>
+            <div class="booking-row">
+              <div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=50&q=80" alt=""/></div><div><div class="client-name">Aaron Mubiana</div><div class="client-event">Brand Campaign</div></div></div>
+              <div>22 May 2025</div><div class="amount">K18,500</div>
+              <div><span class="status-badge pending"><i data-lucide="clock"></i>Pending</span></div>
+              <div><button class="row-action">View</button></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="dash-card reveal d1" style="margin-bottom:1.2rem;">
+              <div class="dc-header"><div class="dc-title">Monthly Earnings</div></div>
+              <div class="bar-chart" id="earningsChart"></div>
+            </div>
+            <div class="dash-card reveal d2">
+              <div class="dc-header"><div class="dc-title">Profile Score</div><span class="dc-tag">92%</span></div>
+              <div class="score-ring-wrap">
+                <div class="score-ring">
+                  <svg width="72" height="72" viewBox="0 0 72 72">
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="var(--grey2)" stroke-width="6"/>
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="var(--purple)" stroke-width="6" stroke-dasharray="188.5" stroke-dashoffset="15" stroke-linecap="round"/>
+                  </svg>
+                  <div class="num">92%</div>
+                </div>
+                <div style="font-size:0.82rem;color:var(--text-muted);">Great profile! Add one more gallery photo to reach 100%.</div>
+              </div>
+              <div class="score-item"><span>Profile photo</span><div class="score-check done"><i data-lucide="check"></i></div></div>
+              <div class="score-item"><span>Bio added</span><div class="score-check done"><i data-lucide="check"></i></div></div>
+              <div class="score-item"><span>Portfolio (5+ items)</span><div class="score-check done"><i data-lucide="check"></i></div></div>
+              <div class="score-item"><span>Services listed</span><div class="score-check done"><i data-lucide="check"></i></div></div>
+              <div class="score-item"><span>10+ gallery photos</span><div class="score-check todo"><i data-lucide="plus"></i></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS + INQUIRIES -->
+        <div class="grid-2">
+          <div class="dash-card reveal">
+            <div class="dc-header"><div class="dc-title">Recent Inquiries</div><a class="view-all-link" onclick="showPage('inquiries',null)">View all <i data-lucide="arrow-right"></i></a></div>
+            <div class="inq-item">
+              <div class="inq-av"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=50&q=80" alt=""/></div>
+              <div class="inq-body">
+                <div class="inq-top"><span class="inq-name">Bupe Mwale</span><span class="inq-time">2h ago</span></div>
+                <div class="inq-msg">Hi! I'd love to book you for a fashion editorial shoot next month...</div>
+                <div class="inq-actions"><button class="inq-btn accept">Accept</button><button class="inq-btn reply">Reply</button><button class="inq-btn decline">Decline</button></div>
+              </div>
+            </div>
+            <div class="inq-item">
+              <div class="inq-av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&q=80" alt=""/></div>
+              <div class="inq-body">
+                <div class="inq-top"><span class="inq-name">Sitwala Mutale</span><span class="inq-time">5h ago</span></div>
+                <div class="inq-msg">We need a photographer for our product launch event in Kitwe on May 30th...</div>
+                <div class="inq-actions"><button class="inq-btn accept">Accept</button><button class="inq-btn reply">Reply</button><button class="inq-btn decline">Decline</button></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-card reveal d1">
+            <div class="dc-header"><div class="dc-title">Quick Actions</div></div>
+            <div class="qa-grid">
+              <button class="qa-btn" onclick="openEditModal()"><div class="qa-icon" style="background:var(--purple-pale);"><i data-lucide="edit-3" style="color:var(--purple);"></i></div><div class="qa-name">Edit Profile</div><div class="qa-desc">Update info &amp; rates</div></button>
+              <button class="qa-btn" onclick="showPage('portfolio',null)"><div class="qa-icon" style="background:#EFFFDA;"><i data-lucide="image" style="color:#5A8A00;"></i></div><div class="qa-name">Add Media</div><div class="qa-desc">Photos &amp; videos</div></button>
+              <button class="qa-btn" onclick="showPage('services',null)"><div class="qa-icon" style="background:#FFF7E0;"><i data-lucide="package" style="color:#A07800;"></i></div><div class="qa-name">Add Service</div><div class="qa-desc">New package</div></button>
+              <button class="qa-btn" onclick="shareProfile()"><div class="qa-icon" style="background:#E8F4FF;"><i data-lucide="share-2" style="color:#1A6AB5;"></i></div><div class="qa-name">Share Profile</div><div class="qa-desc">Copy your link</div></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOKINGS PAGE -->
+      <div class="page-section" id="sec-bookings">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">All Bookings</div><div style="display:flex;gap:0.5rem;"><select class="field-input" style="width:auto;padding:0.4rem 0.8rem;font-size:0.8rem;border-radius:8px;"><option>All Status</option><option>Confirmed</option><option>Pending</option><option>Completed</option></select></div></div>
+          <div class="booking-row header"><div>Client</div><div>Event Type</div><div>Date</div><div>Amount</div><div>Status</div><div></div></div>
+          <div class="booking-row"><div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=50&q=80" alt=""/></div><div><div class="client-name">Men of Honor</div></div></div><div>Corporate Gala</div><div>28 Apr 2025</div><div class="amount">K32,000</div><div><span class="status-badge confirmed">Confirmed</span></div><div><button class="row-action">Manage</button></div></div>
+          <div class="booking-row"><div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=50&q=80" alt=""/></div><div><div class="client-name">Peter Mukuka</div></div></div><div>Wedding</div><div>15 May 2025</div><div class="amount">K12,000</div><div><span class="status-badge confirmed">Confirmed</span></div><div><button class="row-action">Manage</button></div></div>
+          <div class="booking-row"><div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=50&q=80" alt=""/></div><div><div class="client-name">Aaron Mubiana</div></div></div><div>Brand Campaign</div><div>22 May 2025</div><div class="amount">K18,500</div><div><span class="status-badge pending">Pending</span></div><div><button class="row-action">Manage</button></div></div>
+          <div class="booking-row"><div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=50&q=80" alt=""/></div><div><div class="client-name">Bupe Mwale</div></div></div><div>Fashion Editorial</div><div>10 Jun 2025</div><div class="amount">K9,600</div><div><span class="status-badge pending">Pending</span></div><div><button class="row-action">Manage</button></div></div>
+          <div class="booking-row"><div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=50&q=80" alt=""/></div><div><div class="client-name">Mabvuto Corp</div></div></div><div>Portrait Session</div><div>3 Mar 2025</div><div class="amount">K1,600</div><div><span class="status-badge completed">Completed</span></div><div><button class="row-action">Review</button></div></div>
+        </div>
+      </div>
+
+      <!-- INQUIRIES PAGE -->
+      <div class="page-section" id="sec-inquiries">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">All Inquiries <span class="dc-tag">7 New</span></div></div>
+          <div class="inq-item"><div class="inq-av"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=50&q=80" alt=""/></div><div class="inq-body"><div class="inq-top"><span class="inq-name">Bupe Mwale</span><span class="inq-time">2h ago</span></div><div class="inq-msg">Hi! I'd love to book you for a fashion editorial shoot next month in Lusaka. We're working with 3 models and need half-day coverage.</div><div class="inq-actions"><button class="inq-btn accept">Accept</button><button class="inq-btn reply">Reply</button><button class="inq-btn decline">Decline</button></div></div></div>
+          <div class="inq-item"><div class="inq-av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&q=80" alt=""/></div><div class="inq-body"><div class="inq-top"><span class="inq-name">Sitwala Mutale</span><span class="inq-time">5h ago</span></div><div class="inq-msg">We need a photographer for our product launch in Kitwe on May 30th. Full day, 8 hours. Is the K6,400 package available?</div><div class="inq-actions"><button class="inq-btn accept">Accept</button><button class="inq-btn reply">Reply</button><button class="inq-btn decline">Decline</button></div></div></div>
+          <div class="inq-item"><div class="inq-av"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&q=80" alt=""/></div><div class="inq-body"><div class="inq-top"><span class="inq-name">Twaambo Mwila</span><span class="inq-time">Yesterday</span></div><div class="inq-msg">Looking for a photographer for my EP cover shoot. Would need studio and outdoor shots. When are you next available?</div><div class="inq-actions"><button class="inq-btn accept">Accept</button><button class="inq-btn reply">Reply</button><button class="inq-btn decline">Decline</button></div></div></div>
+        </div>
+      </div>
+
+      <!-- EARNINGS -->
+      <div class="page-section" id="sec-earnings">
+        <div class="metrics-grid reveal">
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon purple"><i data-lucide="banknote"></i></div></div><div class="mc-num">K48,200</div><div class="mc-label">This Month</div></div>
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon lime"><i data-lucide="trending-up"></i></div><span class="mc-change up">↑ 18%</span></div><div class="mc-num">K186,000</div><div class="mc-label">This Quarter</div></div>
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon gold"><i data-lucide="star"></i></div></div><div class="mc-num">K62,400</div><div class="mc-label">Best Month (Feb)</div></div>
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon blue"><i data-lucide="check-circle-2"></i></div></div><div class="mc-num">K340,000</div><div class="mc-label">Total Earned</div></div>
+        </div>
+        <div class="dash-card reveal d1">
+          <div class="dc-header"><div class="dc-title">Earnings by Month</div></div>
+          <div class="bar-chart" id="fullEarningsChart"></div>
+        </div>
+      </div>
+
+      <!-- PROFILE EDIT -->
+      <div class="page-section" id="sec-profile">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">Edit Profile</div></div>
+          <div class="field-group"><label class="field-label">Display Name</label><input type="text" class="field-input" value="Chanda Mwewa"/></div>
+          <div class="field-group"><label class="field-label">Bio</label><textarea class="field-input" rows="4" style="resize:vertical;">Chanda Mwewa is a Lusaka-based commercial photographer with over 8 years of experience...</textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="field-group"><label class="field-label">City</label><select class="field-input"><option>Lusaka</option><option>Ndola</option><option>Kitwe</option></select></div>
+            <div class="field-group"><label class="field-label">Starting Rate (K)</label><input type="number" class="field-input" value="800"/></div>
+          </div>
+          <div class="field-group"><label class="field-label">Skills (comma-separated)</label><input type="text" class="field-input" value="Commercial Photography, Events, Portraits, Weddings"/></div>
+          <div class="field-group"><label class="field-label">Portfolio URL</label><input type="url" class="field-input" placeholder="https://yourwebsite.com"/></div>
+          <div class="field-group"><label class="field-label">Instagram URL</label><input type="url" class="field-input" placeholder="https://instagram.com/yourhandle"/></div>
+          <button class="btn-primary" style="margin-top:0.5rem;" onclick="showToast('Profile saved!')"><i data-lucide="save"></i> Save Changes</button>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO -->
+      <div class="page-section" id="sec-portfolio">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">Portfolio Media</div><button class="btn-primary" onclick="document.getElementById('portfolioUpload').click()"><i data-lucide="upload"></i> Add Media</button></div>
+          <input type="file" id="portfolioUpload" accept="image/*,video/*" multiple style="display:none;" onchange="handlePortfolioUpload(this)"/>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-top:0.5rem;" id="portfolioGrid">
+            <div style="border-radius:12px;overflow:hidden;aspect-ratio:1;position:relative;cursor:pointer;" onmouseover="this.querySelector('.del-btn').style.opacity='1'" onmouseout="this.querySelector('.del-btn').style.opacity='0'"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300&q=80" style="width:100%;height:100%;object-fit:cover;" alt=""/><button class="del-btn" style="position:absolute;top:6px;right:6px;background:rgba(232,64,64,0.85);border:none;border-radius:50%;width:26px;height:26px;color:#fff;cursor:pointer;opacity:0;transition:opacity 0.2s;display:flex;align-items:center;justify-content:center;" onclick="this.parentElement.remove()"><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg></button></div>
+            <div style="border-radius:12px;overflow:hidden;aspect-ratio:1;position:relative;cursor:pointer;" onmouseover="this.querySelector('.del-btn').style.opacity='1'" onmouseout="this.querySelector('.del-btn').style.opacity='0'"><img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=300&q=80" style="width:100%;height:100%;object-fit:cover;" alt=""/><button class="del-btn" style="position:absolute;top:6px;right:6px;background:rgba(232,64,64,0.85);border:none;border-radius:50%;width:26px;height:26px;color:#fff;cursor:pointer;opacity:0;transition:opacity 0.2s;display:flex;align-items:center;justify-content:center;" onclick="this.parentElement.remove()"><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg></button></div>
+            <div style="border-radius:12px;border:2px dashed var(--grey2);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;cursor:pointer;transition:all 0.25s;color:var(--text-muted);" onclick="document.getElementById('portfolioUpload').click()" onmouseover="this.style.borderColor='var(--purple)';this.style.color='var(--purple)'" onmouseout="this.style.borderColor='var(--grey2)';this.style.color='var(--text-muted)'"><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='16'/><line x1='8' y1='12' x2='16' y2='12'/></svg><span style="font-size:0.72rem;font-weight:600;">Add Photo</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="page-section" id="sec-services">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">My Services</div><button class="btn-primary" onclick="openAddService()"><i data-lucide="plus"></i> Add Service</button></div>
+          <div id="servicesList" style="display:grid;gap:0.75rem;margin-top:0.5rem;">
+            <div style="display:grid;grid-template-columns:1fr auto;align-items:start;padding:1rem;border:1px solid var(--grey2);border-radius:14px;gap:1rem;"><div><div style="font-weight:700;color:var(--navy2);margin-bottom:0.3rem;">Event Coverage Package</div><div style="font-size:0.82rem;color:var(--text-muted);">Full-day event photography, 200+ edited images.</div></div><div style="display:flex;align-items:center;gap:0.5rem;"><span style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:800;color:var(--purple);">K6,400</span><button class="row-action" onclick="editService(this)">Edit</button></div></div>
+            <div style="display:grid;grid-template-columns:1fr auto;align-items:start;padding:1rem;border:1px solid var(--grey2);border-radius:14px;gap:1rem;"><div><div style="font-weight:700;color:var(--navy2);margin-bottom:0.3rem;">Portrait Session</div><div style="font-size:0.82rem;color:var(--text-muted);">2-hour studio or on-location, 30 edited images.</div></div><div style="display:flex;align-items:center;gap:0.5rem;"><span style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:800;color:var(--purple);">K1,600</span><button class="row-action" onclick="editService(this)">Edit</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="page-section" id="sec-settings">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">Account Settings</div></div>
+          <div class="field-group"><label class="field-label">Email</label><input type="email" class="field-input" value="chanda@example.com"/></div>
+          <div class="field-group"><label class="field-label">Phone</label><input type="tel" class="field-input" value="+260 97 XXX XXXX"/></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="field-group"><label class="field-label">New Password</label><input type="password" class="field-input" placeholder="Leave blank to keep current"/></div>
+            <div class="field-group"><label class="field-label">Confirm Password</label><input type="password" class="field-input" placeholder="Confirm new password"/></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;border-bottom:1px solid var(--grey2);"><div><div style="font-weight:600;font-size:0.875rem;">Email Notifications</div><div style="font-size:0.78rem;color:var(--text-muted);">Receive booking inquiries by email</div></div><label style="position:relative;width:44px;height:24px;cursor:pointer;"><input type="checkbox" checked style="display:none;"><div style="width:44px;height:24px;background:var(--purple);border-radius:100px;transition:background 0.3s;"></div><div style="position:absolute;top:3px;left:22px;width:18px;height:18px;background:#fff;border-radius:50%;transition:left 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.2);"></div></label></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;"><div><div style="font-weight:600;font-size:0.875rem;">Show Available Status</div><div style="font-size:0.78rem;color:var(--text-muted);">Let clients know you're open for bookings</div></div><label style="position:relative;width:44px;height:24px;cursor:pointer;"><input type="checkbox" checked style="display:none;"><div style="width:44px;height:24px;background:var(--purple);border-radius:100px;"></div><div style="position:absolute;top:3px;left:22px;width:18px;height:18px;background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.2);"></div></label></div>
+          <button class="btn-primary" style="margin-top:1rem;" onclick="showToast('Settings saved!')"><i data-lucide="save"></i> Save Settings</button>
+        </div>
+      </div>
+
+      <!-- CALENDAR / AVAILABILITY -->
+      <div class="page-section" id="sec-calendar">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">Availability Calendar</div><div style="display:flex;gap:0.5rem;"><button class="row-action" onclick="prevMonth()"><i data-lucide="chevron-left"></i></button><button class="row-action" onclick="nextMonth()"><i data-lucide="chevron-right"></i></button></div></div>
+          <div style="font-weight:700;font-size:1rem;color:var(--text);margin:0.5rem 0;" id="calMonthLabel"></div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-legend">
+            <span><div class="dot" style="background:#8B1FC8;"></div> Booked</span>
+            <span><div class="dot" style="background:#B8D900;"></div> Available</span>
+            <span><div class="dot" style="background:rgba(255,255,255,0.2);"></div> Click to toggle</span>
+          </div>
+        </div>
+        <div class="grid-2" style="margin-top:1.5rem;">
+          <div class="dash-card reveal d1">
+            <div class="dc-header"><div class="dc-title">Availability Settings</div></div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.5rem;">
+              <div class="avail-toggle" onclick="toggleAvail(this,'mon')">
+                <input type="checkbox" checked style="accent-color:var(--purple);width:16px;height:16px;" id="avMon"/>
+                <div><div style="font-weight:600;font-size:0.875rem;">Monday</div><div style="font-size:0.72rem;color:var(--text-muted);">Available all day</div></div>
+              </div>
+              <div class="avail-toggle" onclick="toggleAvail(this,'tue')">
+                <input type="checkbox" checked style="accent-color:var(--purple);width:16px;height:16px;" id="avTue"/>
+                <div><div style="font-weight:600;font-size:0.875rem;">Tuesday</div><div style="font-size:0.72rem;color:var(--text-muted);">Available all day</div></div>
+              </div>
+              <div class="avail-toggle" onclick="toggleAvail(this,'wed')">
+                <input type="checkbox" checked style="accent-color:var(--purple);width:16px;height:16px;" id="avWed"/>
+                <div><div style="font-weight:600;font-size:0.875rem;">Wednesday</div><div style="font-size:0.72rem;color:var(--text-muted);">Available all day</div></div>
+              </div>
+              <div class="avail-toggle" onclick="toggleAvail(this,'thu')">
+                <input type="checkbox" style="accent-color:var(--purple);width:16px;height:16px;" id="avThu"/>
+                <div><div style="font-weight:600;font-size:0.875rem;">Thursday</div><div style="font-size:0.72rem;color:var(--text-muted);">Unavailable</div></div>
+              </div>
+              <div class="avail-toggle" onclick="toggleAvail(this,'fri')">
+                <input type="checkbox" checked style="accent-color:var(--purple);width:16px;height:16px;" id="avFri"/>
+                <div><div style="font-weight:600;font-size:0.875rem;">Friday</div><div style="font-size:0.72rem;color:var(--text-muted);">Available all day</div></div>
+              </div>
+              <div class="avail-toggle" onclick="toggleAvail(this,'sat')">
+                <input type="checkbox" checked style="accent-color:var(--purple);width:16px;height:16px;" id="avSat"/>
+                <div><div style="font-weight:600;font-size:0.875rem;">Saturday</div><div style="font-size:0.72rem;color:var(--text-muted);">Available all day</div></div>
+              </div>
+              <div class="avail-toggle" onclick="toggleAvail(this,'sun')">
+                <input type="checkbox" style="accent-color:var(--purple);width:16px;height:16px;" id="avSun"/>
+                <div><div style="font-weight:600;font-size:0.875rem;">Sunday</div><div style="font-size:0.72rem;color:var(--text-muted);">Unavailable</div></div>
+              </div>
+            </div>
+            <button class="btn-primary" style="margin-top:1rem;" onclick="showToast('Availability saved!')"><i data-lucide="save"></i> Save Availability</button>
+          </div>
+          <div class="dash-card reveal d2">
+            <div class="dc-header"><div class="dc-title">Blocked Dates</div><button class="btn-primary" onclick="addBlock()"><i data-lucide="plus"></i> Add Block</button></div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;margin-top:0.5rem;" id="blockList">
+              <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:0.6rem 0.8rem;background:rgba(232,64,64,0.08);border:1px solid rgba(232,64,64,0.2);border-radius:10px;">
+                <div><div style="font-weight:600;font-size:0.82rem;">28 Apr 2026</div><div style="font-size:0.72rem;color:var(--text-muted);">Corporate Gala (confirmed)</div></div>
+                <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;" onclick="this.closest('div[style]').remove()"><i data-lucide="x" style="width:14px;height:14px;"></i></button>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:0.6rem 0.8rem;background:rgba(232,64,64,0.08);border:1px solid rgba(232,64,64,0.2);border-radius:10px;">
+                <div><div style="font-weight:600;font-size:0.82rem;">15 May 2026</div><div style="font-size:0.72rem;color:var(--text-muted);">Wedding Photos (confirmed)</div></div>
+                <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;" onclick="this.closest('div[style]').remove()"><i data-lucide="x" style="width:14px;height:14px;"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR TOGGLE (mobile) -->
+<button class="sidebar-toggle" id="sidebarToggle" onclick="document.getElementById('sidebar').classList.toggle('open')"><i data-lucide="menu"></i></button>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Edit Profile</div><button class="modal-close" onclick="closeModal()"><i data-lucide="x"></i></button></div>
+    <div class="modal-body">
+      <div class="field-group"><label class="field-label">Display Name</label><input type="text" class="field-input" value="Chanda Mwewa"/></div>
+      <div class="field-group"><label class="field-label">Bio</label><textarea class="field-input" rows="3" style="resize:vertical;">Chanda Mwewa is a Lusaka-based commercial photographer...</textarea></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="field-group"><label class="field-label">City</label><select class="field-input"><option>Lusaka</option></select></div>
+        <div class="field-group"><label class="field-label">Rate (K/hr)</label><input type="number" class="field-input" value="800"/></div>
+      </div>
+      <div class="field-group"><label class="field-label">Skills</label><input type="text" class="field-input" value="Commercial Photography, Events, Portraits"/></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancel</button><button class="btn-save" onclick="saveAndClose()">Save Changes</button></div>
+  </div>
+</div>
+
+<script src="js/adash.js"></script>
+<script>
+// Notifications
+function toggleNotif() { document.getElementById('notifPanel').classList.toggle('open'); }
+function markAllRead() { document.getElementById('notifPanel').classList.remove('open'); document.querySelector('.notif-dot').style.display='none'; lucide.createIcons(); }
+document.addEventListener('click', e => { if(!e.target.closest('#notifBtn') && !e.target.closest('#notifPanel')) { document.getElementById('notifPanel').classList.remove('open'); } });
+
+// Calendar
+let calYear = new Date().getFullYear(), calMonth = new Date().getMonth();
+const bookedDays = new Set([3,8,15,22,28]);
+const availDays = new Set([1,2,4,5,6,7,9,10,11,12,13,14,16,17,18,19,20,21,23,24,25,26,27,29,30]);
+
+function renderCal() {
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('calMonthLabel').textContent = months[calMonth] + ' ' + calYear;
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const today = new Date();
+  let html = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d => `<div class="cal-day header">${d}</div>`).join('');
+  for (let i=0;i<firstDay;i++) html += '<div class="cal-day empty"></div>';
+  for (let d=1;d<=daysInMonth;d++) {
+    const isToday = d===today.getDate() && calMonth===today.getMonth() && calYear===today.getFullYear();
+    const cls = isToday ? 'today' : bookedDays.has(d) ? 'booked' : availDays.has(d) ? 'available' : '';
+    html += `<div class="cal-day ${cls}" onclick="toggleDay(${d})" title="Day ${d}">${d}</div>`;
+  }
+  document.getElementById('calGrid').innerHTML = html;
+}
+
+function toggleDay(d) {
+  if (bookedDays.has(d)) { bookedDays.delete(d); availDays.add(d); }
+  else if (availDays.has(d)) { availDays.delete(d); }
+  else { availDays.add(d); }
+  renderCal();
+}
+function prevMonth() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCal(); }
+function nextMonth() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCal(); }
+function toggleAvail(el, day) {
+  const cb = el.querySelector('input');
+  const desc = el.querySelector('div:last-child div:last-child');
+  cb.checked = !cb.checked;
+  desc.textContent = cb.checked ? 'Available all day' : 'Unavailable';
+}
+function addBlock() {
+  const date = prompt('Enter date to block (e.g. 25 May 2026):');
+  if (!date) return;
+  const note = prompt('Note (e.g. reason):') || 'Blocked';
+  const el = document.createElement('div');
+  el.style.cssText = 'display:grid;grid-template-columns:1fr auto;align-items:center;padding:0.6rem 0.8rem;background:rgba(232,64,64,0.08);border:1px solid rgba(232,64,64,0.2);border-radius:10px;margin-top:0.5rem;';
+  el.innerHTML = `<div><div style="font-weight:600;font-size:0.82rem;">${date}</div><div style="font-size:0.72rem;color:var(--text-muted);">${note}</div></div><button style="background:none;border:none;color:var(--text-muted);cursor:pointer;" onclick="this.closest('div').parentElement.removeChild(this.closest('div'))"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg></button>`;
+  document.getElementById('blockList').appendChild(el);
+  showToast('Date blocked!');
+}
+
+// Run calendar when switching to it
+const origShowPage = window.showPage;
+if (typeof showPage === 'function') {
+  const _orig = showPage;
+  window.showPage = function(id, el) { _orig(id, el); if(id==='calendar') { renderCal(); lucide.createIcons(); } };
+}
+</script>
+</body>
+</html>

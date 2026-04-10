@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Book a Creative — Plum</title>
+<meta name="description" content="Send a booking request to a verified Zambian creative on Plum. Fill in your event details and get a fast response."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="css/booking.css"/>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo-wrap" href="index.html" aria-label="PLUM home">
+    <div class="plum-icon">
+      <div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div>
+    </div>
+    <div class="nav-wordmark">PL<span>U</span>M</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="browse.html">Browse</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn-ghost"><i data-lucide="log-in"></i> Sign In</a>
+    <a href="login.html?mode=register" class="btn-primary"><i data-lucide="user-plus"></i> Join Free</a>
+  </div>
+</nav>
+
+<div class="booking-page" id="bookingPage">
+  <!-- STEP INDICATOR -->
+  <div class="booking-steps" id="bookingSteps">
+    <div class="bs-step active" id="bstep1">
+      <div class="bs-num">1</div>
+      <div class="bs-label">Event Details</div>
+    </div>
+    <div class="bs-line"></div>
+    <div class="bs-step" id="bstep2">
+      <div class="bs-num">2</div>
+      <div class="bs-label">Review & Send</div>
+    </div>
+    <div class="bs-line"></div>
+    <div class="bs-step" id="bstep3">
+      <div class="bs-num">3</div>
+      <div class="bs-label">Confirmed!</div>
+    </div>
+  </div>
+
+  <div class="booking-grid">
+    <!-- ARTIST SIDEBAR -->
+    <aside class="artist-sidebar reveal">
+      <div class="artist-card">
+        <div class="ac-img-wrap">
+          <img id="artistImg" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=300&q=80&auto=format&fit=crop" alt="Artist" loading="lazy"/>
+          <div class="ac-verified"><i data-lucide="badge-check"></i> Verified</div>
+        </div>
+        <div class="ac-body">
+          <div class="ac-name" id="artistName">Chanda Mwewa</div>
+          <div class="ac-role" id="artistRole"><i data-lucide="camera"></i> Commercial Photographer · Lusaka</div>
+          <div class="ac-rating"><span style="color:var(--gold)">★★★★★</span> 4.9 <span style="color:var(--text-muted)">(128 reviews)</span></div>
+          <div class="ac-rate">From <strong id="artistRate">K800</strong>/hr</div>
+          <div class="ac-trust">
+            <div class="trust-item"><i data-lucide="shield-check"></i> Secure Payment</div>
+            <div class="trust-item"><i data-lucide="refresh-ccw"></i> Free Cancellation</div>
+            <div class="trust-item"><i data-lucide="clock"></i> ~2hr Response</div>
+          </div>
+        </div>
+      </div>
+      <div class="price-estimate" id="priceEstimate" style="display:none;">
+        <div class="pe-label">Estimated Total</div>
+        <div class="pe-amount" id="estimatedTotal">K0</div>
+        <div class="pe-note">Final quote confirmed by artist</div>
+      </div>
+    </aside>
+
+    <!-- BOOKING FORM -->
+    <div class="booking-form-area">
+
+      <!-- STEP 1 -->
+      <div class="booking-step active" id="step-1">
+        <div class="step-header">
+          <div class="section-eyebrow">Booking Request</div>
+          <h1>Tell us about your event</h1>
+          <p>Fill in the details below so <span id="artistNameInline">Chanda</span> can prepare the best quote for you.</p>
+        </div>
+
+        <div class="form-card">
+          <div class="fc-section-label"><i data-lucide="calendar"></i> Event Information</div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Event Type <span class="req">*</span></label>
+              <select class="field-input" id="eventType">
+                <option value="">Select event type</option>
+                <option>Corporate Event / Conference</option>
+                <option>Wedding</option>
+                <option>Birthday / Party</option>
+                <option>Fashion / Editorial Shoot</option>
+                <option>Product Launch</option>
+                <option>Music Video / Film</option>
+                <option>Brand Campaign</option>
+                <option>Portrait / Headshots</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Event Location <span class="req">*</span></label>
+              <select class="field-input" id="eventLocation">
+                <option value="">Select city</option>
+                <option>Lusaka</option>
+                <option>Ndola</option>
+                <option>Kitwe</option>
+                <option>Livingstone</option>
+                <option>Kabwe</option>
+                <option>Chipata</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Event Date <span class="req">*</span></label>
+              <input type="date" class="field-input" id="eventDate" oninput="calcEstimate()"/>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Start Time</label>
+              <input type="time" class="field-input" id="eventTime" value="09:00"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Duration (hours) <span class="req">*</span></label>
+              <select class="field-input" id="eventDuration" oninput="calcEstimate()">
+                <option value="">Select duration</option>
+                <option value="2">2 hours</option>
+                <option value="4">4 hours (half day)</option>
+                <option value="8">8 hours (full day)</option>
+                <option value="12">12 hours</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Expected Attendees</label>
+              <select class="field-input" id="headcount">
+                <option value="">Select headcount</option>
+                <option>Under 50</option>
+                <option>50 – 100</option>
+                <option>100 – 300</option>
+                <option>300 – 500</option>
+                <option>500+</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="fc-section-label"><i data-lucide="message-square"></i> Your Brief</div>
+          <div class="field-group">
+            <label class="field-label">Project Description <span class="req">*</span></label>
+            <textarea class="field-input" id="projectDesc" rows="5" placeholder="Describe your event, what you need covered, any specific shots/moments, style preferences, deliverables expected..." style="resize:vertical;"></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Your Budget (K) <span class="req">*</span></label>
+              <input type="number" class="field-input" id="budget" placeholder="e.g. 8000" oninput="calcEstimate()"/>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Preferred Service Package</label>
+              <select class="field-input" id="servicePackage" onchange="calcEstimate()">
+                <option value="">No preference / Custom quote</option>
+                <option value="6400">Event Coverage – K6,400</option>
+                <option value="1600">Portrait Session – K1,600</option>
+                <option value="12000">Wedding Photography – K12,000</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="fc-section-label"><i data-lucide="user"></i> Your Details</div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Full Name <span class="req">*</span></label>
+              <input type="text" class="field-input" id="clientName" placeholder="Your full name"/>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Phone Number <span class="req">*</span></label>
+              <input type="tel" class="field-input" id="clientPhone" placeholder="+260 97 XXX XXXX"/>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email Address <span class="req">*</span></label>
+            <input type="email" class="field-input" id="clientEmail" placeholder="your@email.com"/>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="artist-profile.html" class="btn-ghost"><i data-lucide="arrow-left"></i> Back to Profile</a>
+          <button class="btn-primary btn-lg" onclick="goToReview()"><i data-lucide="arrow-right"></i> Review Request</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: REVIEW -->
+      <div class="booking-step" id="step-2">
+        <div class="step-header">
+          <div class="section-eyebrow">Almost there</div>
+          <h1>Review your booking request</h1>
+          <p>Double-check the details before sending to <span id="artistNameReview">Chanda</span>.</p>
+        </div>
+
+        <div class="form-card" id="reviewCard">
+          <!-- Filled by JS -->
+        </div>
+
+        <div class="terms-wrap">
+          <label class="terms-check">
+            <input type="checkbox" id="agreeTerms"/>
+            <span>I agree to the <a href="#" onclick="return false;">Terms of Service</a> and <a href="#" onclick="return false;">Booking Policy</a>. I understand funds will be held in escrow until the work is approved.</span>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-ghost" onclick="goStep(1)"><i data-lucide="arrow-left"></i> Edit Details</button>
+          <button class="btn-primary btn-lg" id="sendBtn" onclick="sendRequest()">
+            <i data-lucide="send"></i> Send Booking Request
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: SUCCESS -->
+      <div class="booking-step" id="step-3">
+        <div class="success-state">
+          <div class="success-icon">
+            <i data-lucide="check-circle-2"></i>
+          </div>
+          <h1>Request Sent! 🎉</h1>
+          <p>Your booking request has been sent to <strong id="artistNameSuccess">Chanda Mwewa</strong>. They typically respond within <strong>2 hours</strong>.</p>
+          <div class="success-ref">Reference: <strong id="bookingRef">PLM-2025-XXXX</strong></div>
+          <div class="success-actions">
+            <a href="adash.html" class="btn-primary btn-lg"><i data-lucide="layout-dashboard"></i> Go to Dashboard</a>
+            <a href="browse.html" class="btn-ghost"><i data-lucide="search"></i> Browse More Talent</a>
+          </div>
+          <div class="success-note">
+            <i data-lucide="info"></i>
+            You'll receive a confirmation email and can track this request in your dashboard.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a class="nav-logo-wrap footer-logo" href="index.html">
+      <div class="plum-icon"><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div></div>
+      <div class="nav-wordmark">PL<span>U</span>M</div>
+    </a>
+    <div class="footer-links">
+      <a href="browse.html">Browse</a>
+      <a href="login.html">Sign In</a>
+      <a href="adash.html">Artist Desk</a>
+      <a href="#">Help</a>
+    </div>
+  </div>
+  <div class="footer-inner" style="margin-bottom:0;"><div class="footer-copy">© 2026 Plum — The Sweet Spot for Bookings. Made in Zambia 🇿🇲</div></div>
+</footer>
+
+<script>
+// Parse URL params
+const params = new URLSearchParams(window.location.search);
+const artistName = params.get('artist') || 'Chanda Mwewa';
+const artistRate = params.get('rate') || 'K800';
+const artistTitle = params.get('role') || 'Commercial Photographer · Lusaka';
+
+document.getElementById('artistName').textContent = artistName;
+document.getElementById('artistRate').textContent = artistRate;
+document.getElementById('artistRole').innerHTML = '<i data-lucide="camera"></i> ' + artistTitle;
+document.getElementById('artistNameInline').textContent = artistName.split(' ')[0];
+document.getElementById('artistNameReview').textContent = artistName.split(' ')[0];
+document.getElementById('artistNameSuccess').textContent = artistName;
+
+function calcEstimate() {
+  const pkg = document.getElementById('servicePackage').value;
+  const dur = document.getElementById('eventDuration').value;
+  const rate = parseInt(artistRate.replace('K','').replace(',','')) || 800;
+  let total = 0;
+  if (pkg) total = parseInt(pkg);
+  else if (dur && dur !== 'custom') total = rate * parseInt(dur);
+  if (total > 0) {
+    document.getElementById('priceEstimate').style.display = 'block';
+    document.getElementById('estimatedTotal').textContent = 'K' + total.toLocaleString();
+  }
+}
+
+function goToReview() {
+  const required = ['eventType','eventLocation','eventDate','eventDuration','projectDesc','budget','clientName','clientPhone','clientEmail'];
+  for (const id of required) {
+    const el = document.getElementById(id);
+    if (!el.value) {
+      el.focus();
+      el.style.borderColor = 'var(--red, #e84040)';
+      el.style.boxShadow = '0 0 0 3px rgba(232,64,64,0.2)';
+      setTimeout(() => { el.style.borderColor=''; el.style.boxShadow=''; }, 2000);
+      return;
+    }
+  }
+  // Build review card
+  const data = {
+    'Event Type': document.getElementById('eventType').value,
+    'Location': document.getElementById('eventLocation').value,
+    'Date': new Date(document.getElementById('eventDate').value).toLocaleDateString('en-ZM',{weekday:'long',year:'numeric',month:'long',day:'numeric'}),
+    'Start Time': document.getElementById('eventTime').value,
+    'Duration': document.getElementById('eventDuration').value + ' hours',
+    'Headcount': document.getElementById('headcount').value || 'Not specified',
+    'Package': document.getElementById('servicePackage').options[document.getElementById('servicePackage').selectedIndex].text,
+    'Budget': 'K' + parseInt(document.getElementById('budget').value).toLocaleString(),
+    'Your Name': document.getElementById('clientName').value,
+    'Phone': document.getElementById('clientPhone').value,
+    'Email': document.getElementById('clientEmail').value,
+  };
+  let html = `<div class="fc-section-label"><i data-lucide="file-text"></i> Booking Summary</div><div class="review-grid">`;
+  for (const [k,v] of Object.entries(data)) {
+    html += `<div class="rv-row"><div class="rv-key">${k}</div><div class="rv-val">${v}</div></div>`;
+  }
+  html += `</div><div class="rv-desc"><div class="rv-key" style="margin-bottom:0.4rem">Your Brief</div><div style="font-size:0.875rem;line-height:1.6;color:var(--text)">${document.getElementById('projectDesc').value}</div></div>`;
+  document.getElementById('reviewCard').innerHTML = html;
+  goStep(2);
+  lucide.createIcons();
+}
+
+function goStep(n) {
+  document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  document.querySelectorAll('.bs-step').forEach((s,i) => {
+    s.classList.toggle('active', i < n);
+    s.classList.toggle('done', i < n-1);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function sendRequest() {
+  if (!document.getElementById('agreeTerms').checked) {
+    alert('Please agree to the Terms of Service to continue.');
+    return;
+  }
+  const btn = document.getElementById('sendBtn');
+  btn.innerHTML = '<i data-lucide="loader-2"></i> Sending...';
+  btn.disabled = true;
+  lucide.createIcons();
+  setTimeout(() => {
+    const ref = 'PLM-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('bookingRef').textContent = ref;
+    goStep(3);
+    lucide.createIcons();
+  }, 1800);
+}
+
+// Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px)`;
+});
+
+// Date min = today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('eventDate').min = today;
+
+lucide.createIcons();
+</script>
+</body>
+</html>

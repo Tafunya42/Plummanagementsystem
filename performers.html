@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Top Performers — Plum</title>
+<meta name="description" content="Meet Zambia's top-rated creative performers on Plum. Browse photographers, musicians, filmmakers and more."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="css/browse.css"/>
+<style>
+.perf-hero {
+  background: linear-gradient(135deg, rgba(139,31,200,0.25) 0%, rgba(184,217,0,0.1) 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 5rem 2.5rem 4rem;
+  text-align: center; position: relative; z-index: 1;
+}
+.perf-hero h1 { font-family:'Outfit',sans-serif;font-size:3.2rem;font-weight:900;color:#fff;margin:0.75rem 0; }
+.perf-hero h1 span { background:linear-gradient(90deg,#B46EE8,#B8D900);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.perf-hero p { color:rgba(255,255,255,0.65);font-size:1.05rem;max-width:540px;margin:0 auto 2rem; }
+.leaderboard-wrap { max-width:1200px;margin:0 auto;padding:3rem 2rem; }
+.top3-grid { display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1.5rem;margin-bottom:3rem;align-items:end; }
+.top-card {
+  background:var(--surface2,rgba(28,28,46,0.95));border:1px solid rgba(255,255,255,0.1);
+  border-radius:24px;overflow:hidden;text-align:center;position:relative;
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.top-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.4);}
+.top-card.rank-1 { border-color:rgba(245,184,0,0.4);box-shadow:0 0 40px rgba(245,184,0,0.15); }
+.top-card.rank-2 { border-color:rgba(192,192,192,0.3); }
+.top-card.rank-3 { border-color:rgba(205,127,50,0.3); }
+.rank-crown { position:absolute;top:1rem;right:1rem;font-size:1.5rem; }
+.rank-badge {
+  position:absolute;top:1rem;left:1rem;
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:900;
+}
+.rank-1 .rank-badge{background:var(--gold,#F5B800);color:#0E0E18;}
+.rank-2 .rank-badge{background:#C0C0C0;color:#0E0E18;}
+.rank-3 .rank-badge{background:#CD7F32;color:#fff;}
+.top-card-img { width:100%;height:200px;object-fit:cover; }
+.top-card.rank-1 .top-card-img { height:230px; }
+.top-card-body { padding:1.25rem; }
+.tc-n { font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:0.2rem; }
+.tc-r { font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:0.5rem; }
+.tc-stars { color:var(--gold,#F5B800);font-size:0.85rem;letter-spacing:1px;margin-bottom:0.75rem; }
+.tc-stats { display:flex;justify-content:center;gap:1.25rem;font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:1rem; }
+.tc-stats strong { color:#fff;display:block;font-size:0.95rem;font-family:'Outfit',sans-serif;font-weight:800; }
+.rest-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem; }
+.perf-tab-row { display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap; }
+.perf-tab { background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.6);cursor:pointer;transition:all 0.2s;font-family:inherit; }
+.perf-tab.active { background:var(--purple,#8B1FC8);border-color:transparent;color:#fff; }
+.perf-tab:hover:not(.active){border-color:rgba(139,31,200,0.4);color:#fff;}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="bg-blob b1"></div><div class="bg-blob b2"></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose"><i data-lucide="x" style="width:28px;height:28px;"></i></button>
+  <a href="index.html">Home</a>
+  <a href="browse.html">Browse</a>
+  <a href="performers.html" class="active">Top Performers</a>
+  <a href="login.html">Login</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo-wrap" href="index.html">
+    <div class="plum-icon"><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div></div>
+    <div class="nav-wordmark">PL<span>U</span>M</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="browse.html">Browse</a></li>
+    <li><a href="performers.html" class="active">Top Performers</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn-ghost">Sign In</a>
+    <a href="login.html?mode=register" class="btn-primary"><i data-lucide="user-plus"></i> Join Free</a>
+  </div>
+  <div class="hamburger" id="menuToggle"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="perf-hero">
+  <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(245,184,0,0.12);color:#F5B800;border:1px solid rgba(245,184,0,0.25);padding:0.3rem 0.85rem;border-radius:100px;font-size:0.72rem;font-weight:700;margin-bottom:0.75rem;letter-spacing:0.06em;">
+    <i data-lucide="trophy" style="width:11px;height:11px;"></i> ZAMBIA'S TOP CREATIVES
+  </div>
+  <h1>The Best of <span>Zambian</span> Talent</h1>
+  <p>Ranked by ratings, reviews and bookings — these are Zambia's highest-performing creative professionals on Plum.</p>
+  <a href="browse.html" class="btn-primary" style="font-size:0.95rem;padding:0.7rem 1.75rem;"><i data-lucide="search"></i> Browse All Talent</a>
+</div>
+
+<div class="leaderboard-wrap">
+
+  <!-- CATEGORY TABS -->
+  <div class="perf-tab-row">
+    <button class="perf-tab active" onclick="setTab('All',this)">🏆 All Categories</button>
+    <button class="perf-tab" onclick="setTab('Photography',this)">📸 Photography</button>
+    <button class="perf-tab" onclick="setTab('Music',this)">🎵 Music</button>
+    <button class="perf-tab" onclick="setTab('Film',this)">🎬 Film & Video</button>
+    <button class="perf-tab" onclick="setTab('Design',this)">✏️ Design</button>
+    <button class="perf-tab" onclick="setTab('Fashion',this)">👗 Fashion</button>
+  </div>
+
+  <!-- TOP 3 LEADERBOARD -->
+  <div style="text-align:center;margin-bottom:2rem;">
+    <div class="section-eyebrow" style="display:inline-block;margin-bottom:0.5rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;">🏆 Podium Rankings</div>
+  </div>
+
+  <div class="top3-grid" id="top3Grid">
+    <!-- Filled by JS -->
+  </div>
+
+  <!-- REST OF PERFORMERS -->
+  <h3 style="font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:1.25rem;">Rising Stars</h3>
+  <div class="rest-grid" id="restGrid">
+    <!-- Filled by JS -->
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a class="nav-logo-wrap footer-logo" href="index.html">
+        <div class="plum-icon"><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div></div>
+        <div class="nav-wordmark">PL<span>U</span>M</div>
+      </a>
+      <div class="footer-desc">The sweet spot for bookings. Zambia's leading creative marketplace.</div>
+    </div>
+    <div class="footer-col"><h4>Explore</h4><ul><li><a href="browse.html">Browse All</a></li><li><a href="performers.html">Top Performers</a></li><li><a href="login.html">Sign In</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="index.html">Home</a></li><li><a href="#">About</a></li><li><a href="#">Help</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2026 Plum — The Sweet Spot for Bookings. Made in Zambia 🇿🇲</div></div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => { cursor.style.transform = `translate(${e.clientX-8}px,${e.clientY-8}px)`; });
+document.getElementById('menuToggle').onclick = () => document.getElementById('mobMenu').classList.toggle('open');
+document.getElementById('mobClose').onclick = () => document.getElementById('mobMenu').classList.remove('open');
+
+const allPerformers = [
+  {name:'Chanda Mwewa',role:'Commercial Photographer',city:'Lusaka',cat:'Photography',rating:4.9,reviews:128,bookings:340,rate:'K800/hr',img:'1531123897727-8f129e1688ce'},
+  {name:'Naledi Banda',role:'Film Director & Videographer',city:'Kitwe',cat:'Film',rating:5.0,reviews:74,bookings:122,rate:'K1,200/hr',img:'1573496359142-b8d87734a5a2'},
+  {name:'Mutale Phiri',role:'Music Producer',city:'Ndola',cat:'Music',rating:4.8,reviews:98,bookings:210,rate:'K600/hr',img:'1522529599102-193c0d76b5b6'},
+  {name:'Temwani Zulu',role:'Graphic Designer',city:'Lusaka',cat:'Design',rating:4.7,reviews:112,bookings:280,rate:'K500/hr',img:'1531384441138-2736e62e0919'},
+  {name:'Bupe Mwale',role:'Fashion Stylist',city:'Lusaka',cat:'Fashion',rating:4.8,reviews:67,bookings:145,rate:'K700/hr',img:'1534528741775-53994a69daeb'},
+  {name:'Yambwe Kabwe',role:'Portrait Photographer',city:'Kabwe',cat:'Photography',rating:4.6,reviews:89,bookings:190,rate:'K600/hr',img:'1500648767791-00dcc994a43e'},
+  {name:'Kasonde Mulenga',role:'Music Composer',city:'Ndola',cat:'Music',rating:4.9,reviews:52,bookings:98,rate:'K800/hr',img:'1519085360753-af0119f7cbe7'},
+  {name:'Chilufya Banda',role:'Fashion Photographer',city:'Lusaka',cat:'Photography',rating:4.7,reviews:91,bookings:176,rate:'K700/hr',img:'1488426862026-3ee34a7d66df'},
+  {name:'Mwanza Chipili',role:'Videographer',city:'Lusaka',cat:'Film',rating:4.5,reviews:63,bookings:112,rate:'K3,500/day',img:'1507003211169-0a1dd7228f2d'},
+];
+
+const medals = ['👑','🥈','🥉'];
+const rankClass = ['rank-1','rank-2','rank-3'];
+
+let currentTab = 'All';
+
+function renderPerformers(tab) {
+  const filtered = tab === 'All' ? allPerformers : allPerformers.filter(p => p.cat === tab);
+  const sorted = [...filtered].sort((a,b) => b.rating - a.rating || b.reviews - a.reviews);
+  const top3 = sorted.slice(0,3);
+  const rest = sorted.slice(3);
+
+  // Top 3 — reorder as 2nd, 1st, 3rd for podium effect
+  const podium = [top3[1], top3[0], top3[2]].filter(Boolean);
+  const podiumRanks = [1,0,2]; // index in top3 for styling
+
+  document.getElementById('top3Grid').innerHTML = podium.map((p, pi) => {
+    const originalRank = p ? top3.indexOf(p) : pi;
+    if (!p) return '<div></div>';
+    return `
+      <div class="top-card ${rankClass[originalRank]} reveal">
+        <div class="rank-badge">${originalRank+1}</div>
+        <div class="rank-crown">${medals[originalRank]}</div>
+        <img class="top-card-img" src="https://images.unsplash.com/photo-${p.img}?w=600&q=80&fit=crop&crop=face,center" alt="${p.name}" loading="lazy"/>
+        <div class="top-card-body">
+          <div class="tc-n">${p.name}</div>
+          <div class="tc-r">${p.role} · ${p.city}</div>
+          <div class="tc-stars">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5-Math.round(p.rating))}</div>
+          <div class="tc-stats">
+            <div><strong>${p.rating}</strong>Rating</div>
+            <div><strong>${p.reviews}</strong>Reviews</div>
+            <div><strong>${p.bookings}</strong>Bookings</div>
+          </div>
+          <a href="artist-profile.html" class="btn-primary" style="width:100%;justify-content:center;font-size:0.82rem;border-radius:10px;">View Profile</a>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('restGrid').innerHTML = rest.map((p,i) => `
+    <div class="talent-card reveal" style="animation-delay:${i*0.05}s">
+      <div class="tc-img-wrap">
+        <img src="https://images.unsplash.com/photo-${p.img}?w=500&q=80&fit=crop&crop=face,center" alt="${p.name}" loading="lazy"/>
+        <div class="tc-badge badge-purple">${p.cat}</div>
+        <div style="position:absolute;top:0.75rem;left:0.75rem;background:rgba(14,14,24,0.8);border-radius:100px;padding:0.2rem 0.5rem;font-size:0.65rem;font-weight:800;color:#fff;">#${top3.length + i + 1}</div>
+        <div class="tc-bookmark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-name">${p.name}</div>
+        <div class="tc-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${p.city}</div>
+        <div class="tc-footer">
+          <div class="tc-rating"><span class="stars-mini">★</span> ${p.rating} <span style="color:var(--body-txt);font-weight:400;">(${p.reviews})</span></div>
+          <div class="tc-rate">${p.rate}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  lucide.createIcons();
+
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+function setTab(tab, btn) {
+  document.querySelectorAll('.perf-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  currentTab = tab;
+  renderPerformers(tab);
+}
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+renderPerformers('All');
+lucide.createIcons();
+</script>
+</body>
+</html>

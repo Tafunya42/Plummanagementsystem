@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLUM | Modern Talent Booking in Zambia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/landing.css">
+</head>
+<body id="top">
+  <div class="page-noise" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <header class="site-header" id="header">
+    <div class="container nav-row">
+      <a class="brand" href="index.html" aria-label="PLUM home">
+        <img src="images/Plum LogoNew-transparent.png" alt="PLUM logo">
+        <span>PLUM</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="siteNav">
+        <a href="#categories">Categories</a>
+        <a href="#how">How It Works</a>
+        <a href="#journeys">Pages</a>
+        <a href="#plans">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a class="pill pill--ghost" href="login.html">Sign In</a>
+        <a class="pill" href="browse.html">Browse Talent</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section">
+      <div class="hero-orb hero-orb--one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb--two" aria-hidden="true"></div>
+      <div class="hero-grid container">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Zambia-first talent management, booking, and discovery
+          </div>
+          <h1>
+            Book standout
+            <span>local creatives</span>
+            without the chaos.
+          </h1>
+          <p class="hero-text">
+            PLUM brings musicians, actors, hosts, models, dancers, photographers and creators into one polished booking flow built for Zambia. Every major path on this page routes into a real page in your project.
+          </p>
+
+          <form class="hero-search magnetic" id="homeSearchForm">
+            <label class="hero-field">
+              <span>Search talent</span>
+              <input id="homeSearchQuery" type="text" placeholder="Yo Maps, host, wedding band, fashion model">
+            </label>
+            <label class="hero-field hero-field--compact">
+              <span>Category</span>
+              <select id="homeSearchCategory">
+                <option value="">All categories</option>
+                <option value="Musicians">Musicians</option>
+                <option value="Comedians">Comedians</option>
+                <option value="Models">Models</option>
+                <option value="Actors">Actors</option>
+                <option value="Dancers">Dancers</option>
+                <option value="Photographers">Photographers</option>
+              </select>
+            </label>
+            <button class="cta cta--primary" type="submit">Search now</button>
+          </form>
+
+          <div class="hero-actions reveal delay-1">
+            <a class="cta cta--primary magnetic" href="browse.html">Explore bookings</a>
+            <a class="cta cta--secondary magnetic" href="performers.html">Create your profile</a>
+          </div>
+
+          <div class="hero-stats reveal delay-2">
+            <article class="stat-card">
+              <strong class="count" data-count="9">0</strong>
+              <span>provinces supported</span>
+            </article>
+            <article class="stat-card">
+              <strong class="count" data-count="1200">0</strong>
+              <span>talent-ready profiles</span>
+            </article>
+            <article class="stat-card">
+              <strong class="count" data-count="4800">0</strong>
+              <span>booking briefs tracked</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-stage reveal delay-2">
+          <div class="stage-shell">
+            <div class="stage-topline">
+              <span class="live-pill">Live availability</span>
+              <span class="stage-caption">This week across Lusaka, Copperbelt and Livingstone</span>
+            </div>
+
+            <div class="spotlight-card spotlight-card--wide magnetic">
+              <div class="spotlight-meta">
+                <span class="spotlight-tag">Music</span>
+                <span class="spotlight-city">Lusaka</span>
+              </div>
+              <h2>Yo Maps</h2>
+              <p>Afro-pop headline energy for brand activations, premium weddings and arena-scale events.</p>
+              <div class="spotlight-footer">
+                <span>Campaign-ready creative</span>
+                <a href="browse.html?category=Musicians&amp;q=Yo%20Maps">Open search</a>
+              </div>
+            </div>
+
+            <div class="stage-grid">
+              <article class="spotlight-card magnetic">
+                <span class="spotlight-tag">Comedy + host</span>
+                <h3>Ken Dumbo</h3>
+                <p>High-engagement MC and comedy format for corporate and campus rooms.</p>
+                <a href="browse.html?category=Comedians&amp;q=Ken%20Dumbo">View category</a>
+              </article>
+
+              <article class="spotlight-card magnetic">
+                <span class="spotlight-tag">Screen</span>
+                <h3>Mwaka Halwindi</h3>
+                <p>Film and TV-led casting energy for premium campaigns and media work.</p>
+                <a href="browse.html?category=Actors&amp;q=Mwaka%20Halwindi">View category</a>
+              </article>
+
+              <article class="spotlight-card magnetic">
+                <span class="spotlight-tag">Fashion</span>
+                <h3>Lukundo Nalungwe</h3>
+                <p>Editorial, runway and brand-shoot positioning for style-led bookings.</p>
+                <a href="browse.html?category=Models&amp;q=Lukundo%20Nalungwe">View category</a>
+              </article>
+
+              <article class="booking-panel magnetic">
+                <div>
+                  <small>Quick paths</small>
+                  <strong>All homepage buttons point somewhere real</strong>
+                </div>
+                <div class="booking-links">
+                  <a href="artist-profile.html">Artist profile</a>
+                  <a href="organizer-profile.html">Organizer profile</a>
+                  <a href="artist-dashboard.html">Artist dashboard</a>
+                  <a href="organizer-dashboard.html">Organizer dashboard</a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker">
+      <div class="ticker-track">
+        <span>Yo Maps</span>
+        <span>Mampi</span>
+        <span>Ken Dumbo</span>
+        <span>Mwaka Halwindi</span>
+        <span>Mutale Mwanza</span>
+        <span>Bombshell Grenade</span>
+        <span>Bob Nkosha</span>
+        <span>Becky Ngoma</span>
+        <span>Alick Phiri</span>
+        <span>Blake Yall</span>
+        <span>Yo Maps</span>
+        <span>Mampi</span>
+        <span>Ken Dumbo</span>
+        <span>Mwaka Halwindi</span>
+        <span>Mutale Mwanza</span>
+        <span>Bombshell Grenade</span>
+        <span>Bob Nkosha</span>
+        <span>Becky Ngoma</span>
+        <span>Alick Phiri</span>
+        <span>Blake Yall</span>
+      </div>
+    </section>
+
+    <section class="section metrics">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Built for the local market</p>
+          <h2>The smoother front door this brand needed.</h2>
+          <p class="section-text">
+            The homepage now behaves like a premium booking product: fast entry points, cleaner hierarchy, clearer roles for clients and creatives, and all pricing kept in kwacha from top to bottom.
+          </p>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric reveal delay-1 magnetic">
+            <h3>Booking-first layout</h3>
+            <p>Search, category entry, profile discovery and dashboard routes are surfaced before decorative content.</p>
+          </article>
+          <article class="metric reveal delay-2 magnetic">
+            <h3>Smoother trust layer</h3>
+            <p>Motion, counters, sticky navigation and page-path cards make the platform feel active without breaking usability.</p>
+          </article>
+          <article class="metric reveal delay-3 magnetic">
+            <h3>Zambian creative signal</h3>
+            <p>Generic filler was replaced by category content built around public Zambian names and relevant local positioning.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section categories" id="categories">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Category spotlight</p>
+          <h2>Public Zambian names woven into each major booking lane.</h2>
+        </div>
+
+        <div class="category-grid">
+          <article class="category-card reveal magnetic">
+            <div class="category-badge">Musicians</div>
+            <h3>Headline music bookings</h3>
+            <ul>
+              <li>Yo Maps</li>
+              <li>Mampi</li>
+              <li>Bombshell Grenade</li>
+            </ul>
+            <p>Afro-pop, rap, crossover campaigns and high-visibility event sets.</p>
+            <a href="browse.html?category=Musicians">Browse musicians</a>
+          </article>
+
+          <article class="category-card reveal delay-1 magnetic">
+            <div class="category-badge">Comedy + hosting</div>
+            <h3>Rooms that need instant energy</h3>
+            <ul>
+              <li>Ken Dumbo</li>
+              <li>Bob Nkosha</li>
+              <li>Mutale Mwanza</li>
+            </ul>
+            <p>MC duties, live comedy formats, corporate hosts and media personalities.</p>
+            <a href="browse.html?category=Comedians">Browse comedy talent</a>
+          </article>
+
+          <article class="category-card reveal delay-2 magnetic">
+            <div class="category-badge">Film + TV</div>
+            <h3>Screen-led talent placement</h3>
+            <ul>
+              <li>Mwaka Halwindi</li>
+              <li>Becky Ngoma</li>
+              <li>Cassie Kabwita</li>
+            </ul>
+            <p>Commercial acting, scripted casting, presenter-led campaigns and media production.</p>
+            <a href="browse.html?category=Actors">Browse actors</a>
+          </article>
+
+          <article class="category-card reveal magnetic">
+            <div class="category-badge">Models + style</div>
+            <h3>Fashion and brand image work</h3>
+            <ul>
+              <li>Lukundo Nalungwe</li>
+              <li>Susan Chardy</li>
+              <li>Bombshell Grenade</li>
+            </ul>
+            <p>Editorial, runway, campaign photography and premium lifestyle partnerships.</p>
+            <a href="browse.html?category=Models">Browse models</a>
+          </article>
+
+          <article class="category-card reveal delay-1 magnetic">
+            <div class="category-badge">Dance + performance</div>
+            <h3>Movement-driven live moments</h3>
+            <ul>
+              <li>Blake Yall</li>
+              <li>Mampi</li>
+              <li>Prince F.M. Lamba</li>
+            </ul>
+            <p>Choreography, stage movement, live show build-outs and performance direction.</p>
+            <a href="browse.html?category=Dancers">Browse dancers</a>
+          </article>
+
+          <article class="category-card reveal delay-2 magnetic">
+            <div class="category-badge">Visuals + photo</div>
+            <h3>Campaign-ready image makers</h3>
+            <ul>
+              <li>Alick Phiri</li>
+              <li>Gladys Kalichini</li>
+              <li>Qcheda</li>
+            </ul>
+            <p>Photography, visual art, storytelling and polished creative direction for brands.</p>
+            <a href="browse.html?category=Photographers">Browse visual talent</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section workflow" id="how">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">How it works</p>
+          <h2>Simple flow for organizers, brands and creatives.</h2>
+        </div>
+
+        <div class="workflow-grid">
+          <article class="workflow-card reveal magnetic">
+            <span>01</span>
+            <h3>Discover the right fit</h3>
+            <p>Start from the search bar or jump into browse with live category routes from this homepage.</p>
+          </article>
+          <article class="workflow-card reveal delay-1 magnetic">
+            <span>02</span>
+            <h3>Open a profile or dashboard</h3>
+            <p>Clients can inspect public pages, while signed-in users move into artist or organizer dashboards.</p>
+          </article>
+          <article class="workflow-card reveal delay-2 magnetic">
+            <span>03</span>
+            <h3>Choose a plan in kwacha</h3>
+            <p>Every tier, upsell and service here is expressed in ZMW for a consistent local buying experience.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section journeys" id="journeys">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Connected pages</p>
+          <h2>Primary routes wired into the rest of the project.</h2>
+        </div>
+
+        <div class="journey-grid">
+          <a class="journey-card reveal magnetic" href="browse.html">
+            <small>Discovery</small>
+            <strong>Browse talent marketplace</strong>
+            <span>Category and keyword search entry point.</span>
+          </a>
+          <a class="journey-card reveal delay-1 magnetic" href="performers.html">
+            <small>Onboarding</small>
+            <strong>For creatives</strong>
+            <span>Pitch the value of joining and route into sign-up.</span>
+          </a>
+          <a class="journey-card reveal delay-2 magnetic" href="artist-profile.html">
+            <small>Public profile</small>
+            <strong>Artist page</strong>
+            <span>Preview the talent-side destination clients land on.</span>
+          </a>
+          <a class="journey-card reveal delay-3 magnetic" href="organizer-profile.html">
+            <small>Public profile</small>
+            <strong>Organizer page</strong>
+            <span>Show event hosts and agencies as serious buyers too.</span>
+          </a>
+          <a class="journey-card reveal magnetic" href="artist-dashboard.html">
+            <small>Internal</small>
+            <strong>Artist dashboard</strong>
+            <span>Booking requests, pricing control and public-profile management.</span>
+          </a>
+          <a class="journey-card reveal delay-1 magnetic" href="organizer-dashboard.html">
+            <small>Internal</small>
+            <strong>Organizer dashboard</strong>
+            <span>Campaigns, outreach, saved talent and booking operations.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section plans" id="plans">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Pricing in kwacha</p>
+          <h2>Three clear tiers with different service levels.</h2>
+          <p class="section-text">The amounts stay in ZMW throughout, with buttons routed to sign-in or onboarding instead of dead placeholders.</p>
+        </div>
+
+        <div class="plan-grid">
+          <article class="plan-card reveal magnetic">
+            <small>Launch</small>
+            <h3>K0<span>/month</span></h3>
+            <p>For emerging creatives testing demand.</p>
+            <ul>
+              <li>Public talent profile</li>
+              <li>Basic booking inbox</li>
+              <li>Availability status</li>
+              <li>Up to 5 portfolio uploads</li>
+            </ul>
+            <a class="cta cta--secondary" href="login.html?plan=launch">Start free</a>
+          </article>
+
+          <article class="plan-card plan-card--featured reveal delay-1 magnetic">
+            <small>Spotlight</small>
+            <h3>K299<span>/month</span></h3>
+            <p>For serious creatives who want more visibility and stronger conversion.</p>
+            <ul>
+              <li>Priority browse placement</li>
+              <li>Verified-style profile accents</li>
+              <li>Performance insights dashboard</li>
+              <li>Contract and quote templates</li>
+              <li>Priority support response</li>
+            </ul>
+            <a class="cta cta--primary" href="login.html?plan=spotlight">Choose Spotlight</a>
+          </article>
+
+          <article class="plan-card reveal delay-2 magnetic">
+            <small>Agency Desk</small>
+            <h3>K1,250<span>/month</span></h3>
+            <p>For managers, teams and larger talent rosters.</p>
+            <ul>
+              <li>Multi-seat access</li>
+              <li>Roster grouping and assignment</li>
+              <li>Branded shortlist exports</li>
+              <li>Dedicated onboarding support</li>
+              <li>Organizer and agency workflow tools</li>
+            </ul>
+            <a class="cta cta--secondary" href="login.html?plan=agency-desk">Contact via sign-in</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section feature-strip">
+      <div class="container feature-strip__inner">
+        <div class="feature-copy reveal">
+          <p class="section-kicker">Extra polish</p>
+          <h2>Slick motion without turning the site into a toy.</h2>
+          <p class="section-text">Scroll reveal, counters, magnetic hover response, an animated ticker, a mobile nav, a sticky header and working quick links are all built in.</p>
+        </div>
+        <div class="feature-list reveal delay-1">
+          <span>Sticky navigation</span>
+          <span>Animated search entry</span>
+          <span>Responsive cards</span>
+          <span>Active FAQ accordion</span>
+          <span>Live scroll progress</span>
+          <span>Working page routes</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">FAQ</p>
+          <h2>Questions users will actually ask before they book.</h2>
+        </div>
+
+        <div class="faq-list">
+          <article class="faq-item reveal">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Can organizers move straight into a booking flow?</span>
+              <strong>+</strong>
+            </button>
+            <div class="faq-panel">
+              <p>Yes. The main call-to-action buttons point into browsing, organizer profile views, sign-in and the relevant dashboard paths already present in this project.</p>
+            </div>
+          </article>
+
+          <article class="faq-item reveal delay-1">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Are the homepage prices all in kwacha?</span>
+              <strong>+</strong>
+            </button>
+            <div class="faq-panel">
+              <p>Yes. The three package tiers are written only in ZMW to keep pricing consistent for local users and reduce mixed-currency friction.</p>
+            </div>
+          </article>
+
+          <article class="faq-item reveal delay-2">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Does the redesign rely on stock foreign talent imagery?</span>
+              <strong>+</strong>
+            </button>
+            <div class="faq-panel">
+              <p>No. The homepage leans on a graphic system and category callouts around public Zambian names instead of generic imported portraits.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand brand--footer" href="index.html">
+          <img src="images/Plum LogoNew-transparent.png" alt="PLUM logo">
+          <span>PLUM</span>
+        </a>
+        <p>Modern talent management for Zambia, with better discovery, stronger presentation and clearer booking routes.</p>
+      </div>
+
+      <div>
+        <h3>Clients</h3>
+        <a href="browse.html">Browse talent</a>
+        <a href="organizer-profile.html">Organizer profile</a>
+        <a href="organizer-dashboard.html">Organizer dashboard</a>
+      </div>
+
+      <div>
+        <h3>Creatives</h3>
+        <a href="performers.html">For creatives</a>
+        <a href="artist-profile.html">Artist profile</a>
+        <a href="artist-dashboard.html">Artist dashboard</a>
+      </div>
+
+      <div>
+        <h3>Access</h3>
+        <a href="login.html">Sign in / register</a>
+        <a href="#plans">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/landing.js"></script>
+</body>
+</html>

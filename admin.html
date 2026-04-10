@@ -1,258 +1,300 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plum Admin | Premium Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <link rel="stylesheet" href="css/admin.css">
-      
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · PLUM</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="css/admin.css"/>
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <img src="images/Plum LogoNew.png" alt="PLUM" style="height:52px;width:auto"/>
-            </div>
-            <button class="sidebar-close"><i class="fas fa-times"></i></button>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="blob-layer"><div class="blob blob-1"></div><div class="blob blob-2"></div><div id="particleContainer"></div></div>
+<nav id="navbar">
+  <a class="nav-logo-wrap" href="index.html" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none;">
+    <div class="plum-icon"><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div></div>
+    <div class="nav-wordmark">PL<span>U</span>M</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="browse.html">Browse</a></li>
+    <li><a href="artist-dashboard.html">Artist Desk</a></li>
+    <li><a href="organizer-dashboard.html">Organizer Desk</a></li>
+    <li><a href="admin.html">Admin</a></li>
+  </ul>
+  <button class="btn-nav" onclick="location.href='login.html'">Login</button>
+  <button class="hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg>
+  </button>
+  <a href="index.html">Home</a><a href="browse.html">Browse</a>
+  <a href="artist-dashboard.html">Artist Desk</a><a href="organizer-dashboard.html">Organizer Desk</a>
+  <a href="admin.html">Admin</a><a href="login.html">Login</a>
+</div>
+
+<div class="admin-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-intro">
+      <small>Platform control</small>
+      <h2>Admin Control Room</h2>
+      <p>Moderation, finance, user activity, bookings, category health and global settings in one workspace.</p>
+      <div class="sidebar-meta">
+        <div class="sidebar-meta-item"><strong id="sidebarPending">0</strong><span>Needs review</span></div>
+        <div class="sidebar-meta-item"><strong id="sidebarRevenue">0</strong><span>Live revenue</span></div>
+      </div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-group">
+        <div class="sidebar-group-label">Overview</div>
+        <ul>
+          <li><a href="#" data-section="dashboard" class="active">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3z"/><path d="M13 21h8v-8h-8z"/><path d="M13 11h8V3h-8z"/><path d="M3 21h8v-6H3z"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Dashboard</span><span class="nav-desc">Platform summary and trends</span></span>
+            <span class="nav-badge">Live</span>
+          </a></li>
+          <li><a href="#" data-section="financial">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H6"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Financial</span><span class="nav-desc">Fees, payouts and exposure</span></span>
+            <span class="nav-badge">K</span>
+          </a></li>
+          <li><a href="#" data-section="users">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Users</span><span class="nav-desc">Accounts, roles and verification</span></span>
+            <span class="nav-badge" id="usersBadge">0</span>
+          </a></li>
+          <li><a href="#" data-section="disputes">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M3 7h18"/><path d="m7 7 5 14 5-14"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Disputes</span><span class="nav-desc">Cases, escalations and outcomes</span></span>
+            <span class="nav-badge" id="disputesBadge">0</span>
+          </a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-label">Operations</div>
+        <ul>
+          <li><a href="#" data-section="bookings">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Bookings</span><span class="nav-desc">All booking records and status</span></span>
+            <span class="nav-badge" id="bookingsBadge">0</span>
+          </a></li>
+          <li><a href="#" data-section="events">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M2 12h20"/><path d="m4.9 4.9 14.2 14.2"/><path d="m19.1 4.9-14.2 14.2"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Event Management</span><span class="nav-desc">Upcoming live operations</span></span>
+            <span class="nav-badge">Ops</span>
+          </a></li>
+          <li><a href="#" data-section="categories">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82Z"/><path d="M7 7h.01"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Categories</span><span class="nav-desc">Taxonomy and market structure</span></span>
+            <span class="nav-badge" id="categoriesBadge">0</span>
+          </a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-label">Platform</div>
+        <ul>
+          <li><a href="#" data-section="settings">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 8.92 4.6H9A1.65 1.65 0 0 0 10 3.09V3a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.36.43.58.97.6 1.53V11a2 2 0 0 1 0 2v.47c-.02.56-.24 1.1-.6 1.53Z"/></svg></span>
+            <span class="nav-copy"><span class="nav-title">Settings</span><span class="nav-desc">Global behavior and controls</span></span>
+            <span class="nav-badge">Cfg</span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <strong>Admin Notes</strong>
+      <p>Use the sidebar to review onboarding bottlenecks, resolve disputes, process payouts and keep category structure clean.</p>
+    </div>
+  </aside>
+  <main class="main-content" id="mainContent">
+    <!-- Dashboard section -->
+    <div id="dashboardSection">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>Admin Dashboard</h2>
+            <p class="section-sub">Track verification queues, platform revenue, payout obligations and booking activity from one overview layer.</p>
+          </div>
+          <button class="btn-nav" onclick="updateDashboard()">Refresh Data</button>
         </div>
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="#dashboard" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-                <li><a href="#analytics" class="nav-link" data-section="analytics"><i class="fas fa-chart-pie"></i> Analytics</a></li>
-                <li><a href="#users" class="nav-link" data-section="users"><i class="fas fa-users"></i> User Management</a></li>
-                <li><a href="#verification" class="nav-link" data-section="verification"><i class="fas fa-check-circle"></i> Artist Verification</a></li>
-                <li><a href="#bookings" class="nav-link" data-section="bookings"><i class="fas fa-calendar"></i> Bookings</a></li>
-                <li><a href="#disputes" class="nav-link" data-section="disputes"><i class="fas fa-exclamation-circle"></i> Disputes</a></li>
-                <li><a href="#payouts" class="nav-link" data-section="payouts"><i class="fas fa-dollar-sign"></i> Payouts</a></li>
-                <li><a href="#moderation" class="nav-link" data-section="moderation"><i class="fas fa-shield-alt"></i> Moderation</a></li>
-                <li><a href="#categories" class="nav-link" data-section="categories"><i class="fas fa-list"></i> Categories</a></li>
-                <li><a href="#broadcasts" class="nav-link" data-section="broadcasts"><i class="fas fa-broadcast-tower"></i> Announcements</a></li>
-                <li><a href="#settings" class="nav-link" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
-            </ul>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="admin-profile">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Admin">
-                <div>
-                    <p class="admin-name">Admin User</p>
-                    <p class="admin-role">Super Admin</p>
-                </div>
-            </div>
-            <button class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card glass-card"><h4>Total Users</h4><div class="stat-number" id="statUsers">0</div></div>
+        <div class="stat-card glass-card"><h4>Total Bookings</h4><div class="stat-number" id="statBookings">0</div></div>
+        <div class="stat-card glass-card"><h4>Pending Verifications</h4><div class="stat-number" id="statPending">0</div></div>
+        <div class="stat-card glass-card"><h4>Revenue (ZMW)</h4><div class="stat-number" id="statRevenue">0</div></div>
+        <div class="stat-card glass-card"><h4>Pending Payouts</h4><div class="stat-number" id="statPayouts">0</div></div>
+        <div class="stat-card glass-card"><h4>Active Disputes</h4><div class="stat-number" id="statDisputes">0</div></div>
+      </div>
+      <div class="mini-grid">
+        <div class="info-tile"><small>Verification Health</small><strong id="healthPending">0 waiting</strong></div>
+        <div class="info-tile"><small>Conversion Signal</small><strong id="healthConversion">0% approved</strong></div>
+        <div class="info-tile"><small>Open Risk</small><strong id="healthRisk">Low</strong></div>
+      </div>
+      <div class="charts-row">
+        <div class="chart-card glass-card"><h3>Bookings Trend (6 months)</h3><canvas id="bookingsChart"></canvas></div>
+        <div class="chart-card glass-card"><h3>Revenue by Category</h3><canvas id="categoryChart"></canvas></div>
+        <div class="chart-card glass-card"><h3>User Growth (Monthly)</h3><canvas id="userGrowthChart"></canvas></div>
+      </div>
+      <div class="glass-card"><h3>Pending Artist Verifications</h3><table class="data-table" id="verifyTable"><thead><tr><th>Name</th><th>Email</th><th>Category</th><th>Action</th></tr></thead><tbody></tbody></table></div>
+      <div class="glass-card"><h3>Recent Bookings</h3><table class="data-table" id="recentBookingsTable"><thead><tr><th>Client</th><th>Artist</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <!-- Other sections (initially hidden) -->
+    <div id="financialSection" style="display:none;">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>Financial Overview</h2>
+            <p class="section-sub">Monitor platform fees, payout obligations, reserve exposure and upcoming financial actions.</p>
+          </div>
+          <button class="btn-nav" onclick="alert('Finance export queued')">Export Report</button>
         </div>
-    </aside>
-
-    <main class="main-content">
-        <div class="topbar">
-            <div class="topbar-left">
-                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
-                <input type="text" placeholder="Search users, bookings..." class="search-input">
-            </div>
-            <div class="topbar-right">
-                <button class="icon-btn notification-btn"><i class="fas fa-bell"></i><span class="badge">3</span></button>
-                <button class="icon-btn messages-btn"><i class="fas fa-envelope"></i><span class="badge">5</span></button>
-                <div class="profile-trigger"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Admin"></div>
-            </div>
+        <div class="mini-grid">
+          <div class="info-tile"><small>Platform fees</small><strong>K <span id="totalFees">0</span></strong></div>
+          <div class="info-tile"><small>Outstanding payouts</small><strong>K <span id="outstandingPayouts">0</span></strong></div>
+          <div class="info-tile"><small>Reserve buffer</small><strong id="reserveBuffer">K 0</strong></div>
         </div>
-
-        <div class="page-container">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="section-content active">
-                <!-- Welcome Banner -->
-                <div class="welcome-banner">
-                    <div class="welcome-text">
-                        <h2>Welcome back, Admin</h2>
-                        <p>Here's what's happening on your platform today.</p>
-                    </div>
-                    <div class="welcome-date">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span id="currentDate"></span>
-                    </div>
-                </div>
-
-                <!-- Stats Grid with mini charts (sparklines simulated via Chart.js) -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <h3>Total Users</h3>
-                            <div class="stat-value">12,547</div>
-                            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 8.2%</div>
-                        </div>
-                        <div class="stat-icon"><i class="fas fa-users"></i></div>
-                        <div class="mini-chart"><canvas id="usersSparkline" width="100" height="30" style="width:100px;height:30px"></canvas></div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <h3>Total Bookings</h3>
-                            <div class="stat-value">3,842</div>
-                            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 12.1%</div>
-                        </div>
-                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                        <div class="mini-chart"><canvas id="bookingsSparkline" width="100" height="30" style="width:100px;height:30px"></canvas></div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <h3>Total Revenue</h3>
-                            <div class="stat-value">$124,340</div>
-                            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 15.3%</div>
-                        </div>
-                        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
-                        <div class="mini-chart"><canvas id="revenueSparkline" width="100" height="30" style="width:100px;height:30px"></canvas></div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <h3>Pending Approvals</h3>
-                            <div class="stat-value">24</div>
-                            <div class="stat-trend down"><i class="fas fa-arrow-down"></i> 2 from yesterday</div>
-                        </div>
-                        <div class="stat-icon"><i class="fas fa-hourglass-end"></i></div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="quick-actions">
-                    <h3>Quick Actions</h3>
-                    <div class="action-buttons">
-                        <button class="action-btn" data-action="verify-users"><i class="fas fa-user-check"></i><span>Verify Users</span></button>
-                        <button class="action-btn" data-action="review-disputes"><i class="fas fa-flag"></i><span>Review Disputes</span></button>
-                        <button class="action-btn" data-action="approve-payouts"><i class="fas fa-money-check"></i><span>Approve Payouts</span></button>
-                        <button class="action-btn" data-action="moderate-content"><i class="fas fa-eye"></i><span>Moderate Content</span></button>
-                        <button class="action-btn" data-action="send-announcement"><i class="fas fa-megaphone"></i><span>Send Announcement</span></button>
-                        <button class="action-btn" data-action="manage-categories"><i class="fas fa-tags"></i><span>Manage Categories</span></button>
-                    </div>
-                </div>
-
-                <!-- Two column: Recent Bookings & Top Artists -->
-                <div class="dashboard-two-col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Recent Bookings</h3>
-                            <a href="#bookings">View all <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                        <table class="recent-bookings-table">
-                            <thead>
-                                <tr><th>Client</th><th>Artist</th><th>Date</th><th>Status</th> </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>John Doe</td><td>Emma Thompson</td><td>Mar 25, 2024</td><td><span class="booking-status confirmed">Confirmed</span></td></tr>
-                                <tr><td>Sarah Johnson</td><td>Alex Martinez</td><td>Mar 20, 2024</td><td><span class="booking-status pending">Pending</span></td></tr>
-                                <tr><td>Mike Wilson</td><td>Sarah Johnson</td><td>Mar 18, 2024</td><td><span class="booking-status completed">Completed</span></td></tr>
-                                <tr><td>Emily Clark</td><td>Marcus Lee</td><td>Mar 15, 2024</td><td><span class="booking-status confirmed">Confirmed</span></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Top Performing Artists</h3>
-                            <a href="#users">View all</a>
-                        </div>
-                        <div class="artist-list">
-                            <div class="artist-item">
-                                <img class="artist-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=artist1" alt="Artist">
-                                <div class="artist-info">
-                                    <div class="artist-name">Emma Thompson</div>
-                                    <div class="artist-stats">24 bookings • $18,200 earned</div>
-                                </div>
-                                <div class="artist-rating">★★★★★ 4.9</div>
-                            </div>
-                            <div class="artist-item">
-                                <img class="artist-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=artist2" alt="Artist">
-                                <div class="artist-info">
-                                    <div class="artist-name">Alex Martinez</div>
-                                    <div class="artist-stats">18 bookings • $12,500 earned</div>
-                                </div>
-                                <div class="artist-rating">★★★★☆ 4.8</div>
-                            </div>
-                            <div class="artist-item">
-                                <img class="artist-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=artist3" alt="Artist">
-                                <div class="artist-info">
-                                    <div class="artist-name">Sarah Johnson</div>
-                                    <div class="artist-stats">15 bookings • $9,800 earned</div>
-                                </div>
-                                <div class="artist-rating">★★★★★ 4.9</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts Row -->
-                <div class="charts-row">
-                    <div class="chart-card">
-                        <h3>Bookings Trend (Last 6 Months)</h3>
-                        <canvas id="bookingsLineChart"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Revenue by Category</h3>
-                        <canvas id="categoryRevenueChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Activity Timeline -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Recent Activity</h3>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i class="fas fa-user-plus"></i></div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">New artist registered: Sarah Johnson</div>
-                                <div class="timeline-time">2 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i class="fas fa-calendar-check"></i></div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">Booking created: Wedding Photography (ID #BK001245)</div>
-                                <div class="timeline-time">4 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i class="fas fa-exclamation-circle"></i></div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">New dispute reported: #D001</div>
-                                <div class="timeline-time">6 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon"><i class="fas fa-dollar-sign"></i></div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">Payout processed: 150 artists</div>
-                                <div class="timeline-time">1 day ago</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Other sections (Analytics, Users, etc.) remain similar but can be shortened for brevity -->
-            <section id="analytics" class="section-content">
-                <div class="section-header"><h1>Analytics & Reports</h1></div>
-                <div class="charts-row">
-                    <div class="chart-card"><h3>Bookings Over Time</h3><canvas id="bookingsChart"></canvas></div>
-                    <div class="chart-card"><h3>Revenue Trends</h3><canvas id="revenueChart"></canvas></div>
-                </div>
-                <div class="table-card"><h3>Category Performance</h3><table class="data-table"><thead><tr><th>Category</th><th>Bookings</th><th>Revenue</th><th>Growth</th></tr></thead><tbody><tr><td>Photography</td><td>1,240</td><td>$42,230</td><td class="growth positive">↑12%</td></tr><tr><td>Makeup</td><td>892</td><td>$28,150</td><td class="growth positive">↑8%</td></tr><tr><td>Videography</td><td>654</td><td>$35,900</td><td class="growth positive">↑15%</td></tr><tr><td>Catering</td><td>562</td><td>$31,340</td><td class="growth negative">↓2%</td></tr></tbody></table></div>
-            </section>
-
-            <!-- For brevity, other sections (users, verification, bookings, disputes, payouts, moderation, categories, broadcasts, settings) can be similar to original but we'll keep them minimal -->
-            <section id="users" class="section-content"><div class="section-header"><h1>User Management</h1></div><div class="table-card"><p>User management content would go here.</p></div></section>
-            <section id="verification" class="section-content"><div class="section-header"><h1>Artist Verification</h1></div><div class="table-card"><p>Verification queue content.</p></div></section>
-            <section id="bookings" class="section-content"><div class="section-header"><h1>Bookings Oversight</h1></div><div class="table-card"><p>Bookings management content.</p></div></section>
-            <section id="disputes" class="section-content"><div class="section-header"><h1>Dispute Management</h1></div><div class="table-card"><p>Disputes content.</p></div></section>
-            <section id="payouts" class="section-content"><div class="section-header"><h1>Payout Management</h1></div><div class="table-card"><p>Payouts content.</p></div></section>
-            <section id="moderation" class="section-content"><div class="section-header"><h1>Content Moderation</h1></div><div class="table-card"><p>Moderation content.</p></div></section>
-            <section id="categories" class="section-content"><div class="section-header"><h1>Category Management</h1></div><div class="table-card"><p>Categories content.</p></div></section>
-            <section id="broadcasts" class="section-content"><div class="section-header"><h1>Announcements</h1></div><div class="table-card"><p>Announcements content.</p></div></section>
-            <section id="settings" class="section-content"><div class="section-header"><h1>Platform Settings</h1></div><div class="table-card"><p>Settings content.</p></div></section>
+        <div class="panel-grid">
+          <div class="glass-card">
+            <h3>Finance Checklist</h3>
+            <div class="stack-list">
+              <div class="stack-item"><strong>Pending payout run</strong><span id="financePendingPayouts">0 bookings awaiting release</span></div>
+              <div class="stack-item"><strong>High-value booking watch</strong><span id="financeHighValue">No alerts</span></div>
+              <div class="stack-item"><strong>Fee capture</strong><span>Automatic fee deduction is active</span></div>
+            </div>
+          </div>
+          <div class="glass-card">
+            <h3>Actions</h3>
+            <div class="toolbar-row">
+              <button class="btn-nav" onclick="alert('Process payouts')">Process Payouts</button>
+              <button class="btn-nav" onclick="alert('Fee statement sent')">Send Fee Statement</button>
+            </div>
+            <div class="list-tags">
+              <span class="list-tag">ZMW only</span>
+              <span class="list-tag">Fee visibility</span>
+              <span class="list-tag">Payout tracking</span>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+    <div id="usersSection" style="display:none;">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>User Management</h2>
+            <p class="section-sub">Review user accounts, role mix, verification state and onboarding quality across the platform.</p>
+          </div>
+        </div>
+        <div class="mini-grid">
+          <div class="info-tile"><small>Artists</small><strong id="artistCount">0</strong></div>
+          <div class="info-tile"><small>Organizers</small><strong id="organizerCount">0</strong></div>
+          <div class="info-tile"><small>Verified accounts</small><strong id="verifiedCount">0</strong></div>
+        </div>
+        <table class="data-table" id="allUsersTable"><thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Verified</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+    <div id="disputesSection" style="display:none;">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>Dispute Resolution</h2>
+            <p class="section-sub">Escalations, current case load and recommended resolution path.</p>
+          </div>
+        </div>
+        <div class="mini-grid">
+          <div class="info-tile"><small>Open cases</small><strong id="openDisputes">0</strong></div>
+          <div class="info-tile"><small>Escalated</small><strong id="escalatedDisputes">0</strong></div>
+          <div class="info-tile"><small>Average age</small><strong id="disputeAge">0 days</strong></div>
+        </div>
+        <div id="disputesList" class="stack-list"></div>
+      </div>
+    </div>
+    <div id="bookingsSection" style="display:none;">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>All Bookings</h2>
+            <p class="section-sub">Review booking flow health, value distribution and fulfillment state.</p>
+          </div>
+        </div>
+        <div class="mini-grid">
+          <div class="info-tile"><small>Confirmed</small><strong id="confirmedBookings">0</strong></div>
+          <div class="info-tile"><small>Pending</small><strong id="pendingBookings">0</strong></div>
+          <div class="info-tile"><small>Completed value</small><strong id="completedBookingValue">K 0</strong></div>
+        </div>
+        <table class="data-table" id="allBookingsTable"><thead><tr><th>ID</th><th>Client</th><th>Artist</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+    <div id="eventsSection" style="display:none;">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>Event Management</h2>
+            <p class="section-sub">Operational view of upcoming events, production readiness and staffing gaps.</p>
+          </div>
+        </div>
+        <div class="stack-list">
+          <div class="stack-item"><strong>Festival main stage</strong><span>Talent confirmations pending for two headline acts</span></div>
+          <div class="stack-item"><strong>Corporate launch</strong><span>Host and DJ assigned, visual team still open</span></div>
+          <div class="stack-item"><strong>Luxury wedding</strong><span>Music shortlist approved, final contract outstanding</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="categoriesSection" style="display:none;">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>Manage Categories</h2>
+            <p class="section-sub">Maintain the marketplace taxonomy and keep discovery clean for organizers and talent.</p>
+          </div>
+        </div>
+        <div id="categoriesList"></div>
+        <div class="toolbar-row">
+          <input class="field-input" type="text" id="newCategory" placeholder="New category">
+          <button class="btn-nav" onclick="addCategory()">Add Category</button>
+        </div>
+      </div>
+    </div>
+    <div id="settingsSection" style="display:none;">
+      <div class="glass-card">
+        <div class="section-headline">
+          <div>
+            <h2>Platform Settings</h2>
+            <p class="section-sub">Global visual, moderation and platform behavior controls.</p>
+          </div>
+        </div>
+        <div class="settings-grid">
+          <div class="setting-card">
+            <h4>Experience Settings</h4>
+            <p>Control how admins experience the workspace and whether maintenance banners should appear across the platform.</p>
+            <div class="toggle-row"><label><input type="checkbox" id="darkModeToggleSetting"> Dark Mode</label><span class="status-badge ok">Available</span></div>
+            <div class="toggle-row" style="margin-top:0.8rem"><label><input type="checkbox" id="maintenanceMode"> Maintenance Mode</label><span class="status-badge wait">Manual</span></div>
+          </div>
+          <div class="setting-card">
+            <h4>Operations</h4>
+            <p>Use these controls to coordinate moderation runs and daily admin routines.</p>
+            <div class="stack-list">
+              <div class="stack-item"><strong>Verification queue</strong><span>Review twice daily</span></div>
+              <div class="stack-item"><strong>Finance batch</strong><span>Run weekly on Fridays</span></div>
+              <div class="stack-item"><strong>Escalation sweep</strong><span>Resolve all aged cases</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="toolbar-row">
+          <button class="btn-nav" onclick="alert('Settings saved')">Save Settings</button>
+          <button class="btn-nav" onclick="alert('Audit log exported')">Export Audit Log</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<button class="dark-mode-toggle" id="darkModeToggleBtn" aria-label="Toggle dark mode">
+  <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+</button>
 
-    <script src="js/admin.js"></script>
-   
+<script src="js/admin.js"></script>
 </body>
 </html>

@@ -1,469 +1,632 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PLUM — The Sweet Spot for Bookings</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="index.css"/>
+<meta name="description" content="Zambia's premier creative booking marketplace. Find and book verified photographers, musicians, filmmakers, designers and more."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/index.css"/>
 </head>
 <body>
 
-<!-- ══ CURRENCY BAR ══════════════════════════════════════════ -->
-<div class="cbar">
-  <div class="container">
-    <div class="cbar-in">
-      <span class="cbar-lbl">Show all prices in:</span>
-      <div class="ctoggle">
-        <button class="cbtn act" id="btnUSD" onclick="setCurr('USD')">$ USD</button>
-        <button class="cbtn" id="btnZMW" onclick="setCurr('ZMW')">K ZMW</button>
+<!-- Cursor dot -->
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Background blobs -->
+<div class="blob-layer" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div id="particleContainer"></div>
+</div>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#categories" onclick="closeMobile()">Discover</a>
+  <a href="#talents"    onclick="closeMobile()">Talents</a>
+  <a href="#how"        onclick="closeMobile()">How It Works</a>
+  <a href="#impact"     onclick="closeMobile()">Impact</a>
+  <a href="#contact"    onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo-wrap" href="#">
+    <div class="plum-icon">
+      <div class="plum-bar"></div>
+      <div class="plum-bar"></div>
+      <div class="plum-bar"></div>
+      <div class="plum-bar"></div>
+      <div class="plum-bar"></div>
+    </div>
+    <div>
+      <div class="nav-wordmark">PL<span>U</span>M</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#categories">Discover</a></li>
+    <li><a href="browse.html">Browse</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="performers.html">Top Performers</a></li>
+  </ul>
+  <button class="btn-nav" onclick="location.href='browse.html'">Browse Talent</button>
+  <button class="hamburger" id="menuBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow ha1"><span class="eyebrow-dot"></span>Zambia's Premier Booking Platform</div>
+      <h1 class="hero-title ha2">
+        The Sweet Spot<br>
+        for <span class="hl-purple">Creative</span><br>
+        <span class="hl-lime">Bookings</span>
+      </h1>
+      <p class="hero-sub ha3">Connect with Zambia's finest photographers, musicians, filmmakers, designers & more. Book local talent — fast, secure, professional.</p>
+      <div class="hero-actions ha4">
+        <button class="btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Explore Talent
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          How It Works
+        </button>
       </div>
-      <span class="crate">1 USD = <b>K 27.50</b> Kwacha</span>
+      <div class="hero-trust ha5">
+        <div class="trust-avs">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&q=80&fit=crop&crop=face" alt=""/>
+          <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=80&q=80&fit=crop&crop=face" alt=""/>
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80&fit=crop&crop=face" alt=""/>
+          <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=80&q=80&fit=crop&crop=face" alt=""/>
+        </div>
+        <div class="trust-txt"><strong>5,200+ creatives</strong> already on the platform</div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hv-main">
+        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=700&q=80&fit=crop" alt="Zambian creative talent"/>
+        <div class="hv-main-overlay"></div>
+        <div class="hv-main-label">
+          <h3>Chanda Mwewa</h3>
+          <p>Commercial Photographer · Lusaka</p>
+        </div>
+      </div>
+      <!-- Float cards -->
+      <div class="hv-tag">
+        <div class="hv-tag-label">Booked Today</div>
+        <div class="hv-tag-value" id="heroBookings">84</div>
+        <div class="hv-tag-sub">sessions confirmed</div>
+      </div>
+      <div class="hv-tag2">
+        <div class="hv-tag-label">Top Rated</div>
+        <div class="hv-tag-value">⭐ 4.9</div>
+        <div class="hv-tag-sub" style="color:rgba(255,255,255,0.6);">avg. platform score</div>
+      </div>
+      <div class="hv-tag3">🇿🇲 Proudly Zambian</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="mq-item bright">Photography <span class="mq-sep"></span></div>
+    <div class="mq-item">Music Production <span class="mq-sep"></span></div>
+    <div class="mq-item bright">Film & Video <span class="mq-sep"></span></div>
+    <div class="mq-item">Graphic Design <span class="mq-sep"></span></div>
+    <div class="mq-item bright">Fashion <span class="mq-sep"></span></div>
+    <div class="mq-item">Dance & Choreography <span class="mq-sep"></span></div>
+    <div class="mq-item bright">Visual Art <span class="mq-sep"></span></div>
+    <div class="mq-item">Content Creation <span class="mq-sep"></span></div>
+    <div class="mq-item bright">DJing <span class="mq-sep"></span></div>
+    <div class="mq-item">Voice Over <span class="mq-sep"></span></div>
+    <!-- duplicate for loop -->
+    <div class="mq-item bright">Photography <span class="mq-sep"></span></div>
+    <div class="mq-item">Music Production <span class="mq-sep"></span></div>
+    <div class="mq-item bright">Film & Video <span class="mq-sep"></span></div>
+    <div class="mq-item">Graphic Design <span class="mq-sep"></span></div>
+    <div class="mq-item bright">Fashion <span class="mq-sep"></span></div>
+    <div class="mq-item">Dance & Choreography <span class="mq-sep"></span></div>
+    <div class="mq-item bright">Visual Art <span class="mq-sep"></span></div>
+    <div class="mq-item">Content Creation <span class="mq-sep"></span></div>
+    <div class="mq-item bright">DJing <span class="mq-sep"></span></div>
+    <div class="mq-item">Voice Over <span class="mq-sep"></span></div>
+  </div>
+</div>
+
+<!-- ═══════════════ STATS ═══════════════ -->
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="stat-card reveal">
+      <div class="stat-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="stat-num" data-target="5200" data-suffix="+">0</div>
+      <div class="stat-lbl">Verified Creatives</div>
+    </div>
+    <div class="stat-card reveal rd1">
+      <div class="stat-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      </div>
+      <div class="stat-num" data-target="180" data-suffix="+">0</div>
+      <div class="stat-lbl">Categories</div>
+    </div>
+    <div class="stat-card reveal rd2">
+      <div class="stat-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="stat-num" data-target="14200" data-suffix="+">0</div>
+      <div class="stat-lbl">Bookings Completed</div>
+    </div>
+    <div class="stat-card reveal rd3">
+      <div class="stat-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="stat-num" data-target="98" data-suffix="%">0</div>
+      <div class="stat-lbl">Client Satisfaction</div>
     </div>
   </div>
 </div>
 
-<!-- ══ NAV ══════════════════════════════════════════════════ -->
-<nav class="nav" id="nav">
-  <div class="container">
-    <div class="nav-in">
-      <a href="index.html" class="nav-logo">
-        <img src="images/Plum LogoNew.png" alt="PLUM" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-        <span style="display:none;align-items:center;gap:8px;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--p2),var(--l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">PLUM</span>
+<!-- ═══════════════ CATEGORIES ═══════════════ -->
+<section class="cats-section" id="categories">
+  <div class="cats-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Browse Categories</div>
+      <h2 class="section-title">Every Creative <span class="muted">Discipline</span><br>Under One Roof</h2>
+    </div>
+    <div class="cats-grid">
+      <!-- Tall card -->
+      <div class="cat-card tall reveal">
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80&fit=crop" alt="Photography"/>
+        <div class="cat-overlay"></div>
+        <div class="cat-color-bar cat-cb-purple"></div>
+        <div class="cat-corner-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="cat-info">
+          <div class="cat-badge badge-purple">Most Booked</div>
+          <div class="cat-name">Photography</div>
+          <div class="cat-count">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            1,240 Creatives
+          </div>
+        </div>
+      </div>
+      <!-- Right col, row 1 -->
+      <div class="cat-card reveal rd1">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&q=80&fit=crop" alt="Music"/>
+        <div class="cat-overlay"></div>
+        <div class="cat-color-bar cat-cb-lime"></div>
+        <div class="cat-corner-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="cat-info">
+          <div class="cat-badge badge-lime">Trending</div>
+          <div class="cat-name">Music</div>
+          <div class="cat-count">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            980 Creatives
+          </div>
+        </div>
+      </div>
+      <div class="cat-card reveal rd2">
+        <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=500&q=80&fit=crop" alt="Film"/>
+        <div class="cat-overlay"></div>
+        <div class="cat-color-bar cat-cb-gold"></div>
+        <div class="cat-corner-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="cat-info">
+          <div class="cat-badge badge-gold">Growing</div>
+          <div class="cat-name">Film & Video</div>
+          <div class="cat-count">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            760 Creatives
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second row of cats -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:1.2rem;" class="cats-row2">
+      <div class="cat-card reveal" style="min-height:200px;aspect-ratio:unset;">
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=80&fit=crop" alt="Design"/>
+        <div class="cat-overlay"></div>
+        <div class="cat-color-bar cat-cb-purple"></div>
+        <div class="cat-corner-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+        <div class="cat-info">
+          <div class="cat-badge badge-purple">Design</div>
+          <div class="cat-name" style="font-size:1.1rem">Graphic Design</div>
+          <div class="cat-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> 640</div>
+        </div>
+      </div>
+      <div class="cat-card reveal rd1" style="min-height:200px;aspect-ratio:unset;">
+        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80&fit=crop" alt="Fashion"/>
+        <div class="cat-overlay"></div>
+        <div class="cat-color-bar cat-cb-lime"></div>
+        <div class="cat-corner-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+        <div class="cat-info">
+          <div class="cat-badge badge-lime">Fashion</div>
+          <div class="cat-name" style="font-size:1.1rem">Fashion</div>
+          <div class="cat-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> 420</div>
+        </div>
+      </div>
+      <div class="cat-card reveal rd2" style="min-height:200px;aspect-ratio:unset;">
+        <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?w=400&q=80&fit=crop" alt="Dance"/>
+        <div class="cat-overlay"></div>
+        <div class="cat-color-bar cat-cb-gold"></div>
+        <div class="cat-corner-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+        <div class="cat-info">
+          <div class="cat-badge badge-gold">Dance</div>
+          <div class="cat-name" style="font-size:1.1rem">Dance</div>
+          <div class="cat-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> 390</div>
+        </div>
+      </div>
+      <div class="cat-card reveal rd3" style="min-height:200px;aspect-ratio:unset;">
+        <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&q=80&fit=crop" alt="DJing"/>
+        <div class="cat-overlay"></div>
+        <div class="cat-color-bar cat-cb-purple"></div>
+        <div class="cat-corner-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+        <div class="cat-info">
+          <div class="cat-badge badge-purple" style="background:var(--lime);color:var(--charcoal);">New</div>
+          <div class="cat-name" style="font-size:1.1rem">DJing</div>
+          <div class="cat-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> 280</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TALENTS ═══════════════ -->
+<section class="talents-section" id="talents">
+  <div class="talents-inner">
+    <div class="talents-head">
+      <div class="reveal">
+        <div class="section-eyebrow">Featured Talent</div>
+        <h2 class="section-title">Spotlight on <span class="muted">Zambian</span><br>Excellence</h2>
+      </div>
+      <a class="view-all-link reveal" href="#">
+        View All
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <ul class="nav-links">
-        <li><a href="browse.html">Browse Talent</a></li>
-        <li><a href="#how">How It Works</a></li>
-        <li><a href="#testimonials">Reviews</a></li>
-        <li><a href="#join">For Artists</a></li>
-      </ul>
-      <div class="nav-r">
-        <a href="login.html" class="nav-login">Login</a>
-        <a href="browse.html" class="btn btn-p" style="padding:10px 22px;font-size:.82rem;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          Find Talent
+    </div>
+    <div class="talents-grid">
+
+      <div class="talent-card reveal">
+        <div class="tc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80&fit=crop&crop=face,center" alt="Chanda"/>
+          <div class="tc-badge badge-purple">Photographer</div>
+          <div class="tc-bookmark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-name">Chanda Mwewa</div>
+          <div class="tc-role">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Lusaka
+          </div>
+          <div class="tc-footer">
+            <div class="tc-rating"><span class="stars-mini">★</span> 4.9 <span style="color:var(--body-txt);font-weight:400;">(127)</span></div>
+            <div class="tc-rate">From K800/hr</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="talent-card reveal rd1">
+        <div class="tc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=500&q=80&fit=crop&crop=face,center" alt="Mutale"/>
+          <div class="tc-badge badge-lime">Producer</div>
+          <div class="tc-bookmark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-name">Mutale Phiri</div>
+          <div class="tc-role">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Ndola
+          </div>
+          <div class="tc-footer">
+            <div class="tc-rating"><span class="stars-mini">★</span> 4.8 <span style="color:var(--body-txt);font-weight:400;">(98)</span></div>
+            <div class="tc-rate">From K600/hr</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="talent-card reveal rd2">
+        <div class="tc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80&fit=crop&crop=face,center" alt="Naledi"/>
+          <div class="tc-badge" style="background:var(--gold);color:var(--charcoal);">Director</div>
+          <div class="tc-bookmark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-name">Naledi Banda</div>
+          <div class="tc-role">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Kitwe
+          </div>
+          <div class="tc-footer">
+            <div class="tc-rating"><span class="stars-mini">★</span> 5.0 <span style="color:var(--body-txt);font-weight:400;">(74)</span></div>
+            <div class="tc-rate">From K1,200/hr</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="talent-card reveal rd3">
+        <div class="tc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=500&q=80&fit=crop&crop=face,center" alt="Temwani"/>
+          <div class="tc-badge badge-purple">Designer</div>
+          <div class="tc-bookmark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-name">Temwani Zulu</div>
+          <div class="tc-role">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Lusaka
+          </div>
+          <div class="tc-footer">
+            <div class="tc-rating"><span class="stars-mini">★</span> 4.7 <span style="color:var(--body-txt);font-weight:400;">(112)</span></div>
+            <div class="tc-rate">From K500/hr</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="how-section" id="how">
+  <div class="how-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Simple Process</div>
+      <h2 class="section-title">Book Talent in <span class="muted">3 Easy Steps</span></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon si-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div class="step-title">Browse & Discover</div>
+        <div class="step-desc">Explore hundreds of verified Zambian creatives. Filter by city, skill, rating, and budget to find the perfect match.</div>
+      </div>
+      <div class="step-card reveal rd1">
+        <div class="step-num">02</div>
+        <div class="step-icon si-lime">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="step-title">Connect & Book</div>
+        <div class="step-desc">Message directly, review portfolios, agree on scope. Our platform keeps everything smooth, transparent and secure.</div>
+      </div>
+      <div class="step-card reveal rd2">
+        <div class="step-num">03</div>
+        <div class="step-icon si-gold">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple-lt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="step-title">Create & Pay Safely</div>
+        <div class="step-desc">Funds held in escrow until you approve the work. Release payment only when you're 100% satisfied — guaranteed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ LOTTIE / ORBIT ═══════════════ -->
+<div class="anim-section reveal">
+  <div class="anim-box">
+    <div class="anim-txt">
+      <div class="section-eyebrow">Powered by Community</div>
+      <h3>The Creative Ecosystem<br>Zambia Deserves</h3>
+      <p>From first brief to final delivery, PLUM connects the country's brightest creatives with the clients who need their brilliance most.</p>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <div class="live-chip"><span class="live-dot live-dot-green"></span>Live Platform</div>
+        <div class="live-chip" style="background:rgba(184,217,0,0.15);border-color:rgba(184,217,0,0.3);">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--lime-lt)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Secure Escrow
+        </div>
+      </div>
+    </div>
+    <div class="orbit-wrap">
+      <div class="orbit-ring or-1"><div class="orbit-dot od-lime"></div></div>
+      <div class="orbit-ring or-2"><div class="orbit-dot od-gold"></div></div>
+      <div class="orbit-ring or-3"><div class="orbit-dot od-white"></div></div>
+      <div class="orbit-center">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ IMPACT ═══════════════ -->
+<section class="impact-section" id="impact">
+  <div class="impact-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Our Impact</div>
+      <div class="impact-big-num" data-target="5200" data-suffix="+" id="bigNum">0<span>+</span></div>
+      <p class="impact-desc">Creatives already earning on PLUM — and the community grows every single day, across all 9 provinces of Zambia.</p>
+      <div class="impact-pills">
+        <div class="i-pill">
+          <svg style="display:inline;vertical-align:-2px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          All 9 Provinces
+        </div>
+        <div class="i-pill">🇿🇲 Proudly Zambian</div>
+        <div class="i-pill">💡 Creative Economy</div>
+        <div class="i-pill">🤝 Fair Pay</div>
+      </div>
+      <button class="btn-primary">Start Hiring Today
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="impact-cards">
+      <div class="ic-card accent-purple reveal">
+        <div class="ic-num" data-target="14200" data-suffix="+">0</div>
+        <div class="ic-lbl">Bookings Delivered</div>
+      </div>
+      <div class="ic-card accent-lime reveal rd1">
+        <div class="ic-num" data-target="98" data-suffix="%">0</div>
+        <div class="ic-lbl">Satisfaction Rate</div>
+      </div>
+      <div class="ic-card reveal rd2">
+        <div class="ic-num" data-target="9" data-suffix="">0</div>
+        <div class="ic-lbl">Provinces Covered</div>
+      </div>
+      <div class="ic-card reveal rd3">
+        <div class="ic-num" data-target="180" data-suffix="+">0</div>
+        <div class="ic-lbl">Skill Categories</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<section class="testi-section">
+  <div class="testi-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow">Testimonials</div>
+      <h2 class="section-title">Real Stories, <span class="muted">Real Impact</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="tq-stars"><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span></div>
+        <div class="tq-mark">"</div>
+        <div class="tq-text">PLUM connected us with an incredible photographer who captured our brand perfectly. World-class quality — right here in Lusaka.</div>
+        <div class="tq-author">
+          <div class="tq-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&fit=crop&crop=face" alt=""/></div>
+          <div><div class="tq-name">Mwamba Chipeta</div><div class="tq-role">CEO, Copper Brand Agency</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal rd1">
+        <div class="tq-stars"><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span></div>
+        <div class="tq-mark">"</div>
+        <div class="tq-text">As a musician, getting discovered was always hard. This platform changed everything — I now have consistent clients and my income has tripled.</div>
+        <div class="tq-author">
+          <div class="tq-av"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=80&q=80&fit=crop&crop=face" alt=""/></div>
+          <div><div class="tq-name">Kasonde Mulenga</div><div class="tq-role">Music Producer · Ndola</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal rd2">
+        <div class="tq-stars"><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span><span class="tq-star">★</span></div>
+        <div class="tq-mark">"</div>
+        <div class="tq-text">We hired a film crew for our corporate video through PLUM. Delivered on time, under budget, and the output was absolutely stunning.</div>
+        <div class="tq-author">
+          <div class="tq-av"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80&fit=crop&crop=face" alt=""/></div>
+          <div><div class="tq-name">Chitalu Banda</div><div class="tq-role">Marketing Director, ZMK Corp</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--  CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-box reveal">
+    <div class="section-eyebrow" style="display:inline-block;margin-bottom:0.5rem;">Get Started Today</div>
+    <h2>Ready to Work With<br>Zambia's Best?</h2>
+    <p>Whether you're a client seeking talent or a creative ready to monetize your skills — PLUM is the sweet spot.</p>
+    <div class="cta-btns">
+      <button class="btn-primary" style="font-size:1rem;padding:1rem 2.2rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Join as Creative
+      </button>
+      <button class="btn-secondary" style="font-size:1rem;padding:1rem 2.2rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Hire Talent
+      </button>
+    </div>
+  </div>
+</section>
+
+<!--  FOOTER  -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo-wrap">
+        <div class="footer-logo-icon">
+          <div class="flb flb-1"></div>
+          <div class="flb flb-2"></div>
+          <div class="flb flb-3"></div>
+          <div class="flb flb-4"></div>
+          <div class="flb flb-5"></div>
+        </div>
+        <div>
+          <div class="footer-brand">PLUM</div>
+          <div class="footer-tagline">The Sweet Spot for Bookings</div>
+        </div>
+      </div>
+      <div class="footer-desc">Home of Zambia's creative economy. Connecting talent with opportunity, nationwide.</div>
+      <div class="footer-socials">
+        <a class="soc-btn" href="#" title="Twitter/X">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a class="soc-btn" href="#" title="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a class="soc-btn" href="#" title="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="soc-btn" href="#" title="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a class="soc-btn" href="#" title="YouTube">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
         </a>
       </div>
     </div>
-  </div>
-</nav>
-
-<!-- ══ HERO ══════════════════════════════════════════════════ -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-bg"></div>
-  <div class="orb o1"></div>
-  <div class="orb o2"></div>
-  <div class="orb o3"></div>
-  <div class="container">
-    <div class="hero-grid">
-
-      <!-- Copy -->
-      <div>
-        <div class="eyebrow"><span class="eydot"></span>Zambia &amp; Southern Africa's Premier Talent Platform</div>
-        <h1 class="htitle">
-          Book <em class="hl">World-Class</em><br>
-          <strong>Talent</strong> for<br>Any Event
-        </h1>
-        <p class="hsub">From live bands and DJs to photographers and comedians — discover verified local talent, check live availability, and book in minutes.</p>
-        <div class="hacts">
-          <a href="#browse" class="btn btn-p">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            Browse Talent
-          </a>
-          <a href="#how" class="btn btn-o">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            See How It Works
-          </a>
-        </div>
-        <div class="hstats">
-          <div class="hs"><div class="hs-n">8,300<span>+</span></div><div class="hs-l">Verified Artists</div></div>
-          <div class="hs"><div class="hs-n">42k<span>+</span></div><div class="hs-l">Events Booked</div></div>
-          <div class="hs"><div class="hs-n">4.9<span>★</span></div><div class="hs-l">Average Rating</div></div>
-        </div>
-      </div>
-
-      <!-- Visual -->
-      <div class="hvisual">
-
-        <!-- CSS Animation 1: Rotating orbital rings -->
-        <div class="anim-ring">
-          <svg viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" overflow="visible">
-            <g class="ring-outer" transform-origin="230 230">
-              <circle cx="230" cy="230" r="210" fill="none" stroke="url(#rg1)" stroke-width="1" stroke-dasharray="18 12" opacity=".35"/>
-              <circle cx="230" cy="12" r="5" fill="#8B2EC8" opacity=".7"/>
-              <circle cx="448" cy="230" r="4" fill="#AADC00" opacity=".6"/>
-              <circle cx="230" cy="448" r="3" fill="#F5A623" opacity=".5"/>
-            </g>
-            <g class="ring-mid" transform-origin="230 230">
-              <circle cx="230" cy="230" r="155" fill="none" stroke="url(#rg2)" stroke-width="1" stroke-dasharray="8 20" opacity=".25"/>
-              <circle cx="230" cy="75" r="4" fill="#B06CE6" opacity=".6"/>
-              <circle cx="385" cy="230" r="3" fill="#AADC00" opacity=".5"/>
-            </g>
-            <g class="ring-inner" transform-origin="230 230">
-              <circle cx="230" cy="230" r="100" fill="none" stroke="url(#rg3)" stroke-width="1" stroke-dasharray="4 10" opacity=".2"/>
-            </g>
-            <defs>
-              <linearGradient id="rg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B2EC8"/><stop offset="100%" stop-color="#AADC00"/></linearGradient>
-              <linearGradient id="rg2" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#AADC00"/><stop offset="100%" stop-color="#F5A623"/></linearGradient>
-              <linearGradient id="rg3" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#B06CE6"/><stop offset="100%" stop-color="#AADC00"/></linearGradient>
-            </defs>
-          </svg>
-        </div>
-
-        <!-- CSS Animation 2: Sound-wave bars -->
-        <div class="anim-wave">
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div>
-        </div>
-        <!-- pulse rings under wave -->
-        <div class="anim-pulse">
-          <div class="pulse-ring"></div>
-          <div class="pulse-ring"></div>
-          <div class="pulse-ring"></div>
-        </div>
-
-        <!-- CSS Animation 3: Sparkle stars -->
-        <div class="anim-spark">
-          <div class="spark s1"></div>
-          <div class="spark s2"></div>
-          <div class="spark s3"></div>
-          <div class="spark s4"></div>
-          <div class="spark s5"></div>
-          <div class="spark s6"></div>
-          <div class="star-shape ss1"></div>
-          <div class="star-shape ss2"></div>
-          <div class="star-shape ss3"></div>
-        </div>
-
-        <!-- Main card: Chanda & Soul Collective -->
-        <div class="hc-main">
-          <div class="hc-img">
-            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=660&auto=format&fit=crop&q=80" alt="Chanda & The Soul Collective" loading="eager" crossorigin="anonymous"/>
-            <div class="hc-badge"><span class="live-dot"></span>Available Tonight</div>
-          </div>
-          <div class="hc-body">
-            <div class="hc-av">
-              <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=84&auto=format&fit=crop&q=80" alt="Chanda" loading="eager" crossorigin="anonymous"/>
-            </div>
-            <div>
-              <div class="hc-name">Chanda &amp; The Soul Collective</div>
-              <div class="hc-meta">Afro-Soul · Live Band · Lusaka</div>
-            </div>
-            <div class="hc-stars">★ 4.9</div>
-          </div>
-        </div>
-
-        <!-- Small card: DJ Mwenye -->
-        <div class="hc-sm">
-          <div class="hc-sm-img">
-            <img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=400&auto=format&fit=crop&q=80" alt="DJ Mwenye" loading="eager" crossorigin="anonymous"/>
-          </div>
-          <div class="hc-sm-body">
-            <div class="hc-sm-av">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80" alt="DJ Mwenye" loading="eager" crossorigin="anonymous"/>
-            </div>
-            <div><div class="hc-sm-name">DJ Mwenye</div><div class="hc-sm-genre">Afrobeats · Amapiano</div></div>
-            <div class="hc-sm-star">★ 4.8</div>
-          </div>
-        </div>
-
-        <!-- Floating price pill -->
-        <div class="hc-pill price-pill" data-usd="300">From $300 / event</div>
-
-        <!-- Booking stat -->
-        <div class="hc-stat">
-          <div class="hc-si">
-            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
-          </div>
-          <div><div class="hc-sv">42k+</div><div class="hc-sl">Bookings completed</div></div>
-        </div>
-
-      </div>
+    <div class="footer-col">
+      <h4>Discover</h4>
+      <ul>
+        <li><a href="#">Photography</a></li>
+        <li><a href="#">Music</a></li>
+        <li><a href="#">Film & Video</a></li>
+        <li><a href="#">Graphic Design</a></li>
+        <li><a href="#">Fashion</a></li>
+        <li><a href="#">All Categories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About PLUM</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Centre</a></li>
+        <li><a href="#">Trust & Safety</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
     </div>
   </div>
-</section>
-
-<!-- ══ SEARCH ════════════════════════════════════════════════ -->
-<div style="position:relative;z-index:10">
-  <div class="container">
-    <div class="search-wrap rev">
-      <div class="sf"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><input type="text" placeholder="What type of talent? (Musician, DJ, Comedian…)"/></div>
-      <div class="sf"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><input type="text" placeholder="City or region (Lusaka, Ndola, Livingstone…)"/></div>
-      <div class="sf" style="border-right:none"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg><input type="date" style="color-scheme:dark"/></div>
-      <button class="sbtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ STATS ═════════════════════════════════════════════════ -->
-<div class="sbar">
-  <div class="container">
-    <div class="sbar-in">
-      <div class="si rev d1"><div class="sin">8,<span class="ac">300</span>+</div><div class="sil">Verified Artists</div></div>
-      <div class="si rev d2"><div class="sin"><span class="ac">42</span>k+</div><div class="sil">Events Completed</div></div>
-      <div class="si rev d3"><div class="sin">12</div><div class="sil">Talent Categories</div></div>
-      <div class="si rev d4"><div class="sin">4.<span class="ac">9</span>★</div><div class="sil">Avg. Artist Rating</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ CATEGORIES ════════════════════════════════════════════ -->
-<section class="sec" id="browse">
-  <div class="container">
-    <div class="rev"><div class="slbl">Browse</div><h2 class="stitle">Find the <span>Perfect Talent</span><br>for Your Event</h2></div>
-    <div class="cat-grid">
-      <div class="cc rev d1">
-        <div class="cc-img"><img src="https://images.unsplash.com/photo-1501386761578-eaa54b5e5e12?w=900&auto=format&fit=crop&q=80" alt="Musicians" loading="lazy"/></div>
-        <div class="cc-ov"></div>
-        <div class="cc-info"><div><div class="cc-name">Musicians</div><div class="cc-cnt">2,543 available</div></div><div class="cc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      </div>
-      <div class="cc rev d2">
-        <div class="cc-img"><img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&auto=format&fit=crop&q=80" alt="DJs" loading="lazy"/></div>
-        <div class="cc-ov"></div>
-        <div class="cc-info"><div><div class="cc-name">DJs</div><div class="cc-cnt">945 available</div></div><div class="cc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      </div>
-      <div class="cc rev d3">
-        <div class="cc-img"><img src="https://images.unsplash.com/photo-1452802447250-470a88ac82bc?w=600&auto=format&fit=crop&q=80" alt="Photographers" loading="lazy"/></div>
-        <div class="cc-ov"></div>
-        <div class="cc-info"><div><div class="cc-name">Photographers</div><div class="cc-cnt">1,234 available</div></div><div class="cc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      </div>
-      <div class="cc rev d4">
-        <div class="cc-img"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&auto=format&fit=crop&q=80" alt="Comedians" loading="lazy"/></div>
-        <div class="cc-ov"></div>
-        <div class="cc-info"><div><div class="cc-name">Comedians</div><div class="cc-cnt">856 available</div></div><div class="cc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      </div>
-      <div class="cc rev d5">
-        <div class="cc-img"><img src="https://images.unsplash.com/photo-1547153760-18bddc10770f?w=600&auto=format&fit=crop&q=80" alt="Dancers" loading="lazy"/></div>
-        <div class="cc-ov"></div>
-        <div class="cc-info"><div><div class="cc-name">Dancers</div><div class="cc-cnt">678 available</div></div><div class="cc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      </div>
-      <div class="cc rev d1">
-        <div class="cc-img"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&auto=format&fit=crop&q=80" alt="MCs" loading="lazy"/></div>
-        <div class="cc-ov"></div>
-        <div class="cc-info"><div><div class="cc-name">MCs &amp; Hosts</div><div class="cc-cnt">432 available</div></div><div class="cc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FEATURED ARTISTS ══════════════════════════════════════ -->
-<section class="feat-sec" id="featured">
-  <div class="container">
-    <div class="feat-hdr">
-      <div class="rev"><div class="slbl">This Week</div><h2 class="stitle">Featured <span>Artists</span></h2></div>
-      <div class="sbts">
-        <button class="sbt" id="scrollLeft"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-        <button class="sbt" id="scrollRight"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-      </div>
-    </div>
-    <div class="atrack-w">
-      <div class="atrack" id="atrack">
-
-        <!-- 1 -->
-        <div class="ac rev d1">
-          <div class="ai"><img src="https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=510&auto=format&fit=crop&q=90" alt="Chanda Soul Collective" loading="lazy"/><div class="abadge"><span class="pill pill-p">Musicians</span></div></div>
-          <div class="ab">
-            <div class="an">Chanda &amp; The Soul Collective</div>
-            <div class="am">
-              <div class="aloc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lusaka, ZM</div>
-              <div class="arat"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.9 (124)</div>
-            </div>
-            <div class="af"><div class="apr price-val" data-usd="800">$800 <small>/ event</small></div><button class="abk">Book Now</button></div>
-          </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="ac rev d2">
-          <div class="ai"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=510&auto=format&fit=crop&q=90" alt="DJ Mwenye" loading="lazy"/><div class="abadge"><span class="pill pill-l">DJs</span></div></div>
-          <div class="ab">
-            <div class="an">DJ Mwenye Supreme</div>
-            <div class="am">
-              <div class="aloc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lusaka, ZM</div>
-              <div class="arat"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.8 (212)</div>
-            </div>
-            <div class="af"><div class="apr price-val" data-usd="600">$600 <small>/ event</small></div><button class="abk">Book Now</button></div>
-          </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="ac rev d3">
-          <div class="ai"><img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=510&auto=format&fit=crop&q=90" alt="Natasha Phiri" loading="lazy"/><div class="abadge"><span class="pill pill-a">Photographers</span></div></div>
-          <div class="ab">
-            <div class="an">Natasha Phiri Photography</div>
-            <div class="am">
-              <div class="aloc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lusaka, ZM</div>
-              <div class="arat"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.9 (156)</div>
-            </div>
-            <div class="af"><div class="apr price-val" data-usd="1200">$1,200 <small>/ event</small></div><button class="abk">Book Now</button></div>
-          </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="ac rev d4">
-          <div class="ai"><img src="https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=510&auto=format&fit=crop&q=90" alt="Kafue Rhythms" loading="lazy"/><div class="abadge"><span class="pill pill-p">Dancers</span></div></div>
-          <div class="ab">
-            <div class="an">Kafue Rhythms Dance Crew</div>
-            <div class="am">
-              <div class="aloc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lusaka, ZM</div>
-              <div class="arat"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.8 (98)</div>
-            </div>
-            <div class="af"><div class="apr price-val" data-usd="500">$500 <small>/ event</small></div><button class="abk">Book Now</button></div>
-          </div>
-        </div>
-
-        <!-- 5 -->
-        <div class="ac rev d5">
-          <div class="ai"><img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=510&auto=format&fit=crop&q=90" alt="Bupe Mwanza" loading="lazy"/><div class="abadge"><span class="pill pill-l">Comedian</span></div></div>
-          <div class="ab">
-            <div class="an">Bupe Mwanza Comedy</div>
-            <div class="am">
-              <div class="aloc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ndola, ZM</div>
-              <div class="arat"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.9 (89)</div>
-            </div>
-            <div class="af"><div class="apr price-val" data-usd="750">$750 <small>/ event</small></div><button class="abk">Book Now</button></div>
-          </div>
-        </div>
-
-        <!-- 6 -->
-        <div class="ac rev d6">
-          <div class="ai"><img src="https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=510&auto=format&fit=crop&q=90" alt="Victor Lungu" loading="lazy"/><div class="abadge"><span class="pill pill-a">MC / Host</span></div></div>
-          <div class="ab">
-            <div class="an">Victor Lungu — The Host</div>
-            <div class="am">
-              <div class="aloc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Livingstone, ZM</div>
-              <div class="arat"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.7 (67)</div>
-            </div>
-            <div class="af"><div class="apr price-val" data-usd="400">$400 <small>/ event</small></div><button class="abk">Book Now</button></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ HOW IT WORKS ══════════════════════════════════════════ -->
-<section class="how-sec" id="how">
-  <div class="container">
-    <div class="how-grid">
-      <div class="how-img-w rev-l">
-        <div class="how-img">
-          <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=700&auto=format&fit=crop&q=80" alt="Live event performance" loading="lazy"/>
-        </div>
-        <div class="hf hf1">
-          <div class="hfi" style="background:rgba(170,220,0,.15)"><svg viewBox="0 0 24 24" stroke="var(--l)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-          <div><div class="hfl">Verified Instantly</div><div class="hfv">All artists are ID-checked</div></div>
-        </div>
-        <div class="hf hf2">
-          <div class="hfi" style="background:rgba(139,46,200,.15)"><svg viewBox="0 0 24 24" stroke="var(--p2)"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></div>
-          <div><div class="hfl">Secure Payments</div><div class="hfv">Held in escrow until event</div></div>
-        </div>
-      </div>
-      <div class="rev-r">
-        <div class="slbl">Simple Process</div>
-        <h2 class="stitle">Book in <span>3 Easy</span><br>Steps</h2>
-        <p class="ssub">No phone-tag, no hidden fees. Browse, pick your favourite local artist, and confirm — all within minutes.</p>
-        <div class="steps">
-          <div class="step"><div class="sn">01</div><div><h3>Browse &amp; Compare</h3><p>Filter thousands of verified local performers by category, location, date, and budget. Watch showreels and read genuine client reviews.</p></div></div>
-          <div class="step"><div class="sn">02</div><div><h3>Request &amp; Confirm</h3><p>Send a booking request directly. Artists respond within 24 hours. Confirm details and secure your slot with a deposit.</p></div></div>
-          <div class="step"><div class="sn">03</div><div><h3>Experience &amp; Review</h3><p>Enjoy a world-class performance. Payment is released to the artist only after your event goes off without a hitch.</p></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ TESTIMONIALS ══════════════════════════════════════════ -->
-<section class="testi-sec" id="testimonials">
-  <div class="container">
-    <div class="rev" style="text-align:center"><div class="slbl" style="justify-content:center;display:flex">Client Reviews</div><h2 class="stitle" style="text-align:center">Loved by Event <span>Organizers</span></h2></div>
-    <div class="tgrid">
-
-      <div class="tc rev d1">
-        <div class="ts"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <p class="tq">"PLUM completely transformed how we source talent. Chanda &amp; The Soul Collective were outstanding at our annual gala dinner. Will definitely book again."</p>
-        <div class="ta"><div class="tav"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=88&auto=format&fit=crop&q=80" alt="Jessica Mulenga" loading="lazy"/></div><div><div class="tn">Jessica Mulenga</div><div class="tr">Corporate Events Manager · Lusaka</div></div></div>
-      </div>
-
-      <div class="tc rev d2">
-        <div class="ts"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <p class="tq">"Booked DJ Mwenye and Natasha Phiri for our wedding in Livingstone. Both absolutely nailed it. The escrow payment gave us complete peace of mind."</p>
-        <div class="ta"><div class="tav"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=88&auto=format&fit=crop&q=80" alt="Mutale Nkonde" loading="lazy"/></div><div><div class="tn">Mutale Nkonde</div><div class="tr">Wedding Planner · Livingstone</div></div></div>
-      </div>
-
-      <div class="tc rev d3">
-        <div class="ts"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <p class="tq">"Victor Lungu hosted our Indaba conference like a total pro. Reviews on PLUM are thorough and real — shortlisting local talent has never been this simple."</p>
-        <div class="ta"><div class="tav"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=88&auto=format&fit=crop&q=80" alt="Thandeka Banda" loading="lazy"/></div><div><div class="tn">Thandeka Banda</div><div class="tr">Events Coordinator · Ndola</div></div></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══ CTA ════════════════════════════════════════════════════ -->
-<section class="cta-sec" id="join">
-  <div class="container">
-    <div class="cta-in rev">
-      <div class="cta-grid">
-        <div class="cta-copy">
-          <div class="cta-kick">For Performers</div>
-          <h2 class="cta-title">Are You a Performer?<br><strong>Start Earning Today.</strong></h2>
-          <p class="cta-desc">Join over 8,000 verified artists already earning through PLUM. Set your own rates in USD or Kwacha, manage your schedule, and grow your audience — all in one place.</p>
-          <div class="cta-acts">
-            <a href="#" class="btn btn-l">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Become a Partner
-            </a>
-            <a href="#" class="btn btn-o">Learn More</a>
-          </div>
-          <div class="cta-perks">
-            <div class="cta-perk"><div class="pchk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Set your own rates in USD or ZMW Kwacha</div>
-            <div class="cta-perk"><div class="pchk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Manage availability with a built-in calendar</div>
-            <div class="cta-perk"><div class="pchk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Secure escrow payments, released within 48hrs</div>
-            <div class="cta-perk"><div class="pchk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Build a verified portfolio and rating profile</div>
-          </div>
-        </div>
-        <div class="cta-vis">
-          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=660&auto=format&fit=crop&q=80" alt="Performer on stage" loading="lazy"/>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ════════════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="container">
-    <div class="fgrid">
-      <div class="fbrand">
-        <div class="flogo">
-          <img src="Plum_LogoNew.png" alt="PLUM" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
-          <span style="display:none;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--p2),var(--l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">PLUM</span>
-        </div>
-        <p>The sweet spot for bookings. Connecting outstanding local talent with events across Zambia, Southern Africa and beyond.</p>
-        <div class="fsocials">
-          <a class="fsoc" href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a class="fsoc" href="#"><svg viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
-          <a class="fsoc" href="#"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
-        </div>
-      </div>
-      <div class="fcol"><h5>For Organizers</h5><ul class="flinks"><li><a href="#">Browse Talent</a></li><li><a href="#">How It Works</a></li><li><a href="#">Pricing &amp; Fees</a></li><li><a href="#">Event Planning Guide</a></li></ul></div>
-      <div class="fcol"><h5>For Artists</h5><ul class="flinks"><li><a href="#">Join PLUM</a></li><li><a href="#">Artist Earnings</a></li><li><a href="#">Resources</a></li><li><a href="#">Success Stories</a></li></ul></div>
-      <div class="fcol"><h5>Company</h5><ul class="flinks"><li><a href="#">About Us</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
-    </div>
-    <div class="fbot">
-      <div class="fcopy">&copy; 2026 PLUM. All rights reserved.</div>
-      <div class="ftag"><span class="tdot"></span>The Sweet Spot for Bookings</div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 PLUM. The Sweet Spot for Bookings.</div>
+    <div class="footer-flag">
+      <svg width="18" height="13" viewBox="0 0 18 13" fill="none"><rect width="18" height="13" fill="#198A00"/><rect y="0" width="18" height="4.33" fill="#EF3340"/><rect y="4.33" width="18" height="4.33" fill="#000"/><rect y="8.66" width="18" height="4.34" fill="#EF7900"/><circle cx="13.5" cy="6.5" r="2.2" fill="#EF7900"/></svg>
+      Made in Zambia 🇿🇲
     </div>
   </div>
 </footer>
-<script> src="index.js"</script>
-  
+
+<script src="js/index.js"></script>
 </body>
 </html>

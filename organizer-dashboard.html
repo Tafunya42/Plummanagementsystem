@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Organizer Desk — Plum</title>
+<meta name="description" content="Manage bookings, shortlists, events and budgets in your Plum Organizer workspace."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="css/adash.css"/>
+<style>
+/* Organizer-specific overrides */
+.btn-gold {
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.55rem 1.2rem;background:var(--gold);border:none;border-radius:100px;
+  color:var(--charcoal);font-size:0.82rem;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:all 0.2s;
+}
+.btn-gold:hover{background:#ffcc00;transform:translateY(-1px);}
+.event-card {
+  background:rgba(255,255,255,0.03);border:1px solid var(--grey2);
+  border-radius:16px;padding:1.1rem 1.25rem;
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:1rem;
+  transition:all 0.2s;
+}
+.event-card:hover{border-color:rgba(245,184,0,0.3);background:rgba(245,184,0,0.05);}
+.event-info .ev-type{font-size:0.7rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem;}
+.event-info .ev-name{font-weight:700;color:var(--text);margin-bottom:0.2rem;}
+.event-info .ev-meta{font-size:0.75rem;color:var(--text-muted);display:flex;gap:0.75rem;}
+.event-actions{display:flex;gap:0.4rem;}
+.shortlist-item {
+  display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:0.75rem;
+  padding:0.8rem 0;border-bottom:1px solid var(--grey2);
+}
+.shortlist-item:last-child{border-bottom:none;}
+.sl-av{width:44px;height:44px;border-radius:12px;overflow:hidden;}
+.sl-av img{width:100%;height:100%;object-fit:cover;}
+.sl-name{font-weight:700;font-size:0.875rem;color:var(--text);}
+.sl-role{font-size:0.72rem;color:var(--text-muted);}
+.sl-rate{font-weight:700;color:var(--purple-lt);font-size:0.82rem;display:block;text-align:right;}
+.sl-actions{display:flex;gap:0.3rem;margin-top:0.25rem;justify-content:flex-end;}
+.msg-bubble {
+  background:rgba(255,255,255,0.04);border:1px solid var(--grey2);
+  border-radius:14px;padding:1rem;margin-bottom:0.75rem;
+}
+.msg-bubble.sent{border-color:rgba(139,31,200,0.3);background:rgba(139,31,200,0.08);}
+.msg-thread .mt-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;}
+.mt-av{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;}
+.mt-av img{width:100%;height:100%;object-fit:cover;}
+.mt-name{font-weight:700;font-size:0.82rem;color:var(--text);}
+.mt-time{font-size:0.7rem;color:var(--text-muted);}
+.msg-reply-bar{display:flex;gap:0.5rem;margin-top:1rem;}
+.msg-reply-bar input{flex:1;background:rgba(255,255,255,0.06);border:1px solid var(--grey2);border-radius:10px;padding:0.6rem 0.9rem;color:var(--text);font-family:inherit;font-size:0.82rem;outline:none;}
+.msg-reply-bar input:focus{border-color:var(--gold);}
+.msg-reply-bar button{background:var(--gold);border:none;border-radius:10px;padding:0.6rem 1rem;color:var(--charcoal);font-weight:700;cursor:pointer;font-family:inherit;}
+.spend-track{margin:1rem 0;}
+.spend-label{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;}
+.spend-bar-wrap{height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden;}
+.spend-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--gold),var(--lime));transition:width 1.2s ease;}
+.budget-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1rem;}
+.bb-item{background:rgba(255,255,255,0.03);border:1px solid var(--grey2);border-radius:12px;padding:0.75rem;}
+.bb-cat{font-size:0.7rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.25rem;}
+.bb-amount{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text);}
+.notif-panel{display:none;position:absolute;top:calc(100% + 8px);right:0;width:320px;background:var(--surface2);border:1px solid var(--grey2);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,0.5);z-index:200;overflow:hidden;}
+.notif-panel.open{display:block;}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<div class="dash-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a class="nav-logo-wrap" href="index.html" aria-label="PLUM home">
+        <div class="plum-icon"><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div></div>
+        <div class="nav-wordmark">PL<span>U</span>M</div>
+      </a>
+    </div>
+    <div class="sidebar-profile">
+      <div class="sp-avatar">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Organizer" id="sideAvatar" loading="lazy"/>
+        <div class="sp-avatar-overlay"><i data-lucide="camera"></i></div>
+      </div>
+      <div>
+        <div class="sp-name">Naledi Banda</div>
+        <div class="sp-role"><i data-lucide="calendar-check"></i> Event Organizer</div>
+        <div class="sp-badge"><i data-lucide="badge-check"></i> Verified</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-label">Main</div>
+        <a class="nav-item active" onclick="showPage('overview',this)"><i data-lucide="layout-dashboard"></i> Overview</a>
+        <a class="nav-item" onclick="showPage('events',this)"><i data-lucide="calendar-plus"></i> My Events <span class="badge">3</span></a>
+        <a class="nav-item" onclick="showPage('shortlist',this)"><i data-lucide="bookmark"></i> Shortlist <span class="badge">6</span></a>
+        <a class="nav-item" onclick="showPage('messages',this)"><i data-lucide="message-circle"></i> Messages <span class="badge">4</span></a>
+        <a class="nav-item" onclick="showPage('budget',this)"><i data-lucide="wallet"></i> Budget Tracker</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Discover</div>
+        <a class="nav-item" href="browse.html"><i data-lucide="search"></i> Browse Talent</a>
+        <a class="nav-item" href="organizer-profile.html"><i data-lucide="user-circle-2"></i> My Profile</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Account</div>
+        <a class="nav-item" onclick="showPage('settings',this)"><i data-lucide="settings"></i> Settings</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer"><a class="sf-logout" href="login.html"><i data-lucide="log-out"></i> Log Out</a></div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="dash-main">
+    <div class="dash-topbar">
+      <div class="topbar-title" id="pageTitle">Organizer Overview</div>
+      <div class="topbar-right">
+        <div class="tb-greeting">Good morning, Naledi 👋</div>
+        <div style="position:relative;">
+          <div class="icon-btn" id="notifBtn" onclick="toggleNotif()"><i data-lucide="bell"></i><div class="notif-dot"></div></div>
+          <div class="notif-panel" id="notifPanel">
+            <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--grey2);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-weight:700;font-size:0.875rem;">Notifications</span>
+              <span style="font-size:0.72rem;color:var(--purple-lt);cursor:pointer;" onclick="markAllRead()">Mark all read</span>
+            </div>
+            <div style="padding:0.5rem;">
+              <div class="inq-item" style="padding:0.75rem;border-radius:12px;background:rgba(139,31,200,0.08);">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Chanda Mwewa</span><span class="inq-time">1h ago</span></div><div class="inq-msg">Accepted your booking request for Festival Gala.</div></div>
+              </div>
+              <div class="inq-item" style="padding:0.75rem;border-radius:12px;">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Mutale Phiri</span><span class="inq-time">3h ago</span></div><div class="inq-msg">Sent a message about the Brand Launch event.</div></div>
+              </div>
+              <div class="inq-item" style="padding:0.75rem;border-radius:12px;">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Plum</span><span class="inq-time">Yesterday</span></div><div class="inq-msg">Your account has been verified successfully!</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="browse.html" class="btn-primary"><i data-lucide="search"></i> Browse Talent</a>
+      </div>
+    </div>
+
+    <div class="dash-content">
+
+      <!-- OVERVIEW -->
+      <div class="page-section active" id="sec-overview">
+        <div class="welcome-banner reveal">
+          <div class="wb-text"><h2>Welcome back, Naledi! 🎉</h2><p>You have 4 messages, 3 active events and 6 shortlisted artists.</p></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="wb-stat"><div class="num">K80,000</div><div class="lbl">Total Events Budget</div></div>
+            <a href="browse.html" class="btn-gold"><i data-lucide="search"></i> Find Talent</a>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card reveal"><div class="mc-top"><div class="mc-icon gold"><i data-lucide="calendar-check"></i></div><span class="mc-change up">↑ 2 new</span></div><div class="mc-num" data-target="3" data-suffix="">0</div><div class="mc-label">Active Events</div></div>
+          <div class="metric-card reveal d1"><div class="mc-top"><div class="mc-icon purple"><i data-lucide="bookmark"></i></div><span class="mc-change up">↑ 3 added</span></div><div class="mc-num" data-target="6" data-suffix="">0</div><div class="mc-label">Shortlisted Artists</div></div>
+          <div class="metric-card reveal d2"><div class="mc-top"><div class="mc-icon lime"><i data-lucide="wallet"></i></div><span class="mc-change down">← 60% used</span></div><div class="mc-num">K48,200</div><div class="mc-label">Budget Allocated</div></div>
+          <div class="metric-card reveal d3"><div class="mc-top"><div class="mc-icon blue"><i data-lucide="message-circle"></i></div><span class="mc-change up">↑ 4 new</span></div><div class="mc-num" data-target="4" data-suffix="">0</div><div class="mc-label">Unread Messages</div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="dash-card reveal">
+            <div class="dc-header"><div class="dc-title">Upcoming Events</div><a class="view-all-link" onclick="showPage('events',null)">View all <i data-lucide="arrow-right"></i></a></div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.5rem;">
+              <div class="event-card"><div class="event-info"><div class="ev-type">Corporate</div><div class="ev-name">Festival Main Stage</div><div class="ev-meta"><span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;"></i> 15 May 2026</span><span><i data-lucide="map-pin" style="width:12px;height:12px;vertical-align:-2px;"></i> Lusaka</span></div></div><div class="event-actions"><button class="row-action" onclick="showPage('events',null)">Manage</button></div></div>
+              <div class="event-card"><div class="event-info"><div class="ev-type">Wedding</div><div class="ev-name">Luxury Wedding Reception</div><div class="ev-meta"><span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;"></i> 22 Jun 2026</span><span><i data-lucide="map-pin" style="width:12px;height:12px;vertical-align:-2px;"></i> Livingstone</span></div></div><div class="event-actions"><button class="row-action" onclick="showPage('events',null)">Manage</button></div></div>
+            </div>
+          </div>
+          <div class="dash-card reveal d1">
+            <div class="dc-header"><div class="dc-title">Top Shortlisted</div><a class="view-all-link" onclick="showPage('shortlist',null)">View all <i data-lucide="arrow-right"></i></a></div>
+            <div class="shortlist-item"><div class="sl-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&q=80" alt="" loading="lazy"/></div><div><div class="sl-name">Chanda Mwewa</div><div class="sl-role">Photographer · Lusaka</div></div><div><div class="sl-rate">K800/hr</div><div class="sl-actions"><button class="row-action" onclick="showPage('messages',null)">Message</button></div></div></div>
+            <div class="shortlist-item"><div class="sl-av"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=80&q=80" alt="" loading="lazy"/></div><div><div class="sl-name">Mutale Phiri</div><div class="sl-role">Music Producer · Ndola</div></div><div><div class="sl-rate">K600/hr</div><div class="sl-actions"><button class="row-action" onclick="showPage('messages',null)">Message</button></div></div></div>
+            <div class="shortlist-item"><div class="sl-av"><img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=80&q=80" alt="" loading="lazy"/></div><div><div class="sl-name">Temwani Zulu</div><div class="sl-role">Graphic Designer · Lusaka</div></div><div><div class="sl-rate">K500/hr</div><div class="sl-actions"><button class="row-action" onclick="showPage('messages',null)">Message</button></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY EVENTS -->
+      <div class="page-section" id="sec-events">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">My Events</div><button class="btn-primary" onclick="openNewEvent()"><i data-lucide="plus"></i> New Event</button></div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1rem;" id="eventsList">
+            <div class="event-card"><div class="event-info"><div class="ev-type">Corporate / Conference</div><div class="ev-name">Festival Main Stage 2026</div><div class="ev-meta"><span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;"></i> 15 May 2026</span><span><i data-lucide="map-pin" style="width:12px;height:12px;vertical-align:-2px;"></i> Lusaka</span><span><i data-lucide="users" style="width:12px;height:12px;vertical-align:-2px;"></i> 500+ guests</span></div></div><div class="event-actions"><span class="status-badge confirmed">Active</span><button class="row-action">Edit</button><button class="row-action" style="color:var(--text-muted);">Archive</button></div></div>
+            <div class="event-card"><div class="event-info"><div class="ev-type">Wedding</div><div class="ev-name">Luxury Wedding Reception</div><div class="ev-meta"><span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;"></i> 22 Jun 2026</span><span><i data-lucide="map-pin" style="width:12px;height:12px;vertical-align:-2px;"></i> Livingstone</span><span><i data-lucide="users" style="width:12px;height:12px;vertical-align:-2px;"></i> 200 guests</span></div></div><div class="event-actions"><span class="status-badge confirmed">Active</span><button class="row-action">Edit</button><button class="row-action" style="color:var(--text-muted);">Archive</button></div></div>
+            <div class="event-card"><div class="event-info"><div class="ev-type">Brand Launch</div><div class="ev-name">Product Launch Campaign</div><div class="ev-meta"><span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;"></i> 3 Apr 2026</span><span><i data-lucide="map-pin" style="width:12px;height:12px;vertical-align:-2px;"></i> Kitwe</span><span><i data-lucide="users" style="width:12px;height:12px;vertical-align:-2px;"></i> 100 guests</span></div></div><div class="event-actions"><span class="status-badge completed">Completed</span><button class="row-action">View</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHORTLIST -->
+      <div class="page-section" id="sec-shortlist">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">Saved Talent <span class="dc-tag">6 Artists</span></div><a href="browse.html" class="btn-primary"><i data-lucide="search"></i> Browse More</a></div>
+          <div class="booking-row header" style="grid-template-columns:200px 1fr 1fr auto;"><div>Artist</div><div>Category</div><div>Rate</div><div></div></div>
+          <div id="shortlistTable">
+            ${[
+              {img:'1531123897727-8f129e1688ce',name:'Chanda Mwewa',role:'Photographer',city:'Lusaka',rate:'K800/hr'},
+              {img:'1522529599102-193c0d76b5b6',name:'Mutale Phiri',role:'Music Producer',city:'Ndola',rate:'K600/hr'},
+              {img:'1573496359142-b8d87734a5a2',name:'Naledi Banda',role:'Film Director',city:'Kitwe',rate:'K1,200/hr'},
+              {img:'1531384441138-2736e62e0919',name:'Temwani Zulu',role:'Graphic Designer',city:'Lusaka',rate:'K500/hr'},
+              {img:'1534528741775-53994a69daeb',name:'Bupe Mwale',role:'Fashion Stylist',city:'Lusaka',rate:'K700/hr'},
+              {img:'1500648767791-00dcc994a43e',name:'Yambwe Kabwe',role:'Videographer',city:'Kabwe',rate:'K900/hr'},
+            ].map(a => `
+              <div class="booking-row" style="grid-template-columns:200px 1fr 1fr auto;">
+                <div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-${a.img}?w=50&q=80" alt="" loading="lazy"/></div><div><div class="client-name">${a.name}</div><div class="client-event">${a.city}</div></div></div>
+                <div>${a.role}</div>
+                <div class="amount">${a.rate}</div>
+                <div style="display:flex;gap:0.4rem;"><a href="artist-profile.html" class="row-action">View</a><button class="row-action" onclick="bookArtist('${a.name}','${a.rate}')">Book</button><button class="row-action" style="color:#E84040;" onclick="this.closest('.booking-row').remove()">Remove</button></div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div class="page-section" id="sec-messages">
+        <div class="grid-2">
+          <div class="dash-card reveal">
+            <div class="dc-header"><div class="dc-title">Conversations <span class="dc-tag">4 Unread</span></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.25rem;margin-top:0.5rem;" id="convList">
+              <div class="inq-item active-conv" onclick="openConv('Chanda Mwewa','1531123897727-8f129e1688ce')" style="cursor:pointer;border-radius:12px;padding:0.75rem;background:rgba(139,31,200,0.1);border:1px solid rgba(139,31,200,0.2);">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Chanda Mwewa</span><span class="inq-time">1h ago</span></div><div class="inq-msg">Thanks for the booking request! I'm available on that date...</div></div>
+              </div>
+              <div class="inq-item" onclick="openConv('Mutale Phiri','1522529599102-193c0d76b5b6')" style="cursor:pointer;border-radius:12px;padding:0.75rem;">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Mutale Phiri</span><span class="inq-time">3h ago</span></div><div class="inq-msg">Hi! I'd love to be part of the Festival Main Stage event...</div></div>
+              </div>
+              <div class="inq-item" onclick="openConv('Temwani Zulu','1531384441138-2736e62e0919')" style="cursor:pointer;border-radius:12px;padding:0.75rem;">
+                <div class="inq-av"><img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=50&q=80" alt="" loading="lazy"/></div>
+                <div class="inq-body"><div class="inq-top"><span class="inq-name">Temwani Zulu</span><span class="inq-time">Yesterday</span></div><div class="inq-msg">I've sent over some logo concepts for your review...</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-card reveal d1">
+            <div id="msgThread">
+              <div style="text-align:center;padding:3rem 1rem;color:var(--text-muted);">
+                <i data-lucide="message-circle" style="width:40px;height:40px;opacity:0.3;margin-bottom:0.75rem;"></i>
+                <p style="font-size:0.875rem;">Select a conversation to view messages</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUDGET TRACKER -->
+      <div class="page-section" id="sec-budget">
+        <div class="metrics-grid reveal">
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon gold"><i data-lucide="wallet"></i></div></div><div class="mc-num">K80,000</div><div class="mc-label">Total Budget</div></div>
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon lime"><i data-lucide="trending-down"></i></div></div><div class="mc-num">K48,200</div><div class="mc-label">Allocated</div></div>
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon purple"><i data-lucide="check-circle-2"></i></div></div><div class="mc-num">K31,800</div><div class="mc-label">Remaining</div></div>
+          <div class="metric-card"><div class="mc-top"><div class="mc-icon blue"><i data-lucide="receipt"></i></div></div><div class="mc-num">K22,400</div><div class="mc-label">Paid Out</div></div>
+        </div>
+        <div class="dash-card reveal d1">
+          <div class="dc-header"><div class="dc-title">Budget Overview</div><span class="dc-tag">60% used</span></div>
+          <div class="spend-track">
+            <div class="spend-label"><span>K48,200 allocated</span><span>K80,000 total budget</span></div>
+            <div class="spend-bar-wrap"><div class="spend-bar-fill" id="spendFill"></div></div>
+          </div>
+          <div class="budget-breakdown">
+            <div class="bb-item"><div class="bb-cat">Photography</div><div class="bb-amount">K18,000</div></div>
+            <div class="bb-item"><div class="bb-cat">Music / DJ</div><div class="bb-amount">K12,000</div></div>
+            <div class="bb-item"><div class="bb-cat">Film & Video</div><div class="bb-amount">K9,600</div></div>
+            <div class="bb-item"><div class="bb-cat">Graphic Design</div><div class="bb-amount">K8,600</div></div>
+          </div>
+        </div>
+        <div class="dash-card reveal d2">
+          <div class="dc-header"><div class="dc-title">Payment History</div></div>
+          <div class="booking-row header"><div>Artist</div><div>Service</div><div>Date</div><div>Amount</div><div>Status</div></div>
+          <div class="booking-row"><div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=50&q=80" alt="" loading="lazy"/></div><div><div class="client-name">Chanda Mwewa</div></div></div><div>Event Coverage</div><div>3 Apr 2026</div><div class="amount">K18,000</div><div><span class="status-badge completed">Paid</span></div></div>
+          <div class="booking-row"><div class="client-info"><div class="client-av"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=50&q=80" alt="" loading="lazy"/></div><div><div class="client-name">Mutale Phiri</div></div></div><div>Music Production</div><div>15 Apr 2026</div><div class="amount">K12,000</div><div><span class="status-badge pending">In Escrow</span></div></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="page-section" id="sec-settings">
+        <div class="dash-card reveal">
+          <div class="dc-header"><div class="dc-title">Account Settings</div></div>
+          <div class="field-group"><label class="field-label">Company / Organisation Name</label><input type="text" class="field-input" value="Naledi Events Co."/></div>
+          <div class="field-group"><label class="field-label">Email</label><input type="email" class="field-input" value="naledi@events.zm"/></div>
+          <div class="field-group"><label class="field-label">Phone</label><input type="tel" class="field-input" value="+260 97 XXX XXXX"/></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="field-group"><label class="field-label">New Password</label><input type="password" class="field-input" placeholder="Leave blank to keep current"/></div>
+            <div class="field-group"><label class="field-label">Confirm Password</label><input type="password" class="field-input" placeholder="Confirm new password"/></div>
+          </div>
+          <button class="btn-primary" style="margin-top:0.5rem;" onclick="showToast('Settings saved!')"><i data-lucide="save"></i> Save Settings</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<button class="sidebar-toggle" id="sidebarToggle" onclick="document.getElementById('sidebar').classList.toggle('open')"><i data-lucide="menu"></i></button>
+
+<div id="toastEl" style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface2);border:1px solid var(--grey2);border-radius:100px;padding:0.75rem 1.5rem;font-size:0.875rem;font-weight:600;color:var(--text);box-shadow:0 16px 40px rgba(0,0,0,0.4);z-index:999;opacity:0;transition:all 0.3s;pointer-events:none;"></div>
+
+<script>
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => { cursor.style.transform = `translate(${e.clientX-8}px,${e.clientY-8}px)`; });
+
+function showPage(id, el) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = {overview:'Organizer Overview',events:'My Events',shortlist:'Saved Talent Shortlist',messages:'Messages',budget:'Budget Tracker',settings:'Settings'};
+  document.getElementById('pageTitle').textContent = titles[id] || id;
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Animate spend bar
+  if (id==='budget') setTimeout(() => document.getElementById('spendFill').style.width = '60.25%', 300);
+  lucide.createIcons();
+}
+
+function toggleNotif() {
+  document.getElementById('notifPanel').classList.toggle('open');
+}
+function markAllRead() {
+  document.getElementById('notifPanel').classList.remove('open');
+  document.querySelector('.notif-dot').style.display='none';
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('#notifBtn') && !e.target.closest('#notifPanel')) {
+    document.getElementById('notifPanel').classList.remove('open');
+  }
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toastEl');
+  t.textContent = '✓ ' + msg;
+  t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(80px)'; }, 2500);
+}
+
+function openNewEvent() {
+  const name = prompt('Event name:');
+  if (!name) return;
+  const el = document.createElement('div');
+  el.className = 'event-card';
+  el.innerHTML = `<div class="event-info"><div class="ev-type">New Event</div><div class="ev-name">${name}</div><div class="ev-meta"><span>Date TBD</span></div></div><div class="event-actions"><span class="status-badge pending">Draft</span><button class="row-action">Edit</button></div>`;
+  document.getElementById('eventsList').prepend(el);
+  showToast('Event created!');
+}
+
+function bookArtist(name, rate){
+  window.location.href = `booking.html?artist=${encodeURIComponent(name)}&rate=${encodeURIComponent(rate)}`;
+}
+
+function openConv(name, imgId) {
+  document.getElementById('msgThread').innerHTML = `
+    <div class="dc-header" style="margin-bottom:1rem;"><div class="dc-title">${name}</div></div>
+    <div class="msg-bubble"><div class="mt-header"><div class="mt-av"><img src="https://images.unsplash.com/photo-${imgId}?w=50&q=80" alt="" loading="lazy"/></div><div><div class="mt-name">${name}</div><div class="mt-time">1h ago</div></div></div><p style="font-size:0.875rem;color:var(--body-txt);line-height:1.6;">Thanks for the booking inquiry! I'm fully available on that date. Could you share more details about the event setup and location?</p></div>
+    <div class="msg-bubble sent"><div class="mt-header" style="flex-direction:row-reverse;"><div class="mt-av"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=50&q=80" alt="" loading="lazy"/></div><div><div class="mt-name">You</div><div class="mt-time">45m ago</div></div></div><p style="font-size:0.875rem;color:var(--body-txt);line-height:1.6;">It's the Festival Main Stage event. Full outdoor event, about 500 guests. Also need you for the after-party shoot.</p></div>
+    <div class="msg-reply-bar"><input type="text" placeholder="Type a message..." id="replyInput" onkeydown="if(event.key==='Enter')sendMsg()"/><button onclick="sendMsg()"><i data-lucide="send" style="width:14px;height:14px;"></i></button></div>
+  `;
+  lucide.createIcons();
+}
+
+function sendMsg() {
+  const inp = document.getElementById('replyInput');
+  if (!inp || !inp.value.trim()) return;
+  const wrap = inp.closest('.dash-card');
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble sent';
+  bubble.innerHTML = `<div class="mt-header" style="flex-direction:row-reverse;"><div class="mt-av"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=50&q=80" alt="" loading="lazy"/></div><div><div class="mt-name">You</div><div class="mt-time">Just now</div></div></div><p style="font-size:0.875rem;color:var(--body-txt);line-height:1.6;">${inp.value}</p>`;
+  inp.closest('.msg-reply-bar').before(bubble);
+  inp.value = '';
+  lucide.createIcons();
+}
+
+// Animate metrics on reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Counter animation
+document.querySelectorAll('[data-target]').forEach(el => {
+  let start = 0, end = parseInt(el.dataset.target), dur = 1600;
+  const step = () => {
+    start += end / (dur / 16);
+    el.textContent = Math.min(Math.round(start), end) + (el.dataset.suffix || '');
+    if (start < end) requestAnimationFrame(step);
+  };
+  setTimeout(step, 400);
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>

@@ -1,394 +1,215 @@
-﻿// Admin Dashboard Script - Full Functionality
-let verifiedUsers = [];
-let disputes = [];
-let bookings = [];
-let payouts = [];
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Load all admin data
-    loadAdminData();
-    
-    // Set current date
-    const dateElem = document.getElementById('currentDate');
-    if (dateElem) {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        dateElem.textContent = new Date().toLocaleDateString(undefined, options);
+// Initialize localStorage with demo data if missing
+  if(!localStorage.getItem('users')) {
+    localStorage.setItem('users', JSON.stringify([
+      { id:1, role:'artist', name:'B\'Flow', email:'bflow@plum.com', verified:false, category:'Musician', city:'Kabwe', rate:11000, bio:'Afro Fusion', profilePhoto:'https://commons.wikimedia.org/wiki/Special:FilePath/B%20Flow%20happy%20%28cropped%29.jpg' },
+      { id:2, role:'organizer', name:'Metropolitan Events', email:'events@metro.com', verified:true, city:'Lusaka' }
+    ]));
+  }
+  if(!localStorage.getItem('bookings')) {
+    localStorage.setItem('bookings', JSON.stringify([
+      { id:1, client:'John Doe', artist:'B\'Flow', date:'2026-04-10', amount:11000, status:'confirmed' },
+      { id:2, client:'Sarah Johnson', artist:'Towela Kaira', date:'2026-04-15', amount:16500, status:'pending' }
+    ]));
+  }
+  if(!localStorage.getItem('disputes')) {
+    localStorage.setItem('disputes', JSON.stringify([]));
+  }
+  if(!localStorage.getItem('categories')) {
+    localStorage.setItem('categories', JSON.stringify(['Musicians','DJs','Photographers','Comedians','Dancers']));
+  }
+  // Helper to get data
+  function getUsers() { return JSON.parse(localStorage.getItem('users')||'[]'); }
+  function getBookings() { return JSON.parse(localStorage.getItem('bookings')||'[]'); }
+  function getDisputes() { return JSON.parse(localStorage.getItem('disputes')||'[]'); }
+  function getCategories() { return JSON.parse(localStorage.getItem('categories')||'[]'); }
+  function statusMarkup(type, label) {
+    const icon = type === 'ok'
+      ? `<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>`
+      : type === 'off'
+      ? `<svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`
+      : `<svg viewBox="0 0 24 24"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>`;
+    return `<span class="status-inline">${icon}<span>${label}</span></span>`;
+  }
+  
+  // Update all dashboard stats
+  function updateDashboard() {
+    let users = getUsers();
+    let bookings = getBookings();
+    let disputesData = getDisputes();
+    if(!disputesData.length) {
+      disputesData = [
+        { title:'Deposit dispute', owner:'Metropolitan Events vs B\'Flow', priority:'High', age:'2 days' },
+        { title:'Late cancellation review', owner:'Private client vs Towela Kaira', priority:'Medium', age:'1 day' }
+      ];
     }
-
-    // Initialize UI
-    initCharts();
-    updateDashboardStats();
-    renderUserManagement();
-    renderArtistVerification();
-    renderBookingsTable();
-    renderDisputesTable();
-    renderPayoutsTable();
-
-    // Sidebar toggle
-    const sidebarToggle = document.querySelector('.sidebar-toggle');
-    const sidebarClose = document.querySelector('.sidebar-close');
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebarToggle) sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('active'));
-    if (sidebarClose) sidebarClose.addEventListener('click', () => sidebar.classList.remove('active'));
-
-    // Navigation
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.section-content');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const sectionId = this.getAttribute('data-section');
-            navLinks.forEach(l => l.classList.remove('active'));
-            sections.forEach(s => s.classList.remove('active'));
-            this.classList.add('active');
-            document.getElementById(sectionId).classList.add('active');
-        });
+    let pending = users.filter(u => u.role==='artist' && !u.verified).length;
+    let revenue = bookings.reduce((sum,b)=> sum + (b.status==='confirmed'||b.status==='completed' ? b.amount : 0), 0);
+    let pendingPayouts = bookings.filter(b=>b.status==='confirmed').reduce((s,b)=>s+b.amount*0.9, 0);
+    let disputes = disputesData.length;
+    let artistCount = users.filter(u => u.role === 'artist').length;
+    let organizerCount = users.filter(u => u.role === 'organizer').length;
+    let verifiedCount = users.filter(u => u.verified).length;
+    let confirmedBookings = bookings.filter(b => b.status === 'confirmed' || b.status === 'completed').length;
+    let pendingBookings = bookings.filter(b => b.status === 'pending').length;
+    let completedBookingValue = bookings
+      .filter(b => b.status === 'confirmed' || b.status === 'completed')
+      .reduce((sum, booking) => sum + booking.amount, 0);
+    document.getElementById('statUsers').innerText = users.length;
+    document.getElementById('statBookings').innerText = bookings.length;
+    document.getElementById('statPending').innerText = pending;
+    document.getElementById('statRevenue').innerText = revenue.toLocaleString();
+    document.getElementById('statPayouts').innerText = Math.floor(pendingPayouts).toLocaleString();
+    document.getElementById('statDisputes').innerText = disputes;
+    document.getElementById('sidebarPending').innerText = pending;
+    document.getElementById('sidebarRevenue').innerText = `K${revenue.toLocaleString()}`;
+    document.getElementById('usersBadge').innerText = users.length;
+    document.getElementById('disputesBadge').innerText = disputes;
+    document.getElementById('bookingsBadge').innerText = bookings.length;
+    document.getElementById('categoriesBadge').innerText = getCategories().length;
+    document.getElementById('healthPending').innerText = `${pending} waiting`;
+    document.getElementById('healthConversion').innerText = `${users.length ? Math.round((verifiedCount / users.length) * 100) : 0}% approved`;
+    document.getElementById('healthRisk').innerText = disputes > 2 ? 'Elevated' : 'Low';
+    document.getElementById('reserveBuffer').innerText = `K ${(revenue * 0.15).toLocaleString()}`;
+    document.getElementById('financePendingPayouts').innerText = `${bookings.filter(b => b.status === 'confirmed').length} bookings awaiting release`;
+    const highValue = bookings.filter(b => b.amount >= 15000);
+    document.getElementById('financeHighValue').innerText = highValue.length ? `${highValue.length} high-value bookings flagged` : 'No alerts';
+    document.getElementById('artistCount').innerText = artistCount;
+    document.getElementById('organizerCount').innerText = organizerCount;
+    document.getElementById('verifiedCount').innerText = verifiedCount;
+    document.getElementById('openDisputes').innerText = disputes;
+    document.getElementById('escalatedDisputes').innerText = disputes > 1 ? 1 : 0;
+    document.getElementById('disputeAge').innerText = disputes ? '2 days' : '0 days';
+    document.getElementById('confirmedBookings').innerText = confirmedBookings;
+    document.getElementById('pendingBookings').innerText = pendingBookings;
+    document.getElementById('completedBookingValue').innerText = `K ${completedBookingValue.toLocaleString()}`;
+    // Verification table
+    let tbody = document.querySelector('#verifyTable tbody');
+    tbody.innerHTML = '';
+    users.filter(u=>u.role==='artist' && !u.verified).forEach(u => {
+      let tr = document.createElement('tr');
+      tr.innerHTML = `<td>${u.name}</td><td>${u.email}</td><td>${u.category||'Artist'}</td><td><button class="action-btn approve" onclick="verifyUser(${u.id})">Approve</button><button class="action-btn reject" onclick="rejectUser(${u.id})">Reject</button></td>`;
+      tbody.appendChild(tr);
     });
-
-    // Logout
-    document.querySelector('.btn-logout')?.addEventListener('click', () => {
-        if (confirm('Are you sure you want to logout?')) window.location.href = 'login.html';
+    // Recent bookings
+    let btbody = document.querySelector('#recentBookingsTable tbody');
+    btbody.innerHTML = '';
+    bookings.slice(0,5).forEach(b => {
+      let tr = document.createElement('tr');
+      tr.innerHTML = `<td>${b.client}</td><td>${b.artist}</td><td>${b.date}</td><td>K${b.amount.toLocaleString()}</td><td>${b.status}</td>`;
+      btbody.appendChild(tr);
     });
-});
-
-// Load all data from localStorage
-function loadAdminData() {
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    verifiedUsers = users.filter(u => u.userType === 'artist');
-    
-    // Generate mock data for bookings, disputes, payouts
-    if (!localStorage.getItem('plum_bookings')) {
-        bookings = users.slice(0, Math.min(10, users.length)).map((user, i) => ({
-            id: `BK${i+1}`,
-            artistName: user.firstName + ' ' + user.lastName,
-            organizerId: users[(i+1) % users.length].id,
-            organizerName: users[(i+1) % users.length].firstName + ' ' + users[(i+1) % users.length].lastName,
-            eventDate: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-            amount: Math.floor(Math.random() * 5000) + 500,
-            status: ['pending', 'confirmed', 'completed'][Math.floor(Math.random() * 3)],
-            createdAt: new Date(Date.now() - Math.random() * 60 * 24 * 60 * 60 * 1000).toLocaleDateString()
-        }));
-        localStorage.setItem('plum_bookings', JSON.stringify(bookings));
-    } else {
-        bookings = JSON.parse(localStorage.getItem('plum_bookings') || '[]');
+    // Financial section
+    document.getElementById('totalFees').innerText = (revenue * 0.1).toLocaleString();
+    document.getElementById('outstandingPayouts').innerText = Math.floor(pendingPayouts).toLocaleString();
+    // All users table
+    let allUsersBody = document.querySelector('#allUsersTable tbody');
+    if(allUsersBody) {
+      allUsersBody.innerHTML = '';
+      users.forEach(u => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td>${u.name}</td><td>${u.role}</td><td>${u.email}</td><td>${u.verified ? `<span class="status-badge ok">Verified</span>` : `<span class="status-badge off">Pending</span>`}</td>`;
+        allUsersBody.appendChild(tr);
+      });
     }
-
-    if (!localStorage.getItem('plum_disputes')) {
-        disputes = bookings.filter(() => Math.random() < 0.2).map((booking, i) => ({
-            id: `DS${i+1}`,
-            bookingId: booking.id,
-            artistName: booking.artistName,
-            organizerName: booking.organizerName,
-            reason: ['Payment Issue', 'Service Quality', 'Schedule Conflict'][Math.floor(Math.random() * 3)],
-            status: ['open', 'resolved'][Math.floor(Math.random() * 2)],
-            createdAt: booking.createdAt
-        }));
-        localStorage.setItem('plum_disputes', JSON.stringify(disputes));
-    } else {
-        disputes = JSON.parse(localStorage.getItem('plum_disputes') || '[]');
+    // All bookings table
+    let allBookingsBody = document.querySelector('#allBookingsTable tbody');
+    if(allBookingsBody) {
+      allBookingsBody.innerHTML = '';
+      bookings.forEach(b => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td>${b.id}</td><td>${b.client}</td><td>${b.artist}</td><td>${b.date}</td><td>K${b.amount}</td><td>${b.status}</td>`;
+        allBookingsBody.appendChild(tr);
+      });
     }
-
-    if (!localStorage.getItem('plum_payouts')) {
-        payouts = bookings.filter(b => b.status === 'completed').map((booking, i) => ({
-            id: `PO${i+1}`,
-            artistName: booking.artistName,
-            amount: booking.amount * 0.8,
-            method: ['Bank Transfer', 'Mobile Money'][Math.floor(Math.random() * 2)],
-            status: ['pending', 'processing', 'paid'][Math.floor(Math.random() * 3)],
-            createdAt: booking.createdAt,
-            processedDate: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
-        }));
-        localStorage.setItem('plum_payouts', JSON.stringify(payouts));
-    } else {
-        payouts = JSON.parse(localStorage.getItem('plum_payouts') || '[]');
+    // Disputes list
+    let disputesList = document.getElementById('disputesList');
+    if(disputesList) {
+      disputesList.innerHTML = '';
+      disputesData.forEach(item => {
+        let row = document.createElement('div');
+        row.className = 'stack-item';
+        row.innerHTML = `<div><strong>${item.title}</strong><span>${item.owner}</span></div><div style="text-align:right"><div class="status-badge ${item.priority === 'High' ? 'off' : 'wait'}">${item.priority}</div><span>${item.age}</span></div>`;
+        disputesList.appendChild(row);
+      });
     }
-}
-
-// Update dashboard statistics
-function updateDashboardStats() {
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    const statsCards = document.querySelectorAll('.stat-card');
-    
-    if (statsCards[0]) statsCards[0].querySelector('.stat-value').textContent = users.length.toLocaleString();
-    if (statsCards[1]) statsCards[1].querySelector('.stat-value').textContent = bookings.length.toLocaleString();
-    if (statsCards[2]) statsCards[2].querySelector('.stat-value').textContent = '$' + bookings.reduce((sum, b) => sum + b.amount, 0).toLocaleString();
-    if (statsCards[3]) statsCards[3].querySelector('.stat-value').textContent = disputes.length.toLocaleString();
-}
-
-// Render User Management
-function renderUserManagement() {
-    const section = document.getElementById('users');
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    
-    let html = '<div class="section-header"><h1>User Management</h1><input type="text" placeholder="Search users..." class="search-input" onkeyup="filterUsers(this.value)"></div>';
-    html += '<div class="table-card"><table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Type</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead><tbody id="usersTableBody">';
-    
-    users.forEach(user => {
-        const status = user.verified ? 'Verified' : 'Pending';
-        const statusClass = user.verified ? 'verified' : 'pending';
-        html += `<tr>
-            <td>${user.firstName} ${user.lastName}</td>
-            <td>${user.email}</td>
-            <td>${user.userType}</td>
-            <td>${new Date(user.createdAt).toLocaleDateString()}</td>
-            <td><span class="badge ${statusClass}">${status}</span></td>
-            <td>
-                <button class="btn-small" onclick="viewUser('${user.id}')">View</button>
-                <button class="btn-small" onclick="suspendUser('${user.id}')">Suspend</button>
-            </td>
-        </tr>`;
+    // Categories list
+    let catDiv = document.getElementById('categoriesList');
+    if(catDiv) {
+      catDiv.innerHTML = '';
+      getCategories().forEach(c => {
+        let span = document.createElement('span');
+        span.className = 'list-tag';
+        span.innerText = c;
+        catDiv.appendChild(span);
+      });
+    }
+  }
+  window.verifyUser = function(id) {
+    let users = getUsers();
+    let idx = users.findIndex(u=>u.id===id);
+    if(idx!==-1) users[idx].verified = true;
+    localStorage.setItem('users', JSON.stringify(users));
+    updateDashboard();
+  };
+  window.rejectUser = function(id) {
+    let users = getUsers();
+    users = users.filter(u=>u.id!==id);
+    localStorage.setItem('users', JSON.stringify(users));
+    updateDashboard();
+  };
+  window.addCategory = function() {
+    let newCat = document.getElementById('newCategory').value.trim();
+    if(newCat) {
+      let cats = getCategories();
+      cats.push(newCat);
+      localStorage.setItem('categories', JSON.stringify(cats));
+      updateDashboard();
+      document.getElementById('newCategory').value = '';
+    }
+  };
+  // Charts
+  function initCharts() {
+    new Chart(document.getElementById('bookingsChart'), { type:'line', data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ label:'Bookings', data:[12,19,23,28,35,42], borderColor:'#8929C9', tension:0.3 }] } });
+    new Chart(document.getElementById('categoryChart'), { type:'doughnut', data:{ labels:['Music','Photo','DJ','Dance'], datasets:[{ data:[45,25,20,10], backgroundColor:['#8929C9','#B8D900','#F5B800','#B264F0'] }] } });
+    new Chart(document.getElementById('userGrowthChart'), { type:'bar', data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ label:'New Users', data:[8,15,22,28,34,41], backgroundColor:'#B8D900' }] } });
+  }
+  // Dark mode
+  function setDarkMode(enabled) {
+    if(enabled) document.body.classList.add('dark');
+    else document.body.classList.remove('dark');
+    localStorage.setItem('darkMode', enabled);
+    document.getElementById('darkModeToggleSetting').checked = enabled;
+  }
+  document.getElementById('darkModeToggleBtn').addEventListener('click', () => setDarkMode(!document.body.classList.contains('dark')));
+  document.getElementById('darkModeToggleSetting')?.addEventListener('change', (e) => setDarkMode(e.target.checked));
+  if(localStorage.getItem('darkMode') === 'true') setDarkMode(true);
+  
+  // Sidebar navigation
+  const sections = ['dashboard','financial','users','disputes','bookings','events','categories','settings'];
+  function showSection(section) {
+    sections.forEach(s => {
+      const el = document.getElementById(s+'Section');
+      if(el) el.style.display = s === section ? 'block' : 'none';
     });
-    
-    html += '</tbody></table></div>';
-    section.innerHTML = html;
-}
-
-// Render Artist Verification
-function renderArtistVerification() {
-    const section = document.getElementById('verification');
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]').filter(u => u.userType === 'artist' && !u.verified);
-    
-    let html = '<div class="section-header"><h1>Artist Verification Queue</h1></div>';
-    html += '<div class="table-card"><table class="admin-table"><thead><tr><th>Artist Name</th><th>Genre</th><th>Experience</th><th>Bio</th><th>Submitted</th><th>Actions</th></tr></thead><tbody>';
-    
-    users.forEach(artist => {
-        html += `<tr>
-            <td>${artist.firstName} ${artist.lastName}</td>
-            <td>${artist.genre || 'N/A'}</td>
-            <td>${artist.experience || 'N/A'}</td>
-            <td>${artist.bio ? artist.bio.substring(0, 50) + '...' : 'N/A'}</td>
-            <td>${new Date(artist.createdAt).toLocaleDateString()}</td>
-            <td>
-                <button class="btn-small" onclick="approveArtist('${artist.id}')" style="background:#4CAF50">Approve</button>
-                <button class="btn-small" onclick="rejectArtist('${artist.id}')" style="background:#f44336">Reject</button>
-            </td>
-        </tr>`;
+    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+    document.querySelector(`.sidebar-nav a[data-section="${section}"]`).classList.add('active');
+  }
+  document.querySelectorAll('.sidebar-nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(link.dataset.section);
     });
-    
-    html += '</tbody></table></div>';
-    section.innerHTML = html;
-}
-
-// Render Bookings Table
-function renderBookingsTable() {
-    const section = document.getElementById('bookings');
-    
-    let html = '<div class="section-header"><h1>Bookings Oversight</h1></div>';
-    html += '<div class="table-card"><table class="admin-table"><thead><tr><th>Booking ID</th><th>Artist</th><th>Organizer</th><th>Event Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
-    
-    bookings.forEach(booking => {
-        const statusClass = booking.status === 'completed' ? 'completed' : booking.status === 'confirmed' ? 'confirmed' : 'pending';
-        html += `<tr>
-            <td>${booking.id}</td>
-            <td>${booking.artistName}</td>
-            <td>${booking.organizerName}</td>
-            <td>${booking.eventDate}</td>
-            <td>$${booking.amount}</td>
-            <td><span class="badge ${statusClass}">${booking.status}</span></td>
-            <td>
-                <button class="btn-small" onclick="updateBookingStatus('${booking.id}', 'confirmed')" style="background:#2196F3">Confirm</button>
-                <button class="btn-small" onclick="updateBookingStatus('${booking.id}', 'cancelled')" style="background:#f44336">Cancel</button>
-            </td>
-        </tr>`;
-    });
-    
-    html += '</tbody></table></div>';
-    section.innerHTML = html;
-}
-
-// Render Disputes Table
-function renderDisputesTable() {
-    const section = document.getElementById('disputes');
-    
-    let html = '<div class="section-header"><h1>Dispute Management</h1></div>';
-    html += '<div class="table-card"><table class="admin-table"><thead><tr><th>ID</th><th>Artist</th><th>Organizer</th><th>Reason</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
-    
-    disputes.forEach(dispute => {
-        const statusClass = dispute.status === 'resolved' ? 'resolved' : 'open';
-        html += `<tr>
-            <td>${dispute.id}</td>
-            <td>${dispute.artistName}</td>
-            <td>${dispute.organizerName}</td>
-            <td>${dispute.reason}</td>
-            <td><span class="badge ${statusClass}">${dispute.status}</span></td>
-            <td>
-                <button class="btn-small" onclick="resolveDispute('${dispute.id}')" style="background:#4CAF50">Resolve</button>
-                <button class="btn-small" onclick="viewDispute('${dispute.id}')">View Details</button>
-            </td>
-        </tr>`;
-    });
-    
-    html += '</tbody></table></div>';
-    section.innerHTML = html;
-}
-
-// Render Payouts Table
-function renderPayoutsTable() {
-    const section = document.getElementById('payouts');
-    
-    let html = '<div class="section-header"><h1>Payout Management</h1></div>';
-    html += '<div class="table-card"><table class="admin-table"><thead><tr><th>ID</th><th>Artist</th><th>Amount</th><th>Method</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
-    
-    payouts.forEach(payout => {
-        const statusClass = payout.status === 'paid' ? 'completed' : payout.status === 'processing' ? 'confirmed' : 'pending';
-        html += `<tr>
-            <td>${payout.id}</td>
-            <td>${payout.artistName}</td>
-            <td>$${payout.amount.toFixed(2)}</td>
-            <td>${payout.method}</td>
-            <td><span class="badge ${statusClass}">${payout.status}</span></td>
-            <td>
-                <button class="btn-small" onclick="approvePayout('${payout.id}')" style="background:#4CAF50">Approve</button>
-                <button class="btn-small" onclick="declinePayout('${payout.id}')" style="background:#f44336">Decline</button>
-            </td>
-        </tr>`;
-    });
-    
-    html += '</tbody></table></div>';
-    section.innerHTML = html;
-}
-
-// Action Functions
-function approveArtist(userId) {
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    const user = users.find(u => u.id === userId);
-    if (user) {
-        user.verified = true;
-        localStorage.setItem('plum_users', JSON.stringify(users));
-        alert(`${user.firstName} ${user.lastName} has been verified!`);
-        renderArtistVerification();
-        updateDashboardStats();
-    }
-}
-
-function rejectArtist(userId) {
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    const user = users.find(u => u.id === userId);
-    if (user) {
-        const index = users.indexOf(user);
-        users.splice(index, 1);
-        localStorage.setItem('plum_users', JSON.stringify(users));
-        alert(`${user.firstName} ${user.lastName} has been rejected.`);
-        renderArtistVerification();
-        updateDashboardStats();
-    }
-}
-
-function updateBookingStatus(bookingId, newStatus) {
-    const booking = bookings.find(b => b.id === bookingId);
-    if (booking) {
-        booking.status = newStatus;
-        localStorage.setItem('plum_bookings', JSON.stringify(bookings));
-        alert(`Booking ${bookingId} updated to ${newStatus}`);
-        renderBookingsTable();
-        updateDashboardStats();
-    }
-}
-
-function resolveDispute(disputeId) {
-    const dispute = disputes.find(d => d.id === disputeId);
-    if (dispute) {
-        dispute.status = 'resolved';
-        localStorage.setItem('plum_disputes', JSON.stringify(disputes));
-        alert(`Dispute ${disputeId} marked as resolved`);
-        renderDisputesTable();
-        updateDashboardStats();
-    }
-}
-
-function approvePayout(payoutId) {
-    const payout = payouts.find(p => p.id === payoutId);
-    if (payout) {
-        payout.status = 'paid';
-        localStorage.setItem('plum_payouts', JSON.stringify(payouts));
-        alert(`Payout ${payoutId} approved for $${payout.amount.toFixed(2)}`);
-        renderPayoutsTable();
-        updateDashboardStats();
-    }
-}
-
-function declinePayout(payoutId) {
-    const payout = payouts.find(p => p.id === payoutId);
-    if (payout) {
-        payout.status = 'declined';
-        localStorage.setItem('plum_payouts', JSON.stringify(payouts));
-        alert(`Payout ${payoutId} declined`);
-        renderPayoutsTable();
-        updateDashboardStats();
-    }
-}
-
-function viewUser(userId) {
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    const user = users.find(u => u.id === userId);
-    if (user) {
-        alert(`User: ${user.firstName} ${user.lastName}\nEmail: ${user.email}\nType: ${user.userType}\nJoined: ${user.createdAt}`);
-    }
-}
-
-function suspendUser(userId) {
-    if (confirm('Are you sure you want to suspend this user?')) {
-        const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-        const user = users.find(u => u.id === userId);
-        if (user) {
-            user.suspended = true;
-            localStorage.setItem('plum_users', JSON.stringify(users));
-            alert('User suspended');
-            renderUserManagement();
-        }
-    }
-}
-
-function viewDispute(disputeId) {
-    const dispute = disputes.find(d => d.id === disputeId);
-    if (dispute) {
-        alert(`Dispute: ${dispute.id}\nArtist: ${dispute.artistName}\nOrganizer: ${dispute.organizerName}\nReason: ${dispute.reason}\nStatus: ${dispute.status}`);
-    }
-}
-
-function filterUsers(searchTerm) {
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    const filtered = users.filter(u => u.firstName.toLowerCase().includes(searchTerm) || u.email.toLowerCase().includes(searchTerm));
-    
-    let html = '';
-    filtered.forEach(user => {
-        const status = user.verified ? 'Verified' : 'Pending';
-        const statusClass = user.verified ? 'verified' : 'pending';
-        html += `<tr>
-            <td>${user.firstName} ${user.lastName}</td>
-            <td>${user.email}</td>
-            <td>${user.userType}</td>
-            <td>${new Date(user.createdAt).toLocaleDateString()}</td>
-            <td><span class="badge ${statusClass}">${status}</span></td>
-            <td>
-                <button class="btn-small" onclick="viewUser('${user.id}')">View</button>
-                <button class="btn-small" onclick="suspendUser('${user.id}')">Suspend</button>
-            </td>
-        </tr>`;
-    });
-    document.getElementById('usersTableBody').innerHTML = html;
-}
-
-function initCharts() {
-    const users = JSON.parse(localStorage.getItem('plum_users') || '[]');
-    
-    // Sparklines for stats
-    const sparkCtxUsers = document.getElementById('usersSparkline')?.getContext('2d');
-    if (sparkCtxUsers) {
-        new Chart(sparkCtxUsers, {
-            type: 'line',
-            data: { labels: ['','','','','',''], datasets: [{ data: [5,8,6,12,10,users.length], borderColor: '#8B2BE2', borderWidth: 2, pointRadius: 0, fill: false }] },
-            options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
-        });
-    }
-    const sparkBookings = document.getElementById('bookingsSparkline')?.getContext('2d');
-    if (sparkBookings) {
-        new Chart(sparkBookings, {
-            type: 'line',
-            data: { labels: ['','','','','',''], datasets: [{ data: [8,12,10,15,18,bookings.length], borderColor: '#C4E000', borderWidth: 2, pointRadius: 0, fill: false }] },
-            options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
-        });
-    }
-}
-
-    
+  });
+  showSection('dashboard');
+  initCharts();
+  updateDashboard();
+  
+  // Particles, cursor, mobile menu (same as index)
+  const dot=document.getElementById('cursorDot');
+  document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';});
+  document.querySelectorAll('a,button,.stat-card,.glass-card').forEach(el=>el.addEventListener('mouseenter',()=>dot.classList.add('hovered')));
+  document.querySelectorAll('a,button,.stat-card,.glass-card').forEach(el=>el.addEventListener('mouseleave',()=>dot.classList.remove('hovered')));
+  for(let i=0;i<40;i++){let p=document.createElement('div'); p.className='particle'; p.style.cssText=`width:${Math.random()*4+1}px;height:${Math.random()*4+1}px;background:rgba(137,41,201,0.4);left:${Math.random()*100}%;animation-duration:${Math.random()*18+10}s;animation-delay:${Math.random()*12}s;`; document.getElementById('particleContainer').appendChild(p);}
+  window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+  document.getElementById('menuBtn').addEventListener('click',()=>{document.getElementById('mobileNav').classList.add('open');document.body.style.overflow='hidden';});
+  document.getElementById('mobileClose').addEventListener('click',()=>{document.getElementById('mobileNav').classList.remove('open');document.body.style.overflow='';});
