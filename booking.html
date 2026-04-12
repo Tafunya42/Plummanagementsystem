@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <link rel="stylesheet" href="css/booking.css"/>
+<link rel="stylesheet" href="css/site-theme.css"/>
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
@@ -246,9 +247,9 @@
             <a href="browse.html" class="btn-ghost"><i data-lucide="search"></i> Browse More Talent</a>
           </div>
           <div class="success-note">
-            <i data-lucide="info"></i>
             You'll receive a confirmation email and can track this request in your dashboard.
           </div>
+          <p style="margin-top:2rem; font-size: 0.82rem; color: var(--text-muted);">Need help? <a href="#" onclick="openPlumChat('Plum Support'); return false;" style="color:var(--violet); font-weight:700;">Chat with support</a></p>
         </div>
       </div>
 
@@ -374,5 +375,7 @@ document.getElementById('eventDate').min = today;
 
 lucide.createIcons();
 </script>
+<script src="js/site-theme.js"></script>
+<script src="js/messaging-mock.js"></script>
 </body>
 </html>

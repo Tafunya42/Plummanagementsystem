@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <link rel="stylesheet" href="css/adash.css"/>
+<link rel="stylesheet" href="css/site-theme.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 .notif-panel{display:none;position:absolute;top:calc(100% + 8px);right:0;width:320px;background:var(--surface2,#1C1C2E);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,0.5);z-index:200;overflow:hidden;}
 .notif-panel.open{display:block;animation:slideDown 0.2s ease;}
@@ -109,6 +111,10 @@
             <div style="padding:0.75rem;text-align:center;border-top:1px solid rgba(255,255,255,0.06);"><span style="font-size:0.78rem;color:#B46EE8;cursor:pointer;" onclick="showPage('inquiries',null);toggleNotif()">View all inquiries →</span></div>
           </div>
         </div>
+        <div class="icon-btn" id="themeToggle" onclick="window.toggleTheme()" title="Toggle Theme">
+          <i data-lucide="moon" class="dark-icon"></i>
+          <i data-lucide="sun" class="light-icon"></i>
+        </div>
         <div class="icon-btn" onclick="shareProfile()"><i data-lucide="share-2"></i></div>
         <button class="btn-primary" onclick="window.location.href='artist-profile.html'"><i data-lucide="external-link"></i> View Profile</button>
       </div>
@@ -159,8 +165,12 @@
 
           <div>
             <div class="dash-card reveal d1" style="margin-bottom:1.2rem;">
-              <div class="dc-header"><div class="dc-title">Monthly Earnings</div></div>
-              <div class="bar-chart" id="earningsChart"></div>
+              <div class="dc-header"><div class="dc-title">Earnings Trend</div><span class="dc-tag">Past 6 Months</span></div>
+              <div style="height:200px;margin-top:1rem;"><canvas id="earningsChart"></canvas></div>
+            </div>
+            <div class="dash-card reveal d1" style="margin-bottom:1.2rem;">
+              <div class="dc-header"><div class="dc-title">Profile Engagement</div><span class="dc-tag">Daily Views</span></div>
+              <div style="height:140px;margin-top:0.5rem;"><canvas id="engagementChart"></canvas></div>
             </div>
             <div class="dash-card reveal d2">
               <div class="dc-header"><div class="dc-title">Profile Score</div><span class="dc-tag">92%</span></div>
@@ -398,6 +408,9 @@
 </div>
 
 <script src="js/adash.js"></script>
+<script src="js/site-theme.js"></script>
+<script src="js/dashboard-charts.js"></script>
+<script src="js/messaging-mock.js"></script>
 <script>
 // Notifications
 function toggleNotif() { document.getElementById('notifPanel').classList.toggle('open'); }

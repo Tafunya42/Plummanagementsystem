@@ -5,6 +5,21 @@
   const revealItems = document.querySelectorAll('.reveal');
   const counters = document.querySelectorAll('[data-count]');
 
+  function initTheme() {
+    const savedTheme = localStorage.getItem('plum-theme') || 'light';
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-theme');
+    }
+  }
+
+  window.toggleTheme = function() {
+    const isDark = document.body.classList.toggle('dark-theme');
+    localStorage.setItem('plum-theme', isDark ? 'dark' : 'light');
+    
+    // Trigger Lucide icons update if toggle has an icon
+    if (window.lucide) window.lucide.createIcons();
+  };
+
   function updateScrollState() {
     const max = document.documentElement.scrollHeight - window.innerHeight;
     const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
@@ -73,6 +88,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     updateScrollState();
     initRevealObserver();
     initCounterObserver();

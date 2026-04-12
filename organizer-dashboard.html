@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <link rel="stylesheet" href="css/adash.css"/>
+<link rel="stylesheet" href="css/site-theme.css"/>
 <style>
 /* Organizer-specific overrides */
 .btn-gold {
@@ -139,6 +140,10 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="icon-btn" id="themeToggle" onclick="window.toggleTheme()" title="Toggle Theme">
+          <i data-lucide="moon" class="dark-icon"></i>
+          <i data-lucide="sun" class="light-icon"></i>
         </div>
         <a href="browse.html" class="btn-primary"><i data-lucide="search"></i> Browse Talent</a>
       </div>
@@ -394,5 +399,7 @@ document.querySelectorAll('[data-target]').forEach(el => {
 
 lucide.createIcons();
 </script>
+<script src="js/site-theme.js"></script>
+<script src="js/messaging-mock.js"></script>
 </body>
 </html>

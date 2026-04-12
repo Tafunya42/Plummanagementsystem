@@ -114,8 +114,8 @@ function renderGrid(){
   }
 
   grid.innerHTML=toShow.map((t,i)=>`
-    <div class="tc reveal d${(i%6)+1}" onclick="window.location='artist-profile.html'">
-      <div class="tc-img">
+    <div class="tc reveal d${(i%6)+1}">
+      <div class="tc-img" onclick="window.location='artist-profile.html'">
         <img src="${t.img}" alt="${t.name}" loading="lazy"/>
         ${t.badge?`<div class="tc-badge ${t.badgeType}">${t.badge==='featured'?'Featured':t.badge==='top'?'Top Rated':t.badge==='new'?'New':t.badge}</div>`:''}
         ${t.verified?`<div style="position:absolute;top:0.75rem;${t.badge?'left:unset;right:0.75rem;':'right:0.75rem;'}"><div style="background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);padding:0.2rem 0.5rem;border-radius:100px;font-size:0.65rem;font-weight:700;color:#2E9E4F;display:flex;align-items:center;gap:3px;"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Verified</div></div>`:''}
@@ -123,8 +123,8 @@ function renderGrid(){
       </div>
       <div class="tc-body">
         <div class="tc-top">
-          <div class="tc-avatar"><img src="${t.img}" alt="${t.name}" loading="lazy"/></div>
-          <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
+          <div class="tc-avatar" onclick="window.location='artist-profile.html'"><img src="${t.img}" alt="${t.name}" loading="lazy"/></div>
+          <div onclick="window.location='artist-profile.html'"><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
         </div>
         <div class="tc-meta">
           <div class="tc-rating"><span class="star">★</span>${t.rating}<span class="tc-reviews">(${t.reviews})</span></div>
@@ -133,7 +133,7 @@ function renderGrid(){
         </div>
         <div class="tc-tags">${t.tags.map(tg=>`<span class="tc-tag">${tg}</span>`).join('')}</div>
         <div class="tc-actions">
-          <a href="artist-profile.html" class="tc-btn primary" onclick="event.stopPropagation()"><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg> View Profile</a>
+          <button class="tc-btn primary" onclick="openQuickView(${t.id})"><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg> Quick View</button>
           <a href="login.html?intent=booking" class="tc-btn ghost" onclick="event.stopPropagation()"><svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13.3 19.79 19.79 0 0 1 1.27 4.73 2 2 0 0 1 3.26 2.5h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.77-1.55a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/></svg> Book</a>
         </div>
       </div>
@@ -164,3 +164,26 @@ filterTalent();
 const params = new URLSearchParams(location.search);
 if(params.get('cat')) setCategory(params.get('cat'));
 if(params.get('q')) {document.getElementById('searchInput').value=params.get('q');filterTalent();}
+
+// QUICK VIEW LOGIC
+window.openQuickView = function(id) {
+  const t = talents.find(x => x.id === id);
+  if (!t) return;
+  document.getElementById('qvMedia').innerHTML = `<img src="${t.img}" alt="${t.name}">`;
+  document.getElementById('qvMeta').innerHTML = `<span class="badge badge--violet">${t.category}</span> <span class="badge badge--ghost">${t.city}</span>`;
+  document.getElementById('qvName').textContent = t.name;
+  document.getElementById('qvBio').textContent = `Professional ${t.role} with ${t.reviews} successful bookings. Expert in ${t.tags.join(', ')}. Rating: ${t.rating} stars. Starting from ${t.rate}.`;
+  document.getElementById('qvTags').innerHTML = t.tags.map(tg => `<span class="tag tag--ghost">${tg}</span>`).join('');
+  
+  document.getElementById('qvBookBtn').onclick = () => window.location = `login.html?intent=booking&artist=${t.id}`;
+  document.getElementById('qvProfileBtn').onclick = () => window.location = `artist-profile.html?id=${t.id}`;
+  
+  document.getElementById('qvOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (window.lucide) window.lucide.createIcons();
+};
+
+window.closeQuickView = function() {
+  document.getElementById('qvOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+};
