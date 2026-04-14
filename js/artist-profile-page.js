@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const availabilityLabel = upcomingBookings > 1 ? `${upcomingBookings} bookings ahead` : 'Available this weekend';
 
   function personalizeNav() {
-    const loginLink = document.querySelector('.nav-r a[href="login.html"]');
+    const loginLink = document.querySelector('.nav-r a[href="login.php"]');
     if (!loginLink || !currentUser) return;
     const navUser = getUserById(currentUser.id);
     const label = navUser?.firstName || currentUser.email?.split('@')[0] || 'Account';

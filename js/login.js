@@ -84,11 +84,11 @@ function removeTag(btn,val){const idx=tags.indexOf(val);if(idx>-1)tags.splice(id
 function selectPlan(el){document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
 
 function handleSignin(){
-  window.location.href='adash.html';
+  window.location.href='adash.php';
 }
 
 function completeRegistration(){
-  window.location.href=selectedRole==='artist'?'adash.html':'organizer-dashboard.html';
+  window.location.href=selectedRole==='artist'?'adash.php':'organizer-dashboard.html';
 }
 
 // URL params

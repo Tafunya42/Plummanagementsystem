@@ -49,17 +49,17 @@
   }
 
   function getDashboardPath(role) {
-    if (role === 'artist') return 'artist-dashboard.html';
+    if (role === 'artist') return 'adash.php';
     if (role === 'organizer') return 'organizer-dashboard.html';
     if (role === 'admin') return 'admin.html';
-    return 'login.html';
+    return 'login.php';
   }
 
   function getProfilePath(role) {
-    if (role === 'artist') return 'artist-profile.html';
+    if (role === 'artist') return 'artist-profile.php';
     if (role === 'organizer') return 'organizer-profile.html';
     if (role === 'admin') return 'admin.html';
-    return 'login.html';
+    return 'login.php';
   }
 
   function setCurrency(currency) {

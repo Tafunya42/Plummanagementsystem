@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const eventCount = bookings.length || 12;
 
   function personalizeNav() {
-    const loginLink = document.querySelector('.navbar-cta a[href="login.html"]');
+    const loginLink = document.querySelector('.navbar-cta a[href="login.php"]');
     const currentUser = getCurrentUser();
     if (!loginLink || !currentUser) return;
     const navUser = getUserById(currentUser.id);
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="event-description">${escapeHtml(event.description)}</p>
             <div class="event-artists">
               <span class="artist-badge">
-                <a href="artist-profile.html" data-artist-id="${escapeHtml(event.artistId || '')}">${escapeHtml(event.artistName || 'Featured artist')}</a>
+                <a href="artist-profile.php" data-artist-id="${escapeHtml(event.artistId || '')}">${escapeHtml(event.artistName || 'Featured artist')}</a>
               </span>
             </div>
           </div>
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!artistId) return;
         event.preventDefault();
         setSelectedProfile({ id: artistId, userType: 'artist' });
-        window.location.href = 'artist-profile.html';
+        window.location.href = 'artist-profile.php';
       });
     });
 

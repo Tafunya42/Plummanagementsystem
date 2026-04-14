@@ -6,7 +6,7 @@ function initDashboard() {
   const currentUser = getCurrentUser();
 
   if (!currentUser) {
-    window.location.href = 'login.html';
+    window.location.href = 'login.php';
     return;
   }
 
@@ -249,7 +249,7 @@ function requestTalent(artistId, artistName) {
 function viewArtistProfile(artistId) {
   const { setSelectedProfile } = window.PlumPlatform;
   setSelectedProfile(artistId);
-  window.location.href = 'artist-profile.html';
+  window.location.href = 'artist-profile.php';
 }
 
 function toggleSave(btn, artistId) {

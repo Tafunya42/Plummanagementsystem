@@ -141,7 +141,7 @@ function renderPerformers(tab){
             <div class="p-stat"><span class="ps-v">${p.bookings}</span><span class="ps-k">Bookings</span></div>
             <div class="p-stat"><span class="ps-v">${p.reviews}</span><span class="ps-k">Reviews</span></div>
           </div>
-          <a href="artist-profile.html" class="p-btn${isFirst?' filled':''}"><span>View Profile</span></a>
+          <a href="artist-profile.php" class="p-btn${isFirst?' filled':''}"><span>View Profile</span></a>
         </div>
       </div>
     </div>`;
@@ -165,7 +165,7 @@ function renderPerformers(tab){
       <div class="rs-val accent">${p.rating}<span class="rs-lbl">Rating</span></div>
       <div class="rs-val">${p.bookings}<span class="rs-lbl">Bookings</span></div>
       <div class="rs-mom">${momEl}<span class="mom-lbl">Trend</span></div>
-      <div class="rs-link"><a href="artist-profile.html"><i data-lucide="arrow-up-right" style="width:13px;height:13px;"></i></a></div>
+      <div class="rs-link"><a href="artist-profile.php"><i data-lucide="arrow-up-right" style="width:13px;height:13px;"></i></a></div>
     </div>`;
   }).join('');
 

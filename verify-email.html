@@ -87,7 +87,7 @@
         <circle cx="26" cy="26" r="22" stroke="#8B1FC8" stroke-width="4" fill="none"
           stroke-dasharray="138.2" id="timerCircle" stroke-dashoffset="0" stroke-linecap="round"/>
       </svg>
-      <div class="timer-text" id="timerText">5:00</div>
+      <div class="timer-text" id="timerText">2:00</div>
     </div>
 
     <div id="resendWrap" style="display:none;margin-bottom:1rem;">
@@ -97,7 +97,7 @@
     </div>
 
     <div class="auth-footer-links" style="text-align:center;">
-      <a href="login.html" style="font-size:0.78rem;color:rgba(255,255,255,0.4);">Wrong email? <span style="color:#B46EE8;">Sign in instead</span></a>
+      <a href="login.php" style="font-size:0.78rem;color:rgba(255,255,255,0.4);">Wrong email? <span style="color:#B46EE8;">Sign in instead</span></a>
     </div>
   </div>
 
@@ -106,7 +106,7 @@
     <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#8B1FC8,#B8D900);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;animation:popIn 0.5s ease;"><i data-lucide="check" style="width:40px;height:40px;color:#fff;"></i></div>
     <h2 class="auth-title">Email Verified! 🎉</h2>
     <p class="auth-sub" style="margin-bottom:2rem;">Your account is now active. Welcome to Plum — Zambia's creative marketplace.</p>
-    <a href="adash.html" class="btn-submit" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:0.5rem;"><i data-lucide="layout-dashboard"></i> Go to Your Workspace</a>
+    <a href="adash.php" class="btn-submit" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:0.5rem;"><i data-lucide="layout-dashboard"></i> Go to Your Workspace</a>
   </div>
 </div>
 
@@ -131,7 +131,8 @@ inputs.forEach((inp, idx) => {
 });
 
 // Timer
-let secs = 300;
+const resendCooldownSecs = 120;
+let secs = resendCooldownSecs;
 const timerEl = document.getElementById('timerText');
 const circle = document.getElementById('timerCircle');
 const total = 138.2;
@@ -139,7 +140,7 @@ const timer = setInterval(() => {
   secs--;
   const m = Math.floor(secs/60), s = secs%60;
   timerEl.textContent = m + ':' + String(s).padStart(2,'0');
-  circle.style.strokeDashoffset = total * (1 - secs/300);
+  circle.style.strokeDashoffset = total * (1 - secs/resendCooldownSecs);
   if (secs <= 0) {
     clearInterval(timer);
     document.getElementById('resendWrap').style.display = 'block';
@@ -162,7 +163,7 @@ function verifyCode() {
 }
 
 function resendCode() {
-  secs = 300; timerEl.style.color = '';
+  secs = resendCooldownSecs; timerEl.style.color = '';
   document.getElementById('resendWrap').style.display = 'none';
   inputs.forEach(i => i.value = '');
   inputs[0].focus();

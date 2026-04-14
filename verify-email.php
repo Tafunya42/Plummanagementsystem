@@ -1,0 +1,211 @@
+<?php
+require_once __DIR__ . '/includes/config.php';
+$settings = plum_app_settings();
+$email = plum_normalize_email((string) ($_GET['email'] ?? ''));
+$resendCooldownSeconds = plum_resend_code_cooldown_seconds();
+$resendCooldownLabel = floor($resendCooldownSeconds / 60) . ':' . str_pad((string) ($resendCooldownSeconds % 60), 2, '0', STR_PAD_LEFT);
+plum_enforce_maintenance();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Verify Your Email - <?= e($settings['app_name']) ?></title>
+<meta name="description" content="Check your inbox to verify your <?= e($settings['app_name']) ?> account email address."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="css/login.css"/>
+<style>
+.verify-wrap { min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;position:relative;z-index:1; }
+.verify-card { background:rgba(28,28,46,0.9);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:3rem 2.5rem;width:100%;max-width:500px;backdrop-filter:blur(20px);box-shadow:0 32px 80px rgba(0,0,0,0.4);text-align:center; }
+.email-anim {
+  width: 100px; height: 100px; margin: 0 auto 2rem;
+  position: relative;
+}
+.email-anim svg { animation: emailFloat 2.5s ease-in-out infinite; }
+@keyframes emailFloat { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-12px) rotate(2deg)} }
+.dots-wrap { display:flex;align-items:center;justify-content:center;gap:0.4rem;margin:0.5rem 0; }
+.dot { width:8px;height:8px;border-radius:50%;background:var(purple,#8B1FC8);animation:blink 1.4s ease-in-out infinite; }
+.dot:nth-child(2){animation-delay:0.2s;background:#B8D900;}
+.dot:nth-child(3){animation-delay:0.4s;background:#F5B800;}
+@keyframes blink{0%,80%,100%{transform:scale(0.7);opacity:0.4}40%{transform:scale(1);opacity:1}}
+.timer-ring { position:relative;width:52px;height:52px;margin:1.25rem auto; }
+.timer-ring svg { transform:rotate(-90deg); }
+.timer-text { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Outfit',sans-serif;font-size:0.85rem;font-weight:800;color:#fff; }
+.code-inputs { display:flex;gap:0.5rem;justify-content:center;margin:1.5rem 0; }
+.code-input {
+  width:48px;height:56px;border-radius:12px;border:2px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);color:#fff;font-size:1.5rem;font-weight:800;
+  text-align:center;outline:none;font-family:'Outfit',sans-serif;
+  transition:all 0.2s;
+}
+.code-input:focus{border-color:#8B1FC8;box-shadow:0 0 0 3px rgba(139,31,200,0.25);}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="bg-blob b1"></div><div class="bg-blob b2"></div><div class="bg-blob b3"></div>
+
+<nav>
+  <a class="nav-logo-wrap" href="index.html">
+    <?php if (!empty($settings['app_logo_path'])): ?>
+      <img src="<?= e($settings['app_logo_path']) ?>" alt="<?= e($settings['app_name']) ?> logo" style="height:40px;width:auto;object-fit:contain;"/>
+    <?php else: ?>
+      <div class="plum-icon"><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div><div class="plum-bar"></div></div>
+    <?php endif; ?>
+    <div class="nav-wordmark"><?= e($settings['app_name']) ?></div>
+  </a>
+</nav>
+
+<div class="verify-wrap">
+  <div class="verify-card" id="verifyCard">
+    <!-- Animated email icon -->
+    <div class="email-anim">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <rect x="10" y="28" width="80" height="55" rx="10" fill="rgba(139,31,200,0.2)" stroke="rgba(139,31,200,0.6)" stroke-width="2"/>
+        <path d="M10 38 L50 62 L90 38" stroke="rgba(139,31,200,0.8)" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="75" cy="25" r="10" fill="#B8D900"/>
+        <text x="75" y="29.5" text-anchor="middle" font-size="12" font-weight="900" fill="#0E0E18">✓</text>
+      </svg>
+    </div>
+
+    <h2 class="auth-title">Check your inbox</h2>
+    <p class="auth-sub" style="margin-bottom:0.5rem;">We've sent a 6-digit verification code to</p>
+    <p style="color:#B46EE8;font-weight:700;font-size:0.95rem;margin-bottom:1.5rem;" id="emailDisplay"><?= e($email !== '' ? $email : 'your@email.com') ?></p>
+
+    <div class="dots-wrap">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;">Waiting for verification...</p>
+
+    <!-- OTP Input -->
+    <div class="code-inputs" id="codeInputs">
+      <input class="code-input" maxlength="1" type="text" inputmode="numeric" oninput="moveNext(this,0)"/>
+      <input class="code-input" maxlength="1" type="text" inputmode="numeric" oninput="moveNext(this,1)"/>
+      <input class="code-input" maxlength="1" type="text" inputmode="numeric" oninput="moveNext(this,2)"/>
+      <input class="code-input" maxlength="1" type="text" inputmode="numeric" oninput="moveNext(this,3)"/>
+      <input class="code-input" maxlength="1" type="text" inputmode="numeric" oninput="moveNext(this,4)"/>
+      <input class="code-input" maxlength="1" type="text" inputmode="numeric" oninput="moveNext(this,5)"/>
+    </div>
+
+    <button class="btn-submit" onclick="verifyCode()" style="margin-bottom:1rem;"><i data-lucide="check-circle-2"></i> Verify Email</button>
+
+    <!-- Timer + Resend -->
+    <div class="timer-ring">
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle cx="26" cy="26" r="22" stroke="rgba(255,255,255,0.07)" stroke-width="4" fill="none"/>
+        <circle cx="26" cy="26" r="22" stroke="#8B1FC8" stroke-width="4" fill="none"
+          stroke-dasharray="138.2" id="timerCircle" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div class="timer-text" id="timerText"><?= e($resendCooldownLabel) ?></div>
+    </div>
+
+    <div id="resendWrap" style="display:none;margin-bottom:1rem;">
+      <button onclick="resendCode()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:0.5rem 1.2rem;color:#fff;font-family:inherit;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <i data-lucide="refresh-cw" style="width:13px;height:13px;vertical-align:-2px;"></i> Resend Code
+      </button>
+    </div>
+
+    <div class="auth-footer-links" style="text-align:center;">
+      <a href="login.php" style="font-size:0.78rem;color:rgba(255,255,255,0.4);">Wrong email? <span style="color:#B46EE8;">Sign in instead</span></a>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="successCard" style="display:none;" class="verify-card">
+    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#8B1FC8,#B8D900);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;animation:popIn 0.5s ease;"><i data-lucide="check" style="width:40px;height:40px;color:#fff;"></i></div>
+    <h2 class="auth-title">Email Verified! 🎉</h2>
+    <p class="auth-sub" style="margin-bottom:2rem;">Your account is now active. Welcome to Plum — Zambia's creative marketplace.</p>
+    <a href="adash.php" class="btn-submit" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:0.5rem;"><i data-lucide="layout-dashboard"></i> Go to Your Workspace</a>
+  </div>
+</div>
+
+<script>
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => { cursor.style.transform = `translate(${e.clientX-8}px,${e.clientY-8}px)`; });
+
+// Get email from URL
+const params = new URLSearchParams(window.location.search);
+if (params.get('email')) document.getElementById('emailDisplay').textContent = params.get('email');
+
+// OTP input navigation
+const inputs = document.querySelectorAll('.code-input');
+function moveNext(el, idx) {
+  if (el.value && idx < 5) inputs[idx+1].focus();
+  if (inputs[idx].value.length > 0 && [...inputs].every(i => i.value)) verifyCode();
+}
+inputs.forEach((inp, idx) => {
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !inp.value && idx > 0) inputs[idx-1].focus();
+  });
+});
+
+// Timer
+const resendCooldownSecs = <?= (int) $resendCooldownSeconds ?>;
+let secs = resendCooldownSecs;
+const timerEl = document.getElementById('timerText');
+const circle = document.getElementById('timerCircle');
+const total = 138.2;
+let resendTimer = null;
+
+function renderResendTimer() {
+  const m = Math.floor(secs/60), s = secs%60;
+  timerEl.textContent = m + ':' + String(s).padStart(2,'0');
+  circle.style.strokeDashoffset = total * (1 - secs/resendCooldownSecs);
+}
+
+function startResendTimer() {
+  clearInterval(resendTimer);
+  secs = resendCooldownSecs;
+  timerEl.style.color = '';
+  document.getElementById('resendWrap').style.display = 'none';
+  renderResendTimer();
+  resendTimer = setInterval(() => {
+    secs--;
+    renderResendTimer();
+  if (secs <= 0) {
+    clearInterval(resendTimer);
+    document.getElementById('resendWrap').style.display = 'block';
+    timerEl.textContent = '0:00';
+    timerEl.style.color = '#E84040';
+  }
+  }, 1000);
+}
+startResendTimer();
+
+function verifyCode() {
+  const code = [...inputs].map(i => i.value).join('');
+  if (code.length < 6) { inputs[0].focus(); return; }
+  const btn = event && event.target ? event.target.closest('button') : document.querySelector('#verifyCard .btn-submit');
+  if (btn) { btn.innerHTML = '<i data-lucide="loader-2"></i> Verifying...'; btn.disabled = true; lucide.createIcons(); }
+  setTimeout(() => {
+    clearInterval(resendTimer);
+    document.getElementById('verifyCard').style.display = 'none';
+    document.getElementById('successCard').style.display = 'block';
+    lucide.createIcons();
+  }, 1500);
+}
+
+function resendCode() {
+  startResendTimer();
+  inputs.forEach(i => i.value = '');
+  inputs[0].focus();
+}
+window.startResendTimer = startResendTimer;
+
+lucide.createIcons();
+</script>
+<script>
+window.PlumBackend = {
+  csrf: "<?= e(plum_csrf_token()) ?>",
+  endpoints: {
+    verifyEmail: "ajax/auth/verify-email.php",
+    resendVerification: "ajax/auth/resend-verification.php"
+  }
+};
+</script>
+<script src="js/backend-auth.js"></script>
+</body>
+</html>
